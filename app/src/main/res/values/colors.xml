@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="orange">#FFA07A</color>
+    <color name="tabBackground">#814700</color>
+    <color name="tabIndicatorColor">#FFFFFF</color> <!-- White indicator -->
+    <color name="tabSelectedTextColor">#FFFFFF</color> <!-- White text for selected tab -->
+    <color name="tabUnselectedTextColor">#B3FFFFFF</color> <!-- Semi-transparent white for unselected -->
+    <color name="tabRippleColor">#33FFFFFF</color> <!-- Light ripple effect -->
 </resources>
