@@ -1,0 +1,50 @@
+package com.group1.meetme
+
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.POST
+
+
+data class OnboardRequest(
+    val idNum: String,
+    val name: String,
+    val surname: String,
+    val typeOfUser: String,
+    val course: String,
+    val email: String
+)
+data class VerifyOtpRequest(val idNum: String, val otp: String)
+data class ChangePassword(val idNum: String, val password: String)
+data class ApiResponse(val message: String, val error: String? = null)
+
+interface ApiService {
+
+    // Endpoint for onboarding new user
+    @POST("onboard")
+    fun onboardNewUser(@Body request: OnboardRequest): Call<ApiResponse>
+
+    // Endpoint for subsequent login with new password
+    @POST("verify-otp")
+    fun loginWithPassword(@Body request: VerifyOtpRequest): Call<ApiResponse>
+
+    // Endpoint for changing password after OTP login
+    @POST("set-password")
+    fun changePassword(@Body request: ChangePassword): Call<ApiResponse>
+
+  // Endpoint for changing password after OTP login
+    @POST("login")
+    fun login(@Body request: ChangePassword): Call<ApiResponse>
+
+
+//    // Endpoint for OTP login (first-time login with OTP)
+//    @POST("loginotp")
+//    fun loginWithOtp(@Body request: LoginRequest): Call<ApiResponse>
+//
+//    // Endpoint for subsequent login with new password
+//    @POST("login")
+//    fun loginWithPassword(@Body request: LoginRequest): Call<ApiResponse>
+//
+//    // Endpoint for changing password after OTP login
+//    @POST("change-password")
+//    fun changePassword(@Body request: PasswordChangeRequest): Call<ApiResponse>
+}

@@ -1,6 +1,8 @@
 package com.group1.meetme
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,5 +18,44 @@ class AdminDashboardActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // Find the buttons by their IDs
+        val addNewStudentButton: LinearLayout = findViewById(R.id.addNewStudentButton)
+        val addNewLecturerButton: LinearLayout = findViewById(R.id.addNewLecturerButton)
+        val manageUsersButton: LinearLayout = findViewById(R.id.manageUsersButton)
+        val reportsAnalyticsButton: LinearLayout = findViewById(R.id.reportsAnalyticsButton)
+
+        // Set click listeners for the buttons
+        // Set an OnClickListener for the "Add New Student" button
+        addNewStudentButton.setOnClickListener {
+            val student = "Student"
+
+            // Navigate to AddNewStudentActivity
+            val intent = Intent(this, AddUserActivity::class.java)
+            intent.putExtra("userType", student);
+            startActivity(intent)
+        }
+        // Set an OnClickListener for the "Add New Lecturer" button
+        addNewLecturerButton.setOnClickListener {
+            // Navigate to AddNewLecturerActivity
+            val lecturer = "Lecturer"
+            val intent = Intent(this, AddUserActivity::class.java)
+            intent.putExtra("userType", lecturer);
+            startActivity(intent)
+        }
+//        // Set an OnClickListener for the "Manage Users" button
+//        manageUsersButton.setOnClickListener {
+//            // Navigate to ManageUsersActivity
+//            val intent = Intent(this, mange_users::class.java)
+//            startActivity(intent)
+//        }
+//
+//        // Set an OnClickListener for the "Reports and Analytics" button
+//        reportsAnalyticsButton.setOnClickListener {
+//            // Navigate to ReportsAnalyticsActivity
+//            val intent = Intent(this, reports_and_analytics::class.java)
+//            startActivity(intent)
+//        }
+
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="courses">
+        <item>Select Course</item>
+        <item>Administration and Management</item>
+        <item>Law</item>
+        <item>Education</item>
+        <item>Information Technology</item>
+        <item>Commerce</item>
+        <item>Arts and Humanities</item>
+        <item>Policing and Law Enforcement</item>
+        <item>Visual Arts</item>
+    </string-array>
+
+    <string-array name="user_type">
+        <item>Student</item>
+        <item>Lecturer</item>
+        <item>Advisor</item>
+    </string-array>
+</resources>
