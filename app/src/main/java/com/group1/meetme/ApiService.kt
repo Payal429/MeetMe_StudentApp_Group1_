@@ -15,6 +15,7 @@ data class OnboardRequest(
 )
 data class VerifyOtpRequest(val idNum: String, val otp: String)
 data class ChangePassword(val idNum: String, val password: String)
+data class GetUser(val idNum: String)
 data class ApiResponse(val message: String, val error: String? = null)
 
 interface ApiService {
@@ -25,15 +26,21 @@ interface ApiService {
 
     // Endpoint for subsequent login with new password
     @POST("verify-otp")
-    fun loginWithPassword(@Body request: VerifyOtpRequest): Call<ApiResponse>
+    fun loginWithOtp(@Body request: VerifyOtpRequest): Call<ApiResponse>
 
     // Endpoint for changing password after OTP login
     @POST("set-password")
     fun changePassword(@Body request: ChangePassword): Call<ApiResponse>
 
-  // Endpoint for changing password after OTP login
+    // Endpoint for login
     @POST("login")
     fun login(@Body request: ChangePassword): Call<ApiResponse>
+
+    // Endpoint for getting the user type
+    @POST("get-usertype")
+    fun getUserType(@Body request: GetUser): Call<ApiResponse>
+
+
 
 
 //    // Endpoint for OTP login (first-time login with OTP)

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".nav_bar"
+    android:orientation="horizontal"
+    android:background="#FFE0B2"
+    android:gravity="center">
+
+<ImageButton
+    android:id="@+id/homebutton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/home_icon"
+    android:contentDescription="Home"
+    android:layout_weight="1"
+    android:padding="16dp"
+    android:background="?attr/selectableItemBackgroundBorderless" />
+
+<!--<ImageButton-->
+<!--    android:id="@+id/peoplebutton"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:src="@drawable/people_icon"-->
+<!--    android:contentDescription="Groups"-->
+<!--    android:layout_weight="1"-->
+<!--    android:padding="16dp"-->
+<!--    android:background="?attr/selectableItemBackgroundBorderless" />-->
+
+<ImageButton
+    android:id="@+id/schedulebutton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/schedule_appointment"
+    android:contentDescription="Messaging"
+    android:layout_weight="1"
+    android:padding="16dp"
+    android:background="?attr/selectableItemBackgroundBorderless" />
+
+<ImageButton
+    android:id="@+id/bookingsbutton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/books"
+    android:contentDescription="More"
+    android:layout_weight="1"
+    android:padding="16dp"
+    android:background="?attr/selectableItemBackgroundBorderless" />
+
+<ImageButton
+    android:id="@+id/settingsbutton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/settings_icon"
+    android:contentDescription="More"
+    android:layout_weight="1"
+    android:padding="16dp"
+    android:background="?attr/selectableItemBackgroundBorderless" />
+</LinearLayout>
