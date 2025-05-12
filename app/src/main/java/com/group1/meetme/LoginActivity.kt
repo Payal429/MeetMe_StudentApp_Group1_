@@ -58,153 +58,8 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 login(email, password)
             }
-
-//            else {
-//                // For simplicity, let's assume students have "student" in their email and lecturers have "lecturer"
-//                if (email.contains("student")) {
-//                    // Navigate to StudentDashboardActivity
-//                    val intent = Intent(this, student_dashboard::class.java)
-//                    startActivity(intent)
-//                } else if (email.contains("lecturer")) {
-//                    // Navigate to LecturerDashboardActivity
-//                    val intent = Intent(this, student_dashboard::class.java)
-//                    startActivity(intent)
-//                } else {
-//                    // Show an error message if the credentials are invalid
-//                    Toast.makeText(this, "Invalid email or password.", Toast.LENGTH_SHORT).show()
-//                }
-//            }
         }
     }
-
-    //this method will access the login api, and will check to see if the entered details are correct, and will log the user in to the app
-//    private fun login(idNum: String, password: String) {
-//        val loginRequest = VerifyOtpRequest(idNum, password)
-//        val userId = GetUser(idNum)
-//
-//        apiService.loginWithOtp(loginRequest).enqueue(object : Callback<ApiResponse> {
-//            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-//                if (response.isSuccessful && response.body()?.message == "OTP verified. Please set your password.") {
-//                    // OTP login successful, redirect to ChangePasswordActivity
-//
-//                    startActivity(Intent(this@LoginActivity, ChangePasswordActivity::class.java))
-////                    intent.putExtra("EMPLOYEE_ID", employeeId)
-////                    val userType = apiService.getUserType(userId).toString()
-////
-////                    if (userType == "Student") {
-////                        startActivity(Intent(this@LoginActivity, ChangePasswordActivity::class.java))
-////                    } else if (userType == "Lecturer") {
-////                        startActivity(Intent(this@LoginActivity, ChangePasswordActivity::class.java))
-////                    }
-//                } else {
-//                    // Attempt subsequent login
-//                    val loginRequest = ChangePassword(idNum, password)
-//                    apiService.login(loginRequest).enqueue(object :
-//                        Callback<ApiResponse> {
-//                        override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-//                            if (response.isSuccessful) {
-//                                // Successful login, redirect to WelcomeActivity
-//                                val userType = apiService.getUserType(userId).toString()
-//
-//                                Toast.makeText(this@LoginActivity, "loggin her dont know user ${userType} ${userId}", Toast.LENGTH_SHORT).show()
-//                                Log.d("userType", userType)
-//                                Log.d("userID", userId.toString())
-//                                val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-//                                val editor = sharedPreferences.edit()
-//                                editor.putString("ID_NUM", idNum)
-//                                editor.apply()
-//
-//                                if (userType == "Student") {
-//                                    startActivity(Intent(this@LoginActivity, StudentDashboardActivity::class.java))
-//                                } else if (userType == "Lecturer") {
-//                                    startActivity(Intent(this@LoginActivity, LecturerDashboardActivity::class.java))
-//                                }
-////                                startActivity(Intent(this@LoginActivity, HomeScreenActivity::class.java))
-//                            } else {
-//                                Toast.makeText(this@LoginActivity, "Invalid password.", Toast.LENGTH_SHORT).show()
-//                                Log.e("API_ERROR", "Error: ${response.code()}, ${response.errorBody()?.string()}")
-//                            }
-//                        }
-//                        override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-//                            Toast.makeText(this@LoginActivity, "Login failed.", Toast.LENGTH_SHORT).show()
-//                            Log.e("API_FAILURE", "Failed to make request: ${t.message}")
-//                        }
-//                    })
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-//                Toast.makeText(this@LoginActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-//                Log.e("API_FAILURE", "Failed to make request: ${t.message}")
-//            }
-//        })
-//    }
-
-//    private fun login(idNum: String, password: String) {
-//        val loginRequest = VerifyOtpRequest(idNum, password)
-//        val userId = GetUser(idNum)
-//
-//        apiService.loginWithOtp(loginRequest).enqueue(object : Callback<ApiResponse> {
-//            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-//                if (response.isSuccessful && response.body()?.message == "OTP valid, please change your password.") {
-//                    // OTP login successful, redirect to ChangePasswordActivity
-//                    startActivity(Intent(this@LoginActivity, ChangePasswordActivity::class.java))
-//                } else {
-//                    // Attempt subsequent login
-//                    val changePasswordRequest = ChangePassword(idNum, password)
-//                    apiService.login(changePasswordRequest).enqueue(object : Callback<ApiResponse> {
-//                        override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-//                            if (response.isSuccessful) {
-//                                // Successful login, get user type and redirect accordingly
-//                                apiService.getUserType(userId).enqueue(object : Callback<ApiResponse> {
-//                                    override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-//                                        if (response.isSuccessful) {
-//                                            val userType = response.body()?.message // Assuming the user type is in the message field
-//                                            val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-//                                            val editor = sharedPreferences.edit()
-//                                            editor.putString("ID_NUM", idNum)
-//                                            editor.apply()
-//
-//                                            Log.d("userType", userType ?: "null")
-//                                            Log.d("userID", userId.idNum)
-//
-//                                            when (userType) {
-//                                                "Student" -> startActivity(Intent(this@LoginActivity, StudentDashboardActivity::class.java))
-//                                                "Lecturer" -> startActivity(Intent(this@LoginActivity, LecturerDashboardActivity::class.java))
-//                                                else -> Toast.makeText(this@LoginActivity, "Unknown user type.", Toast.LENGTH_SHORT).show()
-//                                            }
-//                                        } else {
-//                                            Toast.makeText(this@LoginActivity, "Failed to get user type.", Toast.LENGTH_SHORT).show()
-//                                            Log.e("API_ERROR", "Error: ${response.code()}, ${response.errorBody()?.string()}")
-//                                        }
-//                                    }
-//
-//                                    override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-//                                        Toast.makeText(this@LoginActivity, "Failed to get user type.", Toast.LENGTH_SHORT).show()
-//                                        Log.e("API_FAILURE", "Failed to make request: ${t.message}")
-//                                    }
-//                                })
-//                            } else {
-//                                Toast.makeText(this@LoginActivity, "Invalid password.", Toast.LENGTH_SHORT).show()
-//                                Log.e("API_ERROR", "Error: ${response.code()}, ${response.errorBody()?.string()}")
-//                            }
-//                        }
-//
-//                        override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-//                            Toast.makeText(this@LoginActivity, "Login failed.", Toast.LENGTH_SHORT).show()
-//                            Log.e("API_FAILURE", "Failed to make request: ${t.message}")
-//                        }
-//                    })
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-//                Toast.makeText(this@LoginActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-//                Log.e("API_FAILURE", "Failed to make request: ${t.message}")
-//            }
-//        })
-//    }
-
 
     private fun login(idNum: String, password: String) {
         val loginRequest = VerifyOtpRequest(idNum, password)
@@ -212,7 +67,11 @@ class LoginActivity : AppCompatActivity() {
 
         apiService.loginWithOtp(loginRequest).enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                if (response.isSuccessful && response.body()?.message == "OTP valid, please change your password.") {
+                if (response.isSuccessful && response.body()?.message == "OTP verified. Please set your password.") {
+                    val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("ID_NUM", idNum)
+                    editor.apply()
                     // OTP login successful, redirect to ChangePasswordActivity
                     startActivity(Intent(this@LoginActivity, ChangePasswordActivity::class.java))
                 } else {
@@ -235,8 +94,10 @@ class LoginActivity : AppCompatActivity() {
                                             Log.d("userID", userId.idNum)
 
                                             when (userType) {
-                                                "Student" -> startActivity(Intent(this@LoginActivity, StudentDashboardActivity::class.java))
-                                                "Lecturer" -> startActivity(Intent(this@LoginActivity, LecturerDashboardActivity::class.java))
+                                                "Student" -> {finish()
+                                                    startActivity(Intent(this@LoginActivity, StudentDashboardActivity::class.java))}
+                                                "Lecturer" -> {finish()
+                                                    startActivity(Intent(this@LoginActivity, LecturerDashboardActivity::class.java))}
                                                 else -> Toast.makeText(this@LoginActivity, "Unknown user type.", Toast.LENGTH_SHORT).show()
                                             }
                                         } else {
@@ -251,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
                                     }
                                 })
                             } else {
-                                Toast.makeText(this@LoginActivity, "Invalid password.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@LoginActivity, "Invalid credentials.", Toast.LENGTH_SHORT).show()
                                 Log.e("API_ERROR", "Error: ${response.code()}, ${response.errorBody()?.string()}")
                             }
                         }

@@ -1,9 +1,11 @@
 package com.group1.meetme
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -57,5 +59,26 @@ class AdminDashboardActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
+    }
+
+    override fun onBackPressed() {
+        val alertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setTitle("Logout")
+        alertDialog.setMessage("Are you sure you want to Logout?")
+
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes") { dialog, which ->
+            val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("ID_NUM", "")
+            editor.apply()
+
+            super.onBackPressed()
+            dialog.dismiss()
+        }
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No") { dialog, which ->
+            dialog.dismiss()
+        }
+        alertDialog.show()
     }
 }

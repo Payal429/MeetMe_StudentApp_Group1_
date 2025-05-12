@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -43,9 +44,13 @@ class AddUserActivity : AppCompatActivity() {
         val spnCourse: Spinner = findViewById(R.id.spnCourse)
         val edtEmail: EditText = findViewById(R.id.edtEmail)
         val addStudentButton: Button = findViewById(R.id.addStudentButton)
+        val headerTitle: TextView = findViewById(R.id.headerTitle)
 
         val userType = getIntent().getStringExtra("userType")
+        //edtUser.setText(userType)
+        headerTitle.text = "Add New $userType"
         edtUser.setText(userType)
+
 
         addStudentButton.setOnClickListener {
             val idNum = edtIDNumber.text.toString()
