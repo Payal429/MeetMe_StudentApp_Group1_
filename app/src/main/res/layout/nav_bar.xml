@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".nav_bar"
     android:orientation="horizontal"
     android:background="#FFE0B2"
     android:gravity="center">

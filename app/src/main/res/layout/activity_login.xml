@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="18sp"
-                android:hint="Enter your email address"
+                android:hint="Enter your username"
                 android:background="@drawable/edit_text_background"
                 android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>

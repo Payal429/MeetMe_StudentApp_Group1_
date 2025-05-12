@@ -17,6 +17,9 @@ data class VerifyOtpRequest(val idNum: String, val otp: String)
 data class ChangePassword(val idNum: String, val password: String)
 data class GetUser(val idNum: String)
 data class ApiResponse(val message: String, val error: String? = null)
+data class UserTypeResponse(
+    val typeOfUser: String
+)
 
 interface ApiService {
 
@@ -37,9 +40,11 @@ interface ApiService {
     fun login(@Body request: ChangePassword): Call<ApiResponse>
 
     // Endpoint for getting the user type
-    @POST("get-usertype")
-    fun getUserType(@Body request: GetUser): Call<ApiResponse>
+//    @POST("get-usertype")
+//    fun getUserType(@Body request: GetUser): Call<ApiResponse>
 
+    @POST("get-usertype")
+    fun getUserType(@Body request: GetUser): Call<UserTypeResponse>
 
 
 
