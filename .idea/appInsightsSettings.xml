@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.group1.meetme" />
+                  <option name="mobileSdkAppId" value="1:482173419809:android:147b9325dedabc522b7e60" />
+                  <option name="projectId" value="meetme-67a79" />
+                  <option name="projectNumber" value="482173419809" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

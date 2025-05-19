@@ -1,7 +1,10 @@
 package com.group1.meetme
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -11,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import me.pushy.sdk.Pushy
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +36,14 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        // 1. Request permission (Android 13+)
+        requestNotificationPermission()
+
+        // 2. Create notification channel (Android 8+)
+        createNotificationChannel()
+
+        Firebase.database.setPersistenceEnabled(true)
+
         // Find the login button by its ID
         val loginButton: Button = findViewById(R.id.loginButton)
         val emailEditText: TextInputEditText = findViewById(R.id.email)
@@ -37,26 +52,26 @@ class LoginActivity : AppCompatActivity() {
         // Set an OnClickListener for the login button
         loginButton.setOnClickListener {
             // Get the email and password entered by the user
-            val email = emailEditText.text.toString().trim()
+            val username = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
 
             // Check if the email and password fields are not empty
-            if (email.isEmpty() || password.isEmpty()) {
+            if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please enter both email and password.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             // Define the default admin credentials
-            val adminEmail = "admin@example.com"
+            val adminEmail = "admin"
             val adminPassword = "admin123"
 
             // Check if the entered credentials match the admin credentials
-            if (email == adminEmail && password == adminPassword) {
+            if (username == adminEmail && password == adminPassword) {
                 // Navigate to AdminDashboardActivity
                 val intent = Intent(this, AdminDashboardActivity::class.java)
                 startActivity(intent)
             } else {
-                login(email, password)
+                login(username, password)
             }
         }
     }
@@ -84,7 +99,10 @@ class LoginActivity : AppCompatActivity() {
                                 apiService.getUserType(userId).enqueue(object : Callback<UserTypeResponse> {
                                     override fun onResponse(call: Call<UserTypeResponse>, response: Response<UserTypeResponse>) {
                                         if (response.isSuccessful) {
+                                            // get the type of user
                                             val userType = response.body()?.typeOfUser
+
+                                            // store the idnum of the user so that it can be used in whole app
                                             val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
                                             val editor = sharedPreferences.edit()
                                             editor.putString("ID_NUM", idNum)
@@ -93,11 +111,33 @@ class LoginActivity : AppCompatActivity() {
                                             Log.d("userType", userType ?: "null")
                                             Log.d("userID", userId.idNum)
 
+                                            // Register Pushy & Save Token
+                                            Thread {
+                                                try {
+                                                    val deviceToken = Pushy.register(this@LoginActivity)
+                                                    Log.d("FirebaseWrite", deviceToken)
+                                                    // Save token under correct user
+                                                    FirebaseDatabase.getInstance().getReference("tokens")
+                                                        .child(userId.idNum).setValue(deviceToken)
+
+                                                    // Log token for debugging
+                                                    println("Pushy Device Token: $deviceToken")
+                                                } catch (e: Exception) {
+                                                    e.printStackTrace()
+                                                }
+                                            }.start()
+
+                                            Pushy.listen(this@LoginActivity) // Start receiving push messages
+
                                             when (userType) {
-                                                "Student" -> {finish()
-                                                    startActivity(Intent(this@LoginActivity, StudentDashboardActivity::class.java))}
-                                                "Lecturer" -> {finish()
-                                                    startActivity(Intent(this@LoginActivity, LecturerDashboardActivity::class.java))}
+                                                "Student" -> {
+                                                    finish()
+                                                    startActivity(Intent(this@LoginActivity, StudentDashboardActivity::class.java))
+                                                }
+                                                "Lecturer" -> {
+                                                    finish()
+                                                    startActivity(Intent(this@LoginActivity, LecturerDashboardActivity::class.java))
+                                                }
                                                 else -> Toast.makeText(this@LoginActivity, "Unknown user type.", Toast.LENGTH_SHORT).show()
                                             }
                                         } else {
@@ -131,4 +171,27 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 100)
+        }
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Default Channel"
+            val descriptionText = "Pushy notifications"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel("default", name, importance).apply {
+                description = descriptionText
+            }
+
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+
+    }
+
 }

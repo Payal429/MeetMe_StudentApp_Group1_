@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -48,4 +49,19 @@ dependencies {
 
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    implementation ("com.google.firebase:firebase-database:20.2.0")
+    implementation ("com.google.firebase:firebase-messaging:23.2.0")
+    implementation ("com.google.firebase:firebase-database-ktx:20.3.0")
+    //implementation ("com.google.android.material:material:1.9.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+
+    // Pushy for push notifications
+    implementation ("me.pushy:sdk:1.0.73")
+
+    // OkHttp for HTTP requests
+    implementation ("com.squareup.okhttp3:okhttp:4.10.0")
+
+    // Kotlin JSON handling
+    implementation ("org.json:json:20210307")
 }

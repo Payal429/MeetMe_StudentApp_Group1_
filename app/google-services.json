@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "482173419809",
+    "firebase_url": "https://meetme-67a79-default-rtdb.firebaseio.com",
+    "project_id": "meetme-67a79",
+    "storage_bucket": "meetme-67a79.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482173419809:android:147b9325dedabc522b7e60",
+        "android_client_info": {
+          "package_name": "com.group1.meetme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBby-tmPNwa3JqtqNGM-AwqHRh7bLo7lyw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private const val BASE_URL = "https://meetme-user-api.onrender.com/api/auth/" // Update with actual base URL
+    private const val BASE_URL = "https://meetme-user-api.onrender.com/" // Update with actual base URL
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
