@@ -53,6 +53,7 @@ class BookAppointmentActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var listView: ListView
     private lateinit var statusText: TextView
+    private lateinit var moduleNameTv: TextView
     private lateinit var loadButton: Button
 
     private var selectedDate: String = getTodayDate()
@@ -76,7 +77,7 @@ class BookAppointmentActivity : AppCompatActivity() {
 
         // get the idnum of the user from the login
         val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        val idNum = sharedPreferences.getString("IDNUM", null)
+        val idNum = sharedPreferences.getString("ID_NUM", null)
 
         dateTextView = findViewById(R.id.dateTextView)
         calendarView = findViewById(R.id.calendarView)
@@ -84,6 +85,7 @@ class BookAppointmentActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().reference
         listView = findViewById(R.id.slotsListView)
         statusText = findViewById(R.id.statusText)
+        moduleNameTv = findViewById(R.id.moduleNameTv)
 
         loadButton = findViewById<Button>(R.id.loadSlotsButton)
 
@@ -114,6 +116,8 @@ class BookAppointmentActivity : AppCompatActivity() {
         val today = Calendar.getInstance()
         val pastDates = mutableListOf<Calendar>()
 
+        //val moduleName = moduleNameTv.getText().toString();
+
         val pastLimit = Calendar.getInstance().apply { add(Calendar.YEAR, -2) }
 
         val dateIterator = pastLimit.clone() as Calendar
@@ -133,19 +137,35 @@ class BookAppointmentActivity : AppCompatActivity() {
         }
 
         // Handle date selection from calendar
+//        calendarView.setOnDayClickListener(object : OnDayClickListener {
+//            override fun onDayClick(eventDay: EventDay) {
+//                val selectedDate = eventDay.calendar
+//
+//                if (isHoliday(selectedDate)) {
+//                    Toast.makeText(this@BookAppointmentActivity, "This day is a holiday and cannot be booked!", Toast.LENGTH_SHORT).show()
+//                } else {
+//                    // Format the selected date and set it to the TextView
+//                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+//                    val formattedDate = dateFormat.format(selectedDate.time)
+//
+//                    dateTextView.text = formattedDate
+//                    calendarView.visibility = View.GONE // Hide the calendar once a date is selected
+//                }
+//            }
+//        })
         calendarView.setOnDayClickListener(object : OnDayClickListener {
             override fun onDayClick(eventDay: EventDay) {
-                val selectedDate = eventDay.calendar
+                val selectedCal = eventDay.calendar
 
-                if (isHoliday(selectedDate)) {
+                if (isHoliday(selectedCal)) {
                     Toast.makeText(this@BookAppointmentActivity, "This day is a holiday and cannot be booked!", Toast.LENGTH_SHORT).show()
                 } else {
-                    // Format the selected date and set it to the TextView
                     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                    val formattedDate = dateFormat.format(selectedDate.time)
+                    selectedDate = dateFormat.format(selectedCal.time) // ✅ Fix: update class variable
 
-                    dateTextView.text = formattedDate
-                    calendarView.visibility = View.GONE // Hide the calendar once a date is selected
+                    Log.d("date", selectedDate)
+                    dateTextView.text = selectedDate
+                    calendarView.visibility = View.GONE
                 }
             }
         })
@@ -157,13 +177,10 @@ class BookAppointmentActivity : AppCompatActivity() {
 
         listView.setOnItemClickListener { _, _, position, _ ->
             val selectedTime = availableTimes[position]
-          //  bookSlot(selectedTime)
+            bookSlot(selectedTime, idNum!!)
         }
 
-//        val viewAppointmentsButton = findViewById<Button>(com.google.firebase.database.R.id.viewAppointmentsButton)
-//        viewAppointmentsButton.setOnClickListener {
-//            startActivity(Intent(this, AppointmentsActivity::class.java))
-//        }
+
 
     }
 
@@ -212,7 +229,13 @@ class BookAppointmentActivity : AppCompatActivity() {
 
     private fun loadAvailableSlots(idNum: String) {
         val date = selectedDate
-        val slotsRef = database.child("availability").child(idNum).child(date)
+
+        val selectedLecturerName = lecturerSpinner.selectedItem as String
+        val lecturerId = lecturerIdMap[selectedLecturerName] ?: return
+
+        val slotsRef = database.child("availability").child(lecturerId).child(date)
+
+//        val slotsRef = database.child("availability").child(idNum).child(date)
 
         availableTimes.clear()
         adapter.notifyDataSetChanged()
@@ -247,8 +270,11 @@ class BookAppointmentActivity : AppCompatActivity() {
     private fun bookSlot(time: String, idNum: String) {
         val date = selectedDate
         val selectedLecturerName = lecturerSpinner.selectedItem as String
+        val moduleName = moduleNameTv.text.toString().trim()
+
         val lecturerId = lecturerIdMap[selectedLecturerName] // Use this in your booking logic
 
+//        val moduleName =
 
         val slotRef = database.child("availability").child(lecturerId!!).child(date).child(time)
 
@@ -258,7 +284,7 @@ class BookAppointmentActivity : AppCompatActivity() {
                 return if (!booked) {
                     currentData.child("booked").value = true
                     currentData.child("student").value = idNum
-                    currentData.child("module").value = "Maths 101"
+                    currentData.child("module").value = moduleName
                     Transaction.success(currentData)
                 } else {
                     Transaction.abort()
@@ -274,7 +300,7 @@ class BookAppointmentActivity : AppCompatActivity() {
                         "lecturerId" to lecturerId,
                         "date" to date,
                         "time" to time,
-                        "module" to "Maths 101",
+                        "module" to moduleName,
                         "status" to "upcoming"
                     )
 

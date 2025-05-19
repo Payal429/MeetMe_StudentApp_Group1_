@@ -1,7 +1,9 @@
 package com.group1.meetme
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +20,21 @@ class LecturerDashboardActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // Find the login button by its ID
+        val homebutton: ImageButton = findViewById(R.id.homebutton)
+        val schedulebutton: ImageButton = findViewById(R.id.schedulebutton)
+        val bookingsbutton: ImageButton = findViewById(R.id.bookingsbutton)
+        val settingsbutton: ImageButton = findViewById(R.id.settingsbutton)
+
+        schedulebutton.setOnClickListener(){
+            val intent = Intent(this, ScheduleAvailabilityActivity::class.java)
+            startActivity(intent)
+        }
+
+
+
+
     }
 
 

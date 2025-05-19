@@ -17,4 +17,19 @@
         <item>Lecturer</item>
         <item>Advisor</item>
     </string-array>
+
+    <string-array name="venues">
+        <item>Select Venue</item>
+        <item>Online</item>
+        <item>BL 7</item>
+        <item>BL 6</item>
+        <item>BL 8</item>
+        <item>AL 6</item>
+    </string-array>
+
+<!--    <string-array name="times">-->
+<!--        <item-->
+<!--        -->
+<!--    </string-array>-->
+
 </resources>

@@ -5,9 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookAppointmentActivity"
-    android:orientation="vertical"
-    >
+    tools:context=".ScheduleAvailabilityActivity"
+    android:orientation="vertical">
+
 
 
     <ScrollView
@@ -38,46 +38,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Schedule Appointments"
+                    android:text="Schedule Availability"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Select the lecturer:"
-                android:textSize="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                />
 
-            <Spinner
-                android:id="@+id/lecturerSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:padding="16dp"
-                />
-
-            <TextView
-                android:id="@+id/moduleNameTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:padding="16dp"
-                android:hint="Enter the Module Name"
-                />
 
 
             <TextView
@@ -102,38 +69,86 @@
                 android:visibility="gone"/> <!-- Initially hidden -->
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select the time:"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                />
+
+            <Spinner
+                android:id="@+id/timeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="16dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select the venue:"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                />
+
+            <Spinner
+                android:id="@+id/venueSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="16dp"
+                android:entries="@array/venues"
+                />
+
+
             <Button
-                android:id="@+id/loadSlotsButton"
-                android:text="Load Available Times"
+                android:id="@+id/btnAddAvailability"
+                android:text="Add Availability"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:layout_margin="20dp"/>
 
-            <ListView
-                android:id="@+id/slotsListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"/>
             <TextView
                 android:id="@+id/statusText"
                 android:text=""
-                android:textSize="16sp"
                 android:textColor="#008000"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"/>
+                android:layout_marginTop="12dp"/>
+
+<!--            <ListView-->
+<!--                android:id="@+id/slotsListView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="12dp"/>-->
+<!--            <TextView-->
+<!--                android:id="@+id/statusText"-->
+<!--                android:text=""-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColor="#008000"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="20dp"/>-->
 
 
 
         </LinearLayout>
     </ScrollView>
-
-
-
-
-
-
 
 </LinearLayout>

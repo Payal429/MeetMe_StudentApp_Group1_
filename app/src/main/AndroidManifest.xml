@@ -21,6 +21,9 @@
         android:theme="@style/Theme.MeetMe"
         tools:targetApi="31">
         <activity
+            android:name=".ScheduleAvailabilityActivity"
+            android:exported="false" />
+        <activity
             android:name=".BookAppointmentActivity"
             android:exported="false" />
         <activity
@@ -55,8 +58,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <receiver android:name=".ReminderReceiver" />
-        <!-- Pushy Declarations -->
+
+        <receiver android:name=".ReminderReceiver" /> <!-- Pushy Declarations -->
         <!-- Pushy Notification Receiver -->
         <!-- Incoming push notifications will invoke the following BroadcastReceiver -->
         <receiver
