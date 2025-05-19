@@ -35,7 +35,8 @@ class StudentDashboardActivity : AppCompatActivity() {
         }
 
         bookingsbutton.setOnClickListener(){
-
+            val intent = Intent(this, AppointmentsActivity::class.java)
+            startActivity(intent)
         }
 
         settingsbutton.setOnClickListener(){

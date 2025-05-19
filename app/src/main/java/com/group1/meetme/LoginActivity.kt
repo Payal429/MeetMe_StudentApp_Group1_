@@ -35,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        Firebase.database.setPersistenceEnabled(true)
 
         // 1. Request permission (Android 13+)
         requestNotificationPermission()
@@ -42,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
         // 2. Create notification channel (Android 8+)
         createNotificationChannel()
 
-        Firebase.database.setPersistenceEnabled(true)
 
         // Find the login button by its ID
         val loginButton: Button = findViewById(R.id.loginButton)
@@ -102,10 +102,11 @@ class LoginActivity : AppCompatActivity() {
                                             // get the type of user
                                             val userType = response.body()?.typeOfUser
 
-                                            // store the idnum of the user so that it can be used in whole app
+                                            // store the idNum and userType of the user so that it can be used in whole app
                                             val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
                                             val editor = sharedPreferences.edit()
                                             editor.putString("ID_NUM", idNum)
+                                            editor.putString("USER_ROLE", userType)
                                             editor.apply()
 
                                             Log.d("userType", userType ?: "null")
@@ -124,6 +125,7 @@ class LoginActivity : AppCompatActivity() {
                                                     println("Pushy Device Token: $deviceToken")
                                                 } catch (e: Exception) {
                                                     e.printStackTrace()
+                                                    Log.e("Error", e.toString() )
                                                 }
                                             }.start()
 

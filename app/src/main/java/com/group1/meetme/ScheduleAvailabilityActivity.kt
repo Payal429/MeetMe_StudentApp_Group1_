@@ -53,7 +53,11 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
         "11:20 - 12:00",
         "12:10 - 12:40",
         "13:00 - 13:40",
-        "14:00 - 14:40"
+        "14:00 - 14:40",
+        "21:43 - 21:50",
+        "21:45 - 22:30",
+        "21:47 - 22:40",
+
     )
 
 
@@ -126,28 +130,6 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
             calendarView.visibility = View.VISIBLE // Show the calendar
         }
 
-//        // Handle date selection from calendar
-//        calendarView.setOnDayClickListener(object : OnDayClickListener {
-//            override fun onDayClick(eventDay: EventDay) {
-//                val selectedDate = eventDay.calendar
-//
-//                if (isHoliday(selectedDate)) {
-//                    Toast.makeText(this@ScheduleAvailabilityActivity, "This day is a holiday and cannot be booked!", Toast.LENGTH_SHORT).show()
-//                } else {
-//                    // Format the selected date and set it to the TextView
-//                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-////                    val formattedDate = dateFormat.format(selectedDate.time)
-//
-//                    val formattedDate = dateFormat.format(selectedDate.time)
-//                    this@ScheduleAvailabilityActivity.selectedDate = formattedDate  // Update the global variable
-//                    dateTextView.text = formattedDate
-//                    calendarView.visibility = View.GONE
-//
-////                    dateTextView.text = formattedDate
-////                    calendarView.visibility = View.GONE // Hide the calendar once a date is selected
-//                }
-//            }
-//        })
 
         calendarView.setOnDayClickListener(object : OnDayClickListener {
             override fun onDayClick(eventDay: EventDay) {
@@ -176,8 +158,14 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
                 .child("availability")
                 .child(idNum!!)
                 .child(date)
-                .child(selectedVenue)
                 .child(selectedTimeSlot)
+//                .child(selectedVenue)
+
+//            val slotRef = FirebaseDatabase.getInstance().reference
+//                .child("availability")
+//                .child(lecturerId)
+//                .child(date)
+//                .child(selectedTime)
 
             // Optional: prevent duplicates
             slotRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -186,7 +174,13 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
                         statusText.text = "Slot already exists"
                         statusText.setTextColor(Color.RED)
                     } else {
-                        val slotData = mapOf("booked" to false)
+//                        val slotData = mapOf("booked" to false)
+                        val slotData = mapOf(
+                            "booked" to false,
+                            "student" to "",
+                            "module" to "",
+                            "venue" to selectedVenue
+                        )
                         slotRef.setValue(slotData).addOnSuccessListener {
                             statusText.text = "Slot added: $selectedTimeSlot on $date"
                             statusText.setTextColor(Color.GREEN)

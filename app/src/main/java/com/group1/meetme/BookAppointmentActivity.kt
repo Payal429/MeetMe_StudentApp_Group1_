@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
@@ -53,7 +54,7 @@ class BookAppointmentActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var listView: ListView
     private lateinit var statusText: TextView
-    private lateinit var moduleNameTv: TextView
+    private lateinit var moduleNameTv: EditText
     private lateinit var loadButton: Button
 
     private var selectedDate: String = getTodayDate()
@@ -232,6 +233,8 @@ class BookAppointmentActivity : AppCompatActivity() {
 
         val selectedLecturerName = lecturerSpinner.selectedItem as String
         val lecturerId = lecturerIdMap[selectedLecturerName] ?: return
+        Log.d("LecturerID", lecturerId)
+        Log.d("date", date)
 
         val slotsRef = database.child("availability").child(lecturerId).child(date)
 
@@ -248,6 +251,7 @@ class BookAppointmentActivity : AppCompatActivity() {
                     val booked = slotSnapshot.child("booked").getValue(Boolean::class.java) ?: true
                     if (!booked) {
                         availableTimes.add(time)
+                        Log.d("availableTimes", time)
                     }
                 }
 
@@ -307,8 +311,21 @@ class BookAppointmentActivity : AppCompatActivity() {
                     val appointmentRef = database.child("appointments").child(idNum).push()
                     appointmentRef.setValue(appointment)
 
+
+                    // Add an entry for the lecturer appointments
+                    val appointmentLecturer = mapOf(
+                        "studentID" to idNum,
+                        "date" to date,
+                        "time" to time,
+                        "module" to moduleName,
+                        "status" to "upcoming"
+                    )
+
+                    val appointmentRefLecturer = database.child("appointmentsLecturer").child(lecturerId).push()
+                    appointmentRefLecturer.setValue(appointmentLecturer)
+
                     // Send notification
-                    database.child("tokens").child("lecturer").get().addOnSuccessListener { tokenSnapshot ->
+                    database.child("tokens").child(lecturerId).get().addOnSuccessListener { tokenSnapshot ->
                         val token = tokenSnapshot.getValue(String::class.java)
                         if (token != null) {
                             sendPushyNotification(
@@ -336,7 +353,7 @@ class BookAppointmentActivity : AppCompatActivity() {
         if (reminderTimeMillis < System.currentTimeMillis()) return
 
         val intent = Intent(this, ReminderReceiver::class.java).apply {
-            putExtra("title", "Upcoming Appointment")
+            putExtra("title", "Confirmed - Upcoming Appointment")
             putExtra("message", "You have an appointment at $time on $date.")
             putExtra("lecturerToken", lecturerToken)
         }
@@ -375,7 +392,7 @@ class BookAppointmentActivity : AppCompatActivity() {
         val requestBody = json.toString().toRequestBody("application/json".toMediaType())
 
         val request = Request.Builder()
-            .url("https://api.pushy.me/push?api_key=YOUR_API_KEY")
+            .url("https://api.pushy.me/push?api_key=e7a666413409280a1c85d6471083b3b933c7e411c6f5ab97251a0e216d8b7696")
             .post(requestBody)
             .build()
 

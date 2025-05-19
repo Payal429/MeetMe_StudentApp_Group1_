@@ -21,6 +21,12 @@
         android:theme="@style/Theme.MeetMe"
         tools:targetApi="31">
         <activity
+            android:name=".RescheduleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AppointmentsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ScheduleAvailabilityActivity"
             android:exported="false" />
         <activity
