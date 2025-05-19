@@ -64,4 +64,7 @@ dependencies {
 
     // Kotlin JSON handling
     implementation ("org.json:json:20210307")
+
+    // Calendar view for scheduling appointments
+    implementation ("com.applandeo:material-calendar-view:1.9.2")
 }

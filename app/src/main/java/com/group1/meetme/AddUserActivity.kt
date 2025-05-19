@@ -14,6 +14,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +24,8 @@ import retrofit2.Response
 class AddUserActivity : AppCompatActivity() {
 
     private val apiService: ApiService = ApiClient.create(ApiService::class.java)
+
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +56,9 @@ class AddUserActivity : AppCompatActivity() {
         headerTitle.text = "Add New $userType"
         edtUser.setText(userType)
 
+        database = Firebase.database.reference
+
+
 
         addStudentButton.setOnClickListener {
             val idNum = edtIDNumber.text.toString()
@@ -60,7 +68,25 @@ class AddUserActivity : AppCompatActivity() {
             val course = spnCourse.selectedItem.toString()
             val email = edtEmail.text.toString()
             onboardUser(idNum, name, surname, typeOfUser, course, email)
+
+            if (userType =="Student"){
+                writeNewUserStudent(idNum, name, surname, typeOfUser, course, email)
+            } else if (userType == "Lecturer"){
+                writeNewUserLecturer(idNum, name, surname, typeOfUser, course, email)
+            }
+
+
         }
+    }
+
+    fun writeNewUserStudent(idNum: String, name: String, surname: String, typeOfUser: String, course: String, email: String) {
+        val user = User(idNum, name, surname, typeOfUser, course, email)
+        database.child("users").child("Student").child(idNum).setValue(user)
+    }
+
+    fun writeNewUserLecturer(idNum: String, name: String, surname: String, typeOfUser: String, course: String, email: String) {
+        val user = User(idNum, name, surname, typeOfUser, course, email)
+        database.child("users").child("Lecturer").child(idNum).setValue(user)
     }
 
     //this method will access the login api, and will check to see if the entered details are correct, and will log the user in to the app

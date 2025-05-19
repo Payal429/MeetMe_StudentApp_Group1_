@@ -1,12 +1,16 @@
 package com.group1.meetme
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.textfield.TextInputEditText
 
 class StudentDashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +22,34 @@ class StudentDashboardActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // Find the login button by its ID
+        val homebutton: ImageButton = findViewById(R.id.homebutton)
+        val schedulebutton: ImageButton = findViewById(R.id.schedulebutton)
+        val bookingsbutton: ImageButton = findViewById(R.id.bookingsbutton)
+        val settingsbutton: ImageButton = findViewById(R.id.settingsbutton)
+
+        schedulebutton.setOnClickListener(){
+            val intent = Intent(this, BookAppointmentActivity::class.java)
+            startActivity(intent)
+        }
+
+        bookingsbutton.setOnClickListener(){
+
+        }
+
+        settingsbutton.setOnClickListener(){
+
+        }
+
+
+
     }
+
+
+
+
+
 
     override fun onBackPressed() {
         val alertDialog = AlertDialog.Builder(this).create()
