@@ -2,12 +2,12 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-      <SelectionState runConfigName="app">
+      <SelectionState runConfigName="MeetMe.app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-05-19T19:10:01.527664800Z">
+        <DropdownSelection timestamp="2025-05-20T07:32:05.213631100Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=R5CR902RFJD" />
+              <DeviceId pluginId="PhysicalDevice" identifier="serial=UTKDU19A11000876" />
             </handle>
           </Target>
         </DropdownSelection>

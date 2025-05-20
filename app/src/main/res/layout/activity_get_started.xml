@@ -47,12 +47,12 @@
         <Button
             android:id="@+id/buttonGetStarted"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:backgroundTint="#CE4993"
             android:fontFamily="sans-serif-black"
             android:text="GET STARTED"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:cornerRadius="8dp"
             android:textColor="#020202" />
     </RelativeLayout>

@@ -406,6 +406,10 @@ class BookAppointmentActivity : AppCompatActivity() {
             }
         })
     }
-
+//    fun onBackArrowClick(view: View) {
+//        val intent = Intent(this, StudentDashboardActivity::class.java)
+//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+//        startActivity(intent)
+//    }
 
 }
