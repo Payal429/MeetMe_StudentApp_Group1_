@@ -137,12 +137,12 @@ class UpcomingAppointmentsFragment : Fragment() {
 
     private fun cancelAppointment(appointment: Appointment) {
         Log.d("cancelAppointment: ", appointment.toString())
-//        if (userType != "Student") return
-//        val intent = Intent(requireContext(), CancelAppointmentActivity::class.java).apply {
-//            putExtra("appointmentId", appointment.id)
-//            putExtra("studentId", userId)
-//        }
-//        startActivity(intent)
+        if (userType != "Student") return
+        val intent = Intent(requireContext(), CancelAppointmentActivity::class.java).apply {
+            putExtra("appointmentId", appointment.id)
+            putExtra("studentId", userId)
+        }
+        startActivity(intent)
     }
 
     private fun rescheduleAppointment(appointment: Appointment) {

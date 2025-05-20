@@ -1,10 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".CancelAppointmentActivity">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical" android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RadioGroup android:id="@+id/reasonGroup" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton android:id="@+id/reason1" android:text="Not feeling well"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+        <RadioButton android:id="@+id/reason2" android:text="Personal reasons"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+        <RadioButton android:id="@+id/reasonOther" android:text="Other" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/otherReasonInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter other reason"
+        android:visibility="visible"/>
+
+    <Button android:id="@+id/confirmCancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm Cancellation"/>
+</LinearLayout>
