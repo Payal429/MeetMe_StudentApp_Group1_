@@ -173,17 +173,6 @@
                 android:inputType="textEmailAddress"
                 android:padding="12dp" />
 
-            <!-- Confirmation Message -->
-            <!--        <TextView-->
-            <!--            android:id="@+id/confirmationMessage"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:text="New user has been added to database"-->
-            <!--            android:textSize="14sp"-->
-            <!--            android:textColor="@color/black"-->
-            <!--            android:layout_marginTop="16dp"-->
-            <!--            android:gravity="center_horizontal" />-->
-
             <!-- Add New User Button -->
             <Button
                 android:id="@+id/addStudentButton"

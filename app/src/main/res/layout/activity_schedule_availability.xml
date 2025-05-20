@@ -8,8 +8,6 @@
     tools:context=".ScheduleAvailabilityActivity"
     android:orientation="vertical">
 
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -43,6 +41,14 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/topImage"
+                android:layout_marginTop="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/african"/>
+
             <TextView
                 android:id="@+id/dateTextView"
                 android:layout_width="match_parent"
@@ -62,7 +68,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 app:headerColor="@color/orange"
-                android:visibility="gone"/> <!-- Initially hidden -->
+                android:visibility="gone"/>
 
 
             <TextView
@@ -93,8 +99,7 @@
                 android:textSize="18dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                />
+                android:layout_marginEnd="20dp"/>
 
             <Spinner
                 android:id="@+id/venueSpinner"
@@ -107,8 +112,7 @@
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/edit_text_background"
                 android:padding="16dp"
-                android:entries="@array/venues"
-                />
+                android:entries="@array/venues"/>
 
 
             <Button
@@ -145,10 +149,6 @@
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="wrap_content"-->
 <!--                android:layout_margin="20dp"/>-->
-
-
-
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
