@@ -172,9 +172,9 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:backgroundTint="#FFA07A"
+            app:cornerRadius="8dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            app:cornerRadius="8dp"
             android:textSize="18sp"
             android:text="Login"
             android:textColor="@color/black" />
