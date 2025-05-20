@@ -118,6 +118,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
+                android:backgroundTint="#EA4C89"
+                app:cornerRadius="8dp"
+                android:textColor="@color/black"
                 android:layout_margin="20dp"/>
 
             <TextView

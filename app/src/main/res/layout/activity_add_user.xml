@@ -191,10 +191,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:backgroundTint="#EA4C89"
-                android:text="Add User"
+                app:cornerRadius="8dp"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                app:cornerRadius="8dp" />
+                android:text="Add User"
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
