@@ -12,8 +12,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/ivory">
+        android:background="@color/ivory"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/imageViewProfile"
@@ -24,271 +24,284 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hi, Lecturer"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:layout_toEndOf="@id/imageViewProfile"
+            android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:layout_centerVertical="true" />
+            android:layout_toEndOf="@id/imageViewProfile"
+            android:text="Hi, Lecturer"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/downloadResources"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="More"
             android:padding="5dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/baseline_bookmark_24"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true" />
+            android:src="@drawable/baseline_bookmark_24" />
     </RelativeLayout>
 
-    <!-- Search Bar -->
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Search text"
-        android:background="@drawable/edit_text_background"
-        android:layout_marginTop="16dp"
-        android:layout_margin="10dp"
-        android:padding="12dp" />
-
-    <!-- Appointments -->
-    <TextView
-        android:layout_margin="10dp"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Upcoming Appointments"
-        android:textSize="16sp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/black" />
+        android:padding="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="10dp"
-        android:background="@drawable/rounded_background"
-        android:radius="10dp">
-
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:orientation="vertical">
+            <!-- Search Bar -->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="Search text"
+                android:padding="12dp" />
+
+            <!-- Appointments -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Upcoming Appointments"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_background"
+                android:orientation="vertical"
+                android:radius="10dp">
 
-                <LinearLayout
+                <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
-                    android:background="@drawable/edit_text_background">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/calendar_icon"
-                        android:layout_gravity="center_vertical" />
+                    android:padding="16dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp"
-                        android:layout_gravity="center_vertical">
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Dr. Aminu Yusuf"
-                            android:textSize="16sp" />
+                            android:background="@drawable/edit_text_background"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="10th April 2025 at 13:30, BL12"
-                            android:textSize="14sp"
-                            android:textColor="#666666" />
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/calendar_icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Dr. Aminu Yusuf"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10th April 2025 at 13:30, BL12"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Project Management"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Project Management"
-                            android:textSize="14sp"
-                            android:textColor="#666666" />
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/edit_text_background"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/calendar_icon" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Dr. Aminu Yusuf"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10th April 2025 at 13:30, BL12"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Project Management"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                        <!-- Add more appointment blocks as needed -->
                     </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@drawable/edit_text_background">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/calendar_icon"
-                        android:layout_gravity="center_vertical" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp"
-                        android:layout_gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Dr. Aminu Yusuf"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="10th April 2025 at 13:30, BL12"
-                            android:textSize="14sp"
-                            android:textColor="#666666" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Project Management"
-                            android:textSize="14sp"
-                            android:textColor="#666666" />
-                    </LinearLayout>
-                </LinearLayout>
-                <!-- Add more appointment blocks as needed -->
+                </ScrollView>
             </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-    <!-- Appointments -->
-    <TextView
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Previous Appointments"
-        android:textSize="16sp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/black" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="10dp"
-        android:background="@drawable/rounded_background"
-        android:radius="10dp">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
+            <!-- Appointments -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Previous Appointments"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_background"
+                android:orientation="vertical"
+                android:radius="10dp">
 
-                <LinearLayout
+                <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
-                    android:background="@drawable/edit_text_background">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/calendar_icon"
-                        android:layout_gravity="center_vertical" />
+                    android:padding="16dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp"
-                        android:layout_gravity="center_vertical">
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Dr. Aminu Yusuf"
-                            android:textSize="16sp" />
+                            android:background="@drawable/edit_text_background"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="10th April 2025 at 13:30, BL12"
-                            android:textSize="14sp"
-                            android:textColor="#666666" />
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/calendar_icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Dr. Aminu Yusuf"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10th April 2025 at 13:30, BL12"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Project Management"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Project Management"
-                            android:textSize="14sp"
-                            android:textColor="#666666" />
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/edit_text_background"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/calendar_icon" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Dr. Aminu Yusuf"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10th April 2025 at 13:30, BL12"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Project Management"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                        <!-- Add more appointment blocks as needed -->
                     </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@drawable/edit_text_background">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/calendar_icon"
-                        android:layout_gravity="center_vertical" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp"
-                        android:layout_gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Dr. Aminu Yusuf"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="10th April 2025 at 13:30, BL12"
-                            android:textSize="14sp"
-                            android:textColor="#666666" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Project Management"
-                            android:textSize="14sp"
-                            android:textColor="#666666" />
-                    </LinearLayout>
-                </LinearLayout>
-                <!-- Add more appointment blocks as needed -->
+                </ScrollView>
             </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
     <!-- Bottom Navigation -->
@@ -297,48 +310,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_gravity="bottom"
         android:background="#FFE0B2"
-        android:layout_gravity="bottom">
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/homebutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/home_icon"
-            android:contentDescription="Home"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Home"
             android:padding="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+            android:src="@drawable/home_icon" />
 
         <ImageButton
             android:id="@+id/schedulebutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/schedule_appointment"
-            android:contentDescription="Messaging"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Messaging"
             android:padding="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+            android:src="@drawable/schedule_appointment" />
 
         <ImageButton
             android:id="@+id/bookingsbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/books"
-            android:contentDescription="More"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="More"
             android:padding="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+            android:src="@drawable/books" />
 
         <ImageButton
             android:id="@+id/settingsbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/settings_icon"
-            android:contentDescription="More"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="More"
             android:padding="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+            android:src="@drawable/settings_icon" />
     </LinearLayout>
 </LinearLayout>
