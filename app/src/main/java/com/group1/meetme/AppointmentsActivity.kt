@@ -1,6 +1,8 @@
 package com.group1.meetme
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,6 +17,14 @@ class AppointmentsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appointments)
+
+        // Return back to the dashboard
+        val backArrow: ImageButton = findViewById(R.id.backArrow)
+
+        backArrow.setOnClickListener(){
+            val intent = Intent(this, StudentDashboardActivity::class.java)
+            startActivity(intent)
+        }
 
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
