@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".lecturer_review">
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/ivory">
+
+        <ImageButton
+            android:id="@+id/backArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_arrow"
+            android:contentDescription="Home"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        <TextView
+            android:id="@+id/headerTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Lecturer Review"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+
+            <!-- Select Lecturer -->
+            <Spinner
+                android:id="@+id/lecturerSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_text_background"
+                android:padding="16dp"
+                android:textSize="18sp" />
+
+            <!-- Search Button -->
+            <Button
+                android:id="@+id/searchButton"
+                android:padding="16dp"
+                android:textSize="18sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="#EA4C89"
+                app:cornerRadius="8dp"
+                android:textColor="@color/black"
+                android:text="Search"/>
+
+            <!-- Lecturer Info -->
+            <TextView
+                android:id="@+id/lecturerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="8dp"
+                android:text="Prof. Amina Patel"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lecturerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="8dp"
+                android:text="Head of Project Management Department"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/lecturerLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="24dp"
+                android:text="Cape Town, South Africa"
+                android:textSize="16sp" />
+
+            <!-- Rating -->
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:numStars="5"
+                android:paddingBottom="24dp"
+                android:rating="4" />
+
+            <!-- Comment -->
+            <EditText
+                android:id="@+id/commentEditText"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="Enter Your Comment Here..."
+                android:padding="16dp" />
+
+            <!-- Add Review Button -->
+            <Button
+                android:id="@+id/addReviewButton"
+                android:padding="16dp"
+                android:textSize="18sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="#FFA07A"
+                app:cornerRadius="8dp"
+                android:textColor="@color/black"
+                android:text="Add Review"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
