@@ -25,6 +25,7 @@ class lecturer_review : AppCompatActivity() {
 
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,6 +39,7 @@ class lecturer_review : AppCompatActivity() {
         // Return back to the dashboard
         val backArrow: ImageButton = findViewById(R.id.backArrow)
 
+        // Return back to the dashboard when button is clicked
         backArrow.setOnClickListener(){
             val intent = Intent(this, StudentDashboardActivity::class.java)
             startActivity(intent)
@@ -74,4 +76,5 @@ class lecturer_review : AppCompatActivity() {
             }
         })
     }
+
 }

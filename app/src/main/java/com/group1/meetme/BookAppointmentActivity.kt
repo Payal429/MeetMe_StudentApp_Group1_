@@ -310,9 +310,6 @@ class BookAppointmentActivity : AppCompatActivity() {
             val selectedTime = availableTimes[position]
             bookSlot(selectedTime, idNum!!)
         }
-
-
-
     }
 
     // Check if selected date matches a holiday
