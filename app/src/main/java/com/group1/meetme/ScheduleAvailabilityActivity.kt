@@ -35,14 +35,10 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
     private lateinit var calendarView: CalendarView
     private lateinit var dateTextView: TextView
     private lateinit var btnAddAvailability: Button
-
     private lateinit var database: DatabaseReference
-
     private var selectedDate: String = getTodayDate()
-
     private lateinit var timeSlotSpinner: Spinner
     private lateinit var venueSpinner: Spinner
-
 
     // Example slot list
     private val timeSlots = listOf(
@@ -63,7 +59,6 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
         "21:45 - 22:30",
         "21:47 - 22:40",
     )
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

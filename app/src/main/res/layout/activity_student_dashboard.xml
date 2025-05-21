@@ -12,8 +12,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/ivory">
+        android:background="@color/ivory"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/imageViewProfile"
@@ -24,404 +24,413 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hi, Student"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:layout_toEndOf="@id/imageViewProfile"
+            android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:layout_centerVertical="true" />
+            android:layout_toEndOf="@id/imageViewProfile"
+            android:text="Hi, Student"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/downloadResources"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="More"
             android:padding="5dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/baseline_bookmark_24"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true" />
+            android:src="@drawable/baseline_bookmark_24" />
     </RelativeLayout>
-
-    <!-- Search Bar -->
-    <EditText
+    <!-- Scrollable Content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Search text"
-        android:background="@drawable/edit_text_background"
-        android:layout_marginTop="16dp"
-        android:layout_margin="10dp"
-        android:padding="12dp" />
-
-    <!-- Daily Quotes -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/rounded_background"
-        android:padding="5dp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="16dp"
-        android:radius="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Daily Quote"
-            android:textSize="18sp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:textColor="@color/black" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="89dp"
-            android:layout_margin="10dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/rounded_background"
-            android:orientation="horizontal"
-            android:padding="16dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- Search Bar -->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="Search text"
+                android:padding="12dp" />
 
-            <TextView
-                android:layout_width="0dp"
+            <!-- Daily Quotes -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="“Empowering Your Academic Journey Schedule, Connect, Succeed!”"
+                android:layout_margin="10dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_background"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:radius="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Daily Quote"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_background"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="“Empowering Your Academic Journey Schedule, Connect, Succeed!”"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/mascot" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- List of Schools -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="10dp"
+                android:text="List of Schools"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <ImageView
-                android:layout_width="90dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/mascot" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- List of Schools -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="List of Schools"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/black" />
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#8BC34A"
-                android:background="@drawable/linearlayout_radius"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:radius="8dp">
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="School of IT"
-                    android:textAlignment="center"
-                    android:textColor="@color/black" />
-            </LinearLayout>
+                    android:orientation="horizontal">
 
-            <LinearLayout
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/linearlayout_radius"
+                        android:backgroundTint="#8BC34A"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:radius="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="School of IT"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/linearlayout_radius"
+                        android:backgroundTint="#673AB7"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:radius="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="School of Commerce"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/linearlayout_radius"
+                        android:backgroundTint="#2196F3"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:radius="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="School of Education"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/linearlayout_radius"
+                        android:backgroundTint="#F44336"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:radius="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="School of Law"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/linearlayout_radius"
+                        android:backgroundTint="#3d4bae"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:radius="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="School of Policing and Law Enforcement"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/linearlayout_radius"
+                        android:backgroundTint="#d2758d"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:radius="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="School of Administration and Management"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/linearlayout_radius"
+                        android:backgroundTint="#daad1f"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:radius="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="School of Fashion"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Appointments -->
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#673AB7"
-                android:background="@drawable/linearlayout_radius"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:radius="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="School of Commerce"
-                    android:textAlignment="center"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#2196F3"
-                android:background="@drawable/linearlayout_radius"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:radius="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="School of Education"
-                    android:textAlignment="center"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#F44336"
-                android:background="@drawable/linearlayout_radius"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:radius="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="School of Law"
-                    android:textAlignment="center"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#3d4bae"
-                android:background="@drawable/linearlayout_radius"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:radius="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="School of Policing and Law Enforcement"
-                    android:textAlignment="center"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#d2758d"
-                android:background="@drawable/linearlayout_radius"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:radius="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:text="School of Administration and Management"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#daad1f"
-                android:background="@drawable/linearlayout_radius"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:radius="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="School of Fashion"
-                    android:textAlignment="center"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <!-- Appointments -->
-    <TextView
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Appointments"
-        android:textSize="16sp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/black" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="10dp"
-        android:background="@drawable/rounded_background"
-        android:radius="10dp">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Appointments"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_background"
+                android:orientation="vertical"
+                android:radius="10dp">
 
-                <LinearLayout
+                <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
-                    android:background="@drawable/edit_text_background">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/calendar_icon"
-                        android:layout_gravity="center_vertical" />
+                    android:padding="16dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp"
-                        android:layout_gravity="center_vertical">
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Dr. Aminu Yusuf"
-                            android:textSize="16sp" />
+                            android:background="@drawable/edit_text_background"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="10th April 2025 at 13:30, BL12"
-                            android:textSize="14sp"
-                            android:textColor="#666666" />
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/calendar_icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Dr. Aminu Yusuf"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10th April 2025 at 13:30, BL12"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Project Management"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Project Management"
-                            android:textSize="14sp"
-                            android:textColor="#666666" />
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/edit_text_background"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/calendar_icon" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Dr. Aminu Yusuf"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10th April 2025 at 13:30, BL12"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Project Management"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@drawable/edit_text_background">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/calendar_icon"
-                        android:layout_gravity="center_vertical" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp"
-                        android:layout_gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Dr. Aminu Yusuf"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="10th April 2025 at 13:30, BL12"
-                            android:textSize="14sp"
-                            android:textColor="#666666" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Project Management"
-                            android:textSize="14sp"
-                            android:textColor="#666666" />
-                    </LinearLayout>
-                </LinearLayout>
-                <!-- Add more appointment blocks as needed -->
+                </ScrollView>
             </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <!-- Bottom Navigation -->
-<!--    <include layout="@layout/nav_bar" />-->
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
         android:background="#FFE0B2"
-        android:layout_gravity="bottom">
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/homebutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/home_icon"
-            android:contentDescription="Home"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Home"
             android:padding="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+            android:src="@drawable/home_icon" />
 
         <ImageButton
             android:id="@+id/schedulebutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/schedule_appointment"
-            android:contentDescription="Messaging"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Messaging"
             android:padding="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+            android:src="@drawable/schedule_appointment" />
 
         <ImageButton
             android:id="@+id/bookingsbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/books"
-            android:contentDescription="More"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="More"
             android:padding="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+            android:src="@drawable/books" />
 
         <ImageButton
             android:id="@+id/settingsbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/settings_icon"
-            android:contentDescription="More"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="More"
             android:padding="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+            android:src="@drawable/settings_icon" />
     </LinearLayout>
 </LinearLayout>
