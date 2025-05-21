@@ -44,6 +44,13 @@
             android:padding="16dp"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/topImage"
+                android:layout_marginTop="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/african"/>
 
             <!-- Select Lecturer -->
             <Spinner
@@ -51,54 +58,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_background"
                 android:padding="16dp"
                 android:textSize="18sp" />
 
-            <!-- Search Button -->
-            <Button
-                android:id="@+id/searchButton"
-                android:padding="16dp"
-                android:textSize="18sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="#EA4C89"
-                app:cornerRadius="8dp"
-                android:textColor="@color/black"
-                android:text="Search"/>
+<!--            &lt;!&ndash; Search Button &ndash;&gt;-->
+<!--            <Button-->
+<!--                android:id="@+id/searchButton"-->
+<!--                android:padding="16dp"-->
+<!--                android:textSize="18sp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:backgroundTint="#EA4C89"-->
+<!--                app:cornerRadius="8dp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:text="Search"/>-->
 
-            <!-- Lecturer Info -->
-            <TextView
-                android:id="@+id/lecturerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingBottom="8dp"
-                android:text="Prof. Amina Patel"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+<!--            &lt;!&ndash; Lecturer Info &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:id="@+id/lecturerName"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:paddingBottom="8dp"-->
+<!--                android:text="Prof. Amina Patel"-->
+<!--                android:textSize="24sp"-->
+<!--                android:textStyle="bold" />-->
 
-            <TextView
-                android:id="@+id/lecturerTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingBottom="8dp"
-                android:text="Head of Project Management Department"
-                android:textSize="18sp" />
+<!--            <TextView-->
+<!--                android:id="@+id/lecturerTitle"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:paddingBottom="8dp"-->
+<!--                android:text="Head of Project Management Department"-->
+<!--                android:textSize="18sp" />-->
 
-            <TextView
-                android:id="@+id/lecturerLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingBottom="24dp"
-                android:text="Cape Town, South Africa"
-                android:textSize="16sp" />
+<!--            <TextView-->
+<!--                android:id="@+id/lecturerLocation"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:paddingBottom="24dp"-->
+<!--                android:text="Cape Town, South Africa"-->
+<!--                android:textSize="16sp" />-->
 
             <!-- Rating -->
             <RatingBar

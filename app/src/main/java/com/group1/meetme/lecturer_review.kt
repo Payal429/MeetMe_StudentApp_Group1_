@@ -18,9 +18,12 @@ import com.group1.meetme.BookAppointmentActivity
 
 class lecturer_review : AppCompatActivity() {
 
+    // Lecturer
     private lateinit var lecturerSpinner: Spinner
     private val lecturerNames = mutableListOf<String>()
     private val lecturerIdMap = mutableMapOf<String, String>() // name -> id
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
