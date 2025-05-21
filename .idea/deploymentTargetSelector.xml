@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="MeetMe.app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-05-20T07:32:05.213631100Z">
+        <DropdownSelection timestamp="2025-05-21T08:53:23.780475600Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=UTKDU19A11000876" />
+              <DeviceId pluginId="PhysicalDevice" identifier="serial=R5CR902RFJD" />
             </handle>
           </Target>
         </DropdownSelection>
