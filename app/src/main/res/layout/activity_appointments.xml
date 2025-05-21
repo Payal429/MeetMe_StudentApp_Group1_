@@ -22,7 +22,6 @@
             android:padding="5dp"
             android:background="?attr/selectableItemBackgroundBorderless"/>
 
-
         <TextView
             android:id="@+id/headerTitle"
             android:layout_width="0dp"

@@ -1,8 +1,10 @@
 package com.group1.meetme
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
@@ -40,6 +42,13 @@ class CancelAppointmentActivity : AppCompatActivity() {
                 findViewById<RadioButton>(selectedId).text.toString()
             }
             cancelAppointment(reason)
+        }
+        // Return back to the dashboard
+        val backArrow: ImageButton = findViewById(R.id.backArrow)
+
+        backArrow.setOnClickListener(){
+            val intent = Intent(this, StudentDashboardActivity::class.java)
+            startActivity(intent)
         }
     }
 

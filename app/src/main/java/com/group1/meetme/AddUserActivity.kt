@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
@@ -36,7 +37,13 @@ class AddUserActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        // Return back to the dashboard
+        val backArrow: ImageButton = findViewById(R.id.backArrow)
 
+        backArrow.setOnClickListener(){
+            val intent = Intent(this, StudentDashboardActivity::class.java)
+            startActivity(intent)
+        }
 //        val employeeId = binding.loginScreenEditEmpNumPlainText.text.toString()
 //        val password = binding.loginScreenEditPasswordPlainText.text.toString()
 //        login(employeeId, password)
@@ -58,8 +65,6 @@ class AddUserActivity : AppCompatActivity() {
 
         database = Firebase.database.reference
 
-
-
         addStudentButton.setOnClickListener {
             val idNum = edtIDNumber.text.toString()
             val name = edtName.text.toString()
@@ -74,8 +79,6 @@ class AddUserActivity : AppCompatActivity() {
             } else if (userType == "Lecturer"){
                 writeNewUserLecturer(idNum, name, surname, typeOfUser, course, email)
             }
-
-
         }
     }
 

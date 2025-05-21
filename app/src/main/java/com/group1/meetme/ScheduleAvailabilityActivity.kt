@@ -57,7 +57,6 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
         "21:43 - 21:50",
         "21:45 - 22:30",
         "21:47 - 22:40",
-
     )
 
 
@@ -183,7 +182,7 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
                         )
                         slotRef.setValue(slotData).addOnSuccessListener {
                             statusText.text = "Slot added: $selectedTimeSlot on $date"
-                            statusText.setTextColor(Color.GREEN)
+                            statusText.setTextColor(Color.GREEN) // Change Color
                         }.addOnFailureListener {
                             statusText.text = "Failed to add slot"
                             statusText.setTextColor(Color.RED)
