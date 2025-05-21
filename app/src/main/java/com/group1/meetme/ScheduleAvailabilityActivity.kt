@@ -46,6 +46,7 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
 
     // Example slot list
     private val timeSlots = listOf(
+        "07:10 - 07:50",
         "08:00 - 08:40",
         "08:50 - 09:30",
         "09:40 - 10:20",
@@ -54,6 +55,10 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
         "12:10 - 12:40",
         "13:00 - 13:40",
         "14:00 - 14:40",
+        "14:50 - 15:30",
+        "15:40 - 16:20",
+        "16:30 - 17:10",
+        "17:20 - 18:00",
         "21:43 - 21:50",
         "21:45 - 22:30",
         "21:47 - 22:40",
