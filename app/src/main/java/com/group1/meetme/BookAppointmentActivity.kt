@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
@@ -74,6 +75,14 @@ class BookAppointmentActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        // Return back to the dashboard
+        val backArrow: ImageButton = findViewById(R.id.backArrow)
+
+        backArrow.setOnClickListener(){
+            val intent = Intent(this, StudentDashboardActivity::class.java)
+            startActivity(intent)
         }
 
         // get the idnum of the user from the login
@@ -406,10 +415,4 @@ class BookAppointmentActivity : AppCompatActivity() {
             }
         })
     }
-//    fun onBackArrowClick(view: View) {
-//        val intent = Intent(this, StudentDashboardActivity::class.java)
-//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-//        startActivity(intent)
-//    }
-
 }

@@ -47,11 +47,6 @@ class StudentDashboardActivity : AppCompatActivity() {
 
     }
 
-
-
-
-
-
     override fun onBackPressed() {
         val alertDialog = AlertDialog.Builder(this).create()
         alertDialog.setTitle("Logout")
