@@ -100,24 +100,35 @@
                 android:visibility="gone"
                 app:headerColor="@color/orange" /> <!-- Initially hidden -->
 
+
             <Button
                 android:id="@+id/loadSlotsButton"
-                android:text="Load Available Times"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_height="wrap_content"
+                android:padding="16dp"
                 android:textSize="18sp"
-                android:textColor="@color/black"
-                android:backgroundTint="#DC557E"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="#EA4C89"
                 app:cornerRadius="8dp"
-                android:layout_margin="20dp"/>
+                android:textColor="@color/black"
+                android:text="Load Available Times"/>
 
-            <ListView
-                android:id="@+id/slotsListView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="18sp"
-                android:layout_marginTop="10dp"/>
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/slotsListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="185dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/statusText"
