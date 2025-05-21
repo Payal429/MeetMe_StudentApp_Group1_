@@ -118,6 +118,7 @@
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/edit_text_background"
                 android:hint="Enter Your Comment Here..."
+                android:textColor="@color/black"
                 android:padding="16dp" />
 
             <!-- Add Review Button -->
