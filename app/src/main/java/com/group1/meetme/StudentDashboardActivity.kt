@@ -41,7 +41,7 @@ class StudentDashboardActivity : AppCompatActivity() {
             startActivity(intent)
         }
         downloadResource.setOnClickListener(){
-            val intent = Intent(this, download_resources::class.java)
+            val intent = Intent(this, downloadResource::class.java)
             startActivity(intent)
         }
 
