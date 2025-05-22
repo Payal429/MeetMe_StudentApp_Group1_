@@ -60,8 +60,8 @@ class UploadResourcesActivity : AppCompatActivity() {
     }
 
     private fun setupDropdowns() {
-        val courses = listOf("Computer Science", "Math", "Physics")
-        val modules = listOf("Module A", "Module B", "Module C")
+        val courses = listOf("IT", "Law", "Education", "Commerce", "Policing and Law Enforcement", "Administration and Management", "Fashion")
+        val modules = listOf("Information Systems", "Web Development Project", "Mobile Application Development A", "Commercial Law", "Project Management", "Introduction to Research")
 
         val courseAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, courses)
         val moduleAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, modules)
