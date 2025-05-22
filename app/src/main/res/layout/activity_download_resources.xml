@@ -74,7 +74,7 @@
                         android:id="@+id/moduleDropdown"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#FCA27E"
+                        android:background="@drawable/edit_text_background"
                         android:inputType="none"
                         android:text="Select Module"
                         android:textColor="#000000" />

@@ -26,7 +26,7 @@ class DownloadResourcesActivity : AppCompatActivity() {
         backButton = findViewById(R.id.backArrow) //
 
         backButton.setOnClickListener {
-            val intent = Intent(this, MenuResourcesActivity::class.java)
+            val intent = Intent(this, StudentDashboardActivity::class.java)
             startActivity(intent)
         }
 
