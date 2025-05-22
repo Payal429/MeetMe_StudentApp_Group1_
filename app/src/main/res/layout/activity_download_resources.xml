@@ -28,7 +28,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Home"
                 android:padding="5dp"
-                android:src="@drawable/back_arrow" />
+                android:src="@drawable/back_arrow"/>
 
             <TextView
                 android:id="@+id/headerTitle"

@@ -27,6 +27,7 @@ class StudentDashboardActivity : AppCompatActivity() {
         val homebutton: ImageButton = findViewById(R.id.homebutton)
         val schedulebutton: ImageButton = findViewById(R.id.schedulebutton)
         val bookingsbutton: ImageButton = findViewById(R.id.bookingsbutton)
+        val downloadResource: ImageButton = findViewById(R.id.downloadResources)
         val settingsbutton: ImageButton = findViewById(R.id.settingsbutton)
 
         schedulebutton.setOnClickListener(){
@@ -36,6 +37,10 @@ class StudentDashboardActivity : AppCompatActivity() {
 
         bookingsbutton.setOnClickListener(){
             val intent = Intent(this, AppointmentsActivity::class.java)
+            startActivity(intent)
+        }
+        downloadResource.setOnClickListener(){
+            val intent = Intent(this, download_resources::class.java)
             startActivity(intent)
         }
 

@@ -25,6 +25,7 @@ class LecturerDashboardActivity : AppCompatActivity() {
         val homebutton: ImageButton = findViewById(R.id.homebutton)
         val schedulebutton: ImageButton = findViewById(R.id.schedulebutton)
         val bookingsbutton: ImageButton = findViewById(R.id.bookingsbutton)
+        val uploadResources: ImageButton = findViewById(R.id.uploadResources)
         val settingsbutton: ImageButton = findViewById(R.id.settingsbutton)
 
         schedulebutton.setOnClickListener(){
@@ -36,9 +37,10 @@ class LecturerDashboardActivity : AppCompatActivity() {
             val intent = Intent(this, AppointmentsActivity::class.java)
             startActivity(intent)
         }
-
-
-
+        uploadResources.setOnClickListener(){
+            val intent = Intent(this, upload_resources::class.java)
+            startActivity(intent)
+        }
     }
 
 
