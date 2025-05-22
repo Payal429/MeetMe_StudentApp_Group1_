@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Schedule Appointments"
+                android:text="Download Resources"
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </LinearLayout>

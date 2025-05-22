@@ -10,192 +10,220 @@
     <!-- Scrollable content -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="72dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Resources"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="24dp" />
-
-            <!-- Module selection -->
+            <!-- Header -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="24dp">
+                android:background="@color/ivory"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-                <TextView
+                <ImageButton
+                    android:id="@+id/backArrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Upload or Download Resources?"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="8dp" />
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Home"
+                    android:padding="5dp"
+                    android:src="@drawable/back_arrow" />
+
+                <TextView
+                    android:id="@+id/headerTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Download Resources"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Resources list -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="8dp">
+                android:padding="16dp">
 
+                <!-- Module selection -->
                 <LinearLayout
-                    android:id="@+id/resourcesContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginBottom="24dp"
+                    android:orientation="vertical">
 
-                <!-- Upload Card -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:cardElevation="2dp"
-                    app:cardCornerRadius="8dp">
-
-                    <LinearLayout
-                        android:id="@+id/uploadResourcesLayout"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="16dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground">
+                        android:layout_marginBottom="8dp"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:text="Upload or Download Resources?"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_document"
-                            android:layout_marginEnd="16dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Upload Resources"
-                            android:textSize="16sp" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Download Card -->
-                <com.google.android.material.card.MaterialCardView
+                <!-- Resources list -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:cardElevation="2dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/downloadResourcesLayout"
+                        android:id="@+id/resourcesContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="16dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground">
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical" />
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_document"
-                            android:layout_marginEnd="16dp" />
+                    <!-- Upload Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/uploadResourcesLayout"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Download Resources"
-                            android:textSize="16sp" />
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:orientation="horizontal"
+                            android:padding="16dp">
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginEnd="16dp"
+                                android:src="@drawable/ic_document" />
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Upload Resources"
+                                android:textSize="16sp" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Download Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:id="@+id/downloadResourcesLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:orientation="horizontal"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginEnd="16dp"
+                                android:src="@drawable/ic_document" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Download Resources"
+                                android:textSize="16sp" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <!-- Fixed bottom navigation -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:background="#FFE0B2"
-        android:weightSum="5">
+<!--    &lt;!&ndash; Fixed bottom navigation &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="56dp"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:background="#FFE0B2"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:weightSum="5">-->
 
-        <ImageButton
-            android:id="@+id/homebutton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/home_icon"
-            android:scaleType="centerInside"
-            android:contentDescription="Home"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/homebutton"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--            android:contentDescription="Home"-->
+<!--            android:padding="8dp"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:src="@drawable/home_icon" />-->
 
-        <ImageButton
-            android:id="@+id/schedulebutton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/schedule_appointment"
-            android:scaleType="centerInside"
-            android:contentDescription="Schedule"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/schedulebutton"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--            android:contentDescription="Schedule"-->
+<!--            android:padding="8dp"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:src="@drawable/schedule_appointment" />-->
 
-        <ImageButton
-            android:id="@+id/bookingsbutton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/books"
-            android:scaleType="centerInside"
-            android:contentDescription="Bookings"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/bookingsbutton"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--            android:contentDescription="Bookings"-->
+<!--            android:padding="8dp"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:src="@drawable/books" />-->
 
-        <ImageButton
-            android:id="@+id/resourcesbutton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ic_resources"
-            android:scaleType="centerInside"
-            android:contentDescription="Resources"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/resourcesbutton"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--            android:contentDescription="Resources"-->
+<!--            android:padding="8dp"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:src="@drawable/ic_resources" />-->
 
-        <ImageButton
-            android:id="@+id/settingsbutton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/settings_icon"
-            android:scaleType="centerInside"
-            android:contentDescription="Settings"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
-    </LinearLayout>
+<!--        <ImageButton-->
+<!--            android:id="@+id/settingsbutton"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--            android:contentDescription="Settings"-->
+<!--            android:padding="8dp"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:src="@drawable/settings_icon" />-->
+<!--    </LinearLayout>-->
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
