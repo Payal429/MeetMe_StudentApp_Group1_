@@ -72,23 +72,42 @@ class upload_resources : AppCompatActivity() {
         moduleDropdown.setAdapter(moduleAdapter)
     }
 
+    //    private fun openFilePicker() {
+//        val intent = Intent(Intent.ACTION_GET_CONTENT)
+//        intent.type = "*/*"
+//        startActivityForResult(Intent.createChooser(intent, "Select a file"),
+//            com.example.StudentAppointmentScheduler.upload_resources.Companion.FILE_PICKER_REQUEST_CODE
+//        )
+//    }
+//
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == com.example.StudentAppointmentScheduler.upload_resources.Companion.FILE_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//            data?.data?.let { uri ->
+//                selectedFileUri = uri
+//                uploadFileText.text = "Selected File: ${uri.lastPathSegment}"
+//            }
+//        }
+//    }
     private fun openFilePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
-        startActivityForResult(Intent.createChooser(intent, "Select a file"),
-            com.example.studentappointmentscheduler.UploadResourcesActivity.Companion.FILE_PICKER_REQUEST_CODE
+        startActivityForResult(
+            Intent.createChooser(intent, "Select a file"),
+            FILE_PICKER_REQUEST_CODE
         )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == com.example.studentappointmentscheduler.UploadResourcesActivity.Companion.FILE_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == FILE_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             data?.data?.let { uri ->
                 selectedFileUri = uri
                 uploadFileText.text = "Selected File: ${uri.lastPathSegment}"
             }
         }
     }
+
 
     private fun uploadToCloudinary(fileUri: Uri) {
         val selectedModule = moduleDropdown.text.toString()
@@ -108,11 +127,16 @@ class upload_resources : AppCompatActivity() {
                 override fun onProgress(requestId: String?, bytes: Long, totalBytes: Long) {}
 
                 override fun onSuccess(requestId: String?, resultData: MutableMap<Any?, Any?>?) {
-                    Toast.makeText(applicationContext, "Upload Successful!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Upload Successful!", Toast.LENGTH_LONG)
+                        .show()
                 }
 
                 override fun onError(requestId: String?, error: ErrorInfo?) {
-                    Toast.makeText(applicationContext, "Upload Failed: ${error?.description}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        applicationContext,
+                        "Upload Failed: ${error?.description}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
 
                 override fun onReschedule(requestId: String?, error: ErrorInfo?) {}
