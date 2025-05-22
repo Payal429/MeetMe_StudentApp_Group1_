@@ -23,9 +23,6 @@ class lecturer_review : AppCompatActivity() {
     private val lecturerNames = mutableListOf<String>()
     private val lecturerIdMap = mutableMapOf<String, String>() // name -> id
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

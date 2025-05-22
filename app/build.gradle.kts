@@ -67,4 +67,7 @@ dependencies {
 
     // Calendar view for scheduling appointments
     implementation ("com.applandeo:material-calendar-view:1.9.2")
+
+    // Cloudinary
+    implementation("com.cloudinary:cloudinary-android:2.0.0")
 }
