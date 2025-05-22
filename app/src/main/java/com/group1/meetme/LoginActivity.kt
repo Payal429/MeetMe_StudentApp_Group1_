@@ -134,7 +134,8 @@ class LoginActivity : AppCompatActivity() {
                                             when (userType) {
                                                 "Student" -> {
                                                     finish()
-                                                    startActivity(Intent(this@LoginActivity, StudentDashboardActivity::class.java))
+                                                    startActivity(Intent(this@LoginActivity,
+                                                        StudentDashboardActivity::class.java))
                                                 }
                                                 "Lecturer" -> {
                                                     finish()

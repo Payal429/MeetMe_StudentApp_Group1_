@@ -32,15 +32,26 @@
             android:textSize="18sp" />
 
         <ImageButton
-            android:id="@+id/downloadResources"
+            android:id="@+id/resourcesbutton"
             android:layout_width="60dp"
             android:layout_height="48dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Download"
+            android:contentDescription="Download resources"
             android:padding="8dp"
             android:src="@drawable/baseline_bookmark_24" />
+
+        <!--    <ImageButton-->
+        <!--        android:id="@+id/resourcesbutton"-->
+        <!--        android:layout_width="0dp"-->
+        <!--        android:layout_height="56dp"-->
+        <!--        android:layout_weight="1"-->
+        <!--        android:src="@drawable/ic_resources"-->
+        <!--        android:scaleType="centerInside"-->
+        <!--        android:contentDescription="Resources"-->
+        <!--        android:padding="8dp"-->
+        <!--        android:background="?attr/selectableItemBackgroundBorderless" />-->
     </RelativeLayout>
     <!-- Scrollable Content -->
     <ScrollView
@@ -392,7 +403,7 @@
     android:orientation="horizontal"
     android:background="#FFE0B2"
     android:layout_gravity="bottom"
-    android:weightSum="5">
+    android:weightSum="4">
 
     <ImageButton
         android:id="@+id/homebutton"
@@ -424,17 +435,6 @@
         android:src="@drawable/books"
         android:scaleType="centerInside"
         android:contentDescription="Bookings"
-        android:padding="8dp"
-        android:background="?attr/selectableItemBackgroundBorderless" />
-
-    <ImageButton
-        android:id="@+id/resourcesbutton"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_weight="1"
-        android:src="@drawable/ic_resources"
-        android:scaleType="centerInside"
-        android:contentDescription="Resources"
         android:padding="8dp"
         android:background="?attr/selectableItemBackgroundBorderless" />
 

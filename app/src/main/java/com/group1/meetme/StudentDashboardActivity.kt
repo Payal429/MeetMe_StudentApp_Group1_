@@ -28,8 +28,7 @@ class StudentDashboardActivity : AppCompatActivity() {
         val schedulebutton: ImageButton = findViewById(R.id.schedulebutton)
         val bookingsbutton: ImageButton = findViewById(R.id.bookingsbutton)
         val downloadResource: ImageButton = findViewById(R.id.downloadResources)
-        val settingsbutton: ImageButton = findViewById(R.id.settingsbutton)
-        val resourcebutton: ImageButton = findViewById(R.id.resourcesbutton)
+//        val resourcebutton: ImageButton = findViewById(R.id.resourcesbutton)
 
         schedulebutton.setOnClickListener(){
             val intent = Intent(this, BookAppointmentActivity::class.java)
@@ -45,17 +44,10 @@ class StudentDashboardActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        resourcebutton.setOnClickListener(){
-            val intent = Intent(this, MenuResourcesActivity::class.java)
-            startActivity(intent)
-        }
-
-        settingsbutton.setOnClickListener(){
-
-        }
-
-
-
+//        resourcebutton.setOnClickListener(){
+//            val intent = Intent(this, MenuResourcesActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     override fun onBackPressed() {
