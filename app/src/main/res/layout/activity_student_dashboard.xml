@@ -53,6 +53,7 @@
         <!--        android:padding="8dp"-->
         <!--        android:background="?attr/selectableItemBackgroundBorderless" />-->
     </RelativeLayout>
+
     <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"

@@ -37,7 +37,7 @@ class UploadResourcesActivity : AppCompatActivity() {
         btnUpload = findViewById(R.id.btnUpload)
         uploadFileText = findViewById(R.id.uploadFileText)
         paperclipIcon = findViewById(R.id.paperclipIcon)
-        backButton = findViewById(R.id.back)
+        backButton = findViewById(R.id.backArrow)
 
         setupDropdowns()
 

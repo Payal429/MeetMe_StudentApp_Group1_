@@ -23,7 +23,7 @@ class DownloadResourcesActivity : AppCompatActivity() {
 
         moduleDropdown = findViewById(R.id.moduleDropdown)
         resourcesContainer = findViewById(R.id.resourcesContainer)
-        backButton = findViewById(R.id.back) //
+        backButton = findViewById(R.id.backArrow) //
 
         backButton.setOnClickListener {
             val intent = Intent(this, MenuResourcesActivity::class.java)
