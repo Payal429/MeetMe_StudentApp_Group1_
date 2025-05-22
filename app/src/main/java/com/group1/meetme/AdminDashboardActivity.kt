@@ -10,6 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
+
+// This activity represents the Admin Dashboard.
+// It provides buttons for adding new students, adding new lecturers, managing users, and accessing reports and analytics.
+// The activity also handles the back button press to prompt the admin for confirmation before logging out.
+
 class AdminDashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +66,9 @@ class AdminDashboardActivity : AppCompatActivity() {
 
     }
 
+    // Override the back button press to prompt the admin for confirmation before logging out.
     override fun onBackPressed() {
+        // Create an AlertDialog to confirm the logout action.
         val alertDialog = AlertDialog.Builder(this).create()
         alertDialog.setTitle("Logout")
         alertDialog.setMessage("Are you sure you want to Logout?")
