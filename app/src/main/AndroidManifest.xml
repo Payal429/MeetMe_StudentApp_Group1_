@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<manifest xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:tools="http://schemas.android.com/tools">-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        package="com.group1.meetme">
-    <!--Added the package -->
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.group1.meetme">
 
-    <!-- Pushy Permissions -->
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -14,10 +11,10 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
-    <!--tools:replace="android:fullBackupContent" Added-->
     <application
-        android:name=".MyApp"
+        android:name=".CloudinaryConnect"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -28,96 +25,54 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetMe"
         tools:targetApi="31">
-        <activity
-            android:name=".upload_resources"
-            android:exported="false" />
-        <activity
-            android:name=".download_resources"
-            android:exported="false" />
-        <activity
-            android:name=".lecturer_review"
-            android:exported="false" />
-        <activity
-            android:name=".CancelAppointmentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RescheduleActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AppointmentsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ScheduleAvailabilityActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BookAppointmentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LecturerDashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".StudentDashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ChangePasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddUserActivity"
+
+        <!-- Activities -->
+        <activity android:name=".MenuResourcesActivity" android:exported="false"/>
+        <activity android:name=".UploadResourcesActivity" android:exported="false" />
+        <activity android:name=".DownloadResourcesActivity" android:exported="false" />
+        <activity android:name=".lecturer_review" android:exported="false" />
+        <activity android:name=".CancelAppointmentActivity" android:exported="false" />
+        <activity android:name=".RescheduleActivity" android:exported="false" />
+        <activity android:name=".AppointmentsActivity" android:exported="false" />
+        <activity android:name=".ScheduleAvailabilityActivity" android:exported="false" />
+        <activity android:name=".BookAppointmentActivity" android:exported="false" />
+        <activity android:name=".LecturerDashboardActivity" android:exported="false" />
+        <activity android:name=".GetStartedActivity" android:exported="false" />
+        <activity android:name=".ChangePasswordActivity" android:exported="false" />
+        <activity android:name=".AddUserActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".AdminDashboardActivity" android:exported="false" />
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".MainActivity" android:exported="false" />
         <activity
-            android:name=".AdminDashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".GetStartedActivity"
+            android:name="."
             android:exported="true"
             android:theme="@style/splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".ReminderReceiver" /> <!-- Pushy Declarations -->
-        <!-- Pushy Notification Receiver -->
-        <!-- Incoming push notifications will invoke the following BroadcastReceiver -->
-        <receiver
-            android:name=".PushReceiver"
-            android:exported="false">
+        <!-- Receivers and Services -->
+        <receiver android:name=".ReminderReceiver" />
+        <receiver android:name=".PushReceiver" android:exported="false">
             <intent-filter>
-
-                <!-- Do not modify this -->
                 <action android:name="pushy.me" />
             </intent-filter>
-        </receiver> <!-- Pushy Update Receiver -->
-        <!-- Do not modify - internal BroadcastReceiver that restarts the listener service -->
-        <receiver
-            android:name="me.pushy.sdk.receivers.PushyUpdateReceiver"
-            android:exported="false">
+        </receiver>
+        <receiver android:name="me.pushy.sdk.receivers.PushyUpdateReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
-        </receiver> <!-- Pushy Boot Receiver -->
-        <!-- Do not modify - internal BroadcastReceiver that restarts the listener service -->
-        <receiver
-            android:name="me.pushy.sdk.receivers.PushyBootReceiver"
-            android:exported="false">
+        </receiver>
+        <receiver android:name="me.pushy.sdk.receivers.PushyBootReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver> <!-- Pushy Socket Service -->
-        <!-- Do not modify - internal service -->
-        <service
-            android:name="me.pushy.sdk.services.PushySocketService"
-            android:stopWithTask="false" /> <!-- Pushy Job Service (added in Pushy SDK 1.0.35) -->
-        <!-- Do not modify - internal service -->
+        </receiver>
+        <service android:name="me.pushy.sdk.services.PushySocketService" android:stopWithTask="false" />
         <service
             android:name="me.pushy.sdk.services.PushyJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
