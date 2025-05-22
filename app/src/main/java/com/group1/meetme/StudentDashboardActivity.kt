@@ -40,7 +40,7 @@ class StudentDashboardActivity : AppCompatActivity() {
             startActivity(intent)
         }
         resourcebutton.setOnClickListener(){
-            val intent = Intent(this, MenuResourcesActivity::class.java)
+            val intent = Intent(this, DownloadResourcesActivity::class.java)
             startActivity(intent)
         }
 

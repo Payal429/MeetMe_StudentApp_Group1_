@@ -11,8 +11,6 @@ class MenuResourcesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_resources)
 
-
-
         // Reference to the Upload Resources card
         val uploadLayout = findViewById<LinearLayout>(R.id.uploadResourcesLayout)
 
