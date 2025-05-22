@@ -2,39 +2,37 @@ package com.group1.meetme
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.cloudinary.android.MediaManager
-import com.cloudinary.Search
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import org.json.JSONObject
 
-class download_resources : AppCompatActivity() {
+class DownloadResourcesActivity : AppCompatActivity() {
+
     private lateinit var moduleDropdown: MaterialAutoCompleteTextView
     private lateinit var resourcesContainer: LinearLayout
+    private lateinit var backButton: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_download_resources)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-            moduleDropdown = findViewById(R.id.moduleDropdown)
-            resourcesContainer = findViewById(R.id.resourcesContainer)
 
-            setupModuleDropdown()
+        moduleDropdown = findViewById(R.id.moduleDropdown)
+        resourcesContainer = findViewById(R.id.resourcesContainer)
+        backButton = findViewById(R.id.back) //
+
+        backButton.setOnClickListener {
+            val intent = Intent(this, MenuResourcesActivity::class.java)
+            startActivity(intent)
+        }
+
+        setupModuleDropdown()
     }
+
     private fun setupModuleDropdown() {
         val modules = listOf("Module A", "Module B", "Module C")
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, modules)
@@ -46,7 +44,6 @@ class download_resources : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun fetchResourcesForModule(module: String) {
         resourcesContainer.removeAllViews()
 

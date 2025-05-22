@@ -56,6 +56,8 @@ dependencies {
     //implementation ("com.google.android.material:material:1.9.0")
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
 
+    implementation ("com.cloudinary:cloudinary-android:2.3.1")
+
     // Pushy for push notifications
     implementation ("me.pushy:sdk:1.0.73")
 

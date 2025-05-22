@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".upload_resources">
+    tools:context=".UploadResourcesActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,27 +15,37 @@
         android:paddingBottom="72dp">
 
         <!-- Title -->
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_backarrow">
+        </ImageView>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
             android:text="Upload Resources"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp">
+
+        </TextView>
 
         <!-- Course Selection -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:text="Select Course"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -44,8 +53,8 @@
                 android:layout_height="wrap_content"
                 app:boxBackgroundColor="#FCA27E"
                 app:boxStrokeColor="#FCA27E"
-                app:endIconTint="@android:color/black"
-                app:hintTextColor="@android:color/white">
+                app:hintTextColor="@android:color/white"
+                app:endIconTint="@android:color/black">
 
                 <AutoCompleteTextView
                     android:id="@+id/courseDropdown"
@@ -53,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="none"
                     android:text="Select Course"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -61,15 +70,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:text="Select Module"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -77,8 +86,8 @@
                 android:layout_height="wrap_content"
                 app:boxBackgroundColor="#FCA27E"
                 app:boxStrokeColor="#FCA27E"
-                app:endIconTint="@android:color/black"
-                app:hintTextColor="@android:color/white">
+                app:hintTextColor="@android:color/white"
+                app:endIconTint="@android:color/black">
 
                 <AutoCompleteTextView
                     android:id="@+id/moduleDropdown"
@@ -86,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="none"
                     android:text="Select Module"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -101,18 +110,18 @@
                 android:id="@+id/uploadFileText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:text="Upload File"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
 
             <ImageView
                 android:id="@+id/paperclipIcon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_alignTop="@id/uploadFileText"
-                android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_paperclip"
-                app:tint="#000000" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/uploadFileText"
+                app:tint="#000000"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -125,28 +134,28 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
                     android:orientation="vertical"
+                    android:gravity="center"
                     android:padding="16dp">
 
                     <!-- Upload Icon (Now included as requested) -->
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:layout_marginBottom="16dp"
                         android:src="@drawable/ic_upload"
-                        app:tint="@android:color/black" />
+                        app:tint="@android:color/black"
+                        android:layout_marginBottom="16dp"/>
 
                     <Button
                         android:id="@+id/btnSelectFile"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@android:color/transparent"
                         android:text="Select File"
-                        android:textAllCaps="false"
                         android:textColor="@android:color/black"
-                        app:strokeColor="@android:color/black" />
+                        android:backgroundTint="@android:color/transparent"
+                        android:textAllCaps="false"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        app:strokeColor="@android:color/black"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </RelativeLayout>
@@ -154,27 +163,12 @@
         <!-- Upload Button -->
         <Button
             android:id="@+id/btnUpload"
-            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#a3386c"
             android:text="Upload Resource"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#a3386c"
             android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+            style="@style/Widget.MaterialComponents.Button"/>
     </LinearLayout>
-
-<!--    &lt;!&ndash; Bottom Navigation &ndash;&gt;-->
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/bottom_navigation"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="bottom"-->
-<!--        android:background="#FCA85B"-->
-<!--        app:elevation="8dp"-->
-<!--        app:itemIconTint="@drawable/bottom_nav_colors_orange"-->
-<!--        app:itemTextColor="@drawable/bottom_nav_colors_orange"-->
-<!--        app:labelVisibilityMode="labeled"-->
-<!--        app:menu="@menu/bottom_nav_menu" />-->
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
