@@ -377,17 +377,17 @@ class BookAppointmentActivity : AppCompatActivity() {
 
 
 
+//
+
     // Book a selected time slot.
     private fun bookSlot(time: String, idNum: String) {
         val date = selectedDate
         val selectedLecturerName = lecturerSpinner.selectedItem as String
         val moduleName = moduleNameTv.text.toString().trim()
 
-        val lecturerId = lecturerIdMap[selectedLecturerName] // Use this in your booking logic
+        val lecturerId = lecturerIdMap[selectedLecturerName] ?: return
 
-//        val moduleName =
-
-        val slotRef = database.child("availability").child(lecturerId!!).child(date).child(time)
+        val slotRef = database.child("availability").child(lecturerId).child(date).child(time)
 
         slotRef.runTransaction(object : Transaction.Handler {
             override fun doTransaction(currentData: MutableData): Transaction.Result {
@@ -402,16 +402,20 @@ class BookAppointmentActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onComplete(
-                error: DatabaseError?,
-                committed: Boolean,
-                snapshot: DataSnapshot?
-            ) {
+            override fun onComplete(error: DatabaseError?, committed: Boolean, snapshot: DataSnapshot?) {
                 if (committed) {
                     statusText.text = "Appointment booked for $time!"
                     loadAvailableSlots(idNum)
 
+                    // Generate a shared appointment ID
+                    val appointmentId = database.child("appointments").child(idNum).push().key
+                    if (appointmentId == null) {
+                        statusText.text = "Failed to generate appointment ID."
+                        return
+                    }
+
                     val appointment = mapOf(
+                        "id" to appointmentId,
                         "lecturerId" to lecturerId,
                         "date" to date,
                         "time" to time,
@@ -419,12 +423,8 @@ class BookAppointmentActivity : AppCompatActivity() {
                         "status" to "upcoming"
                     )
 
-                    val appointmentRef = database.child("appointments").child(idNum).push()
-                    appointmentRef.setValue(appointment)
-
-
-                    // Add an entry for the lecturer appointments
                     val appointmentLecturer = mapOf(
+                        "id" to appointmentId,
                         "studentID" to idNum,
                         "date" to date,
                         "time" to time,
@@ -432,9 +432,9 @@ class BookAppointmentActivity : AppCompatActivity() {
                         "status" to "upcoming"
                     )
 
-                    val appointmentRefLecturer =
-                        database.child("appointmentsLecturer").child(lecturerId).push()
-                    appointmentRefLecturer.setValue(appointmentLecturer)
+                    // Save under both student and lecturer with the same appointment ID
+                    database.child("appointments").child(idNum).child(appointmentId).setValue(appointment)
+                    database.child("appointmentsLecturer").child(lecturerId).child(appointmentId).setValue(appointmentLecturer)
 
                     // Send notification
                     database.child("tokens").child(lecturerId).get()

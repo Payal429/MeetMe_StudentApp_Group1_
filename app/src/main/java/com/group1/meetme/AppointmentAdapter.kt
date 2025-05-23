@@ -55,14 +55,24 @@ class AppointmentAdapter(
         val btn2 = view.findViewById<Button>(R.id.btnAction2)
 
         // Set info text based on user type
-        infoText.text = if (userRole == "Student") {
-            "Lecturer: ${appointment.lecturerId}\n" +
-                    "Date: ${appointment.date} ${appointment.time}\n" +
-                    "Module: ${appointment.module}"
+//        infoText.text =
+//            if (userRole == "Student") {
+//            "Lecturer: ${appointment.lecturerId}\n" +
+//                    "Date: ${appointment.date} ${appointment.time}\n" +
+//                    "Module: ${appointment.module}"
+//        } else {
+//            "Student: ${appointment.studentID}\n" +
+//                    "Date: ${appointment.date} ${appointment.time}\n" +
+//                    "Module: ${appointment.module}"
+//        }
+        if (userRole == "Student") {
+            fetchFullNameById(appointment.lecturerId ?: "", "Lecturer") { fullName ->
+                infoText.text = "Lecturer: $fullName\nDate: ${appointment.date} ${appointment.time}\nModule: ${appointment.module}"
+            }
         } else {
-            "Student: ${appointment.studentID}\n" +
-                    "Date: ${appointment.date} ${appointment.time}\n" +
-                    "Module: ${appointment.module}"
+            fetchFullNameById(appointment.studentID ?: "", "Student") { fullName ->
+                infoText.text = "Student: $fullName\nDate: ${appointment.date} ${appointment.time}\nModule: ${appointment.module}"
+            }
         }
 
         // Show/hide action buttons based on user type and appointment status
@@ -140,39 +150,32 @@ class AppointmentAdapter(
         }
 
 
-//        val reviewBlock = view.findViewById<LinearLayout>(R.id.reviewBlock)
-//        val ratingBar = view.findViewById<RatingBar>(R.id.reviewRatingBar)
-//        val commentText = view.findViewById<TextView>(R.id.reviewComment)
-////        val reviewButton = view.findViewById<Button>(R.id.btnAction2)
-//
-//        val reviewRef = FirebaseDatabase.getInstance().reference
-//            .child("reviews").child(appointment.id)
-//
-//        reviewRef.addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                if (snapshot.exists()) {
-//                    // Show review block
-//                    val rating = snapshot.child("rating").getValue(Float::class.java) ?: 0f
-//                    val comment = snapshot.child("comment").getValue(String::class.java) ?: ""
-//
-//                    ratingBar.rating = rating
-//                    commentText.text = if (comment.isNotEmpty()) comment else "No comment"
-//                    reviewBlock.visibility = View.VISIBLE
-//
-//                    // Hide the "Leave Review" button
-//                    btn2.visibility = View.GONE
-//                } else {
-//                    reviewBlock.visibility = View.GONE
-//                    btn2.visibility = View.VISIBLE
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                reviewBlock.visibility = View.GONE
-//                btn2.visibility = View.VISIBLE
-//            }
-//        })
+
         // Return the view for the current item.
         return view
     }
+
+    private fun fetchFullNameById(id: String, role: String, callback: (String) -> Unit) {
+        val ref = FirebaseDatabase.getInstance().reference
+            .child("users")
+            .child(role)
+            .child(id)
+
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val name = snapshot.child("name").getValue(String::class.java) ?: ""
+                    val surname = snapshot.child("surname").getValue(String::class.java) ?: ""
+                    callback("$name $surname")
+                } else {
+                    callback("Unknown $role")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback("Error loading name")
+            }
+        })
+    }
+
 }

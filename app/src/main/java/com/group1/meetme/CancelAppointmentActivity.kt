@@ -2,6 +2,7 @@ package com.group1.meetme
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -82,7 +83,88 @@ class CancelAppointmentActivity : AppCompatActivity() {
 //            }
 //    }
 
-    // Function to cancel an appointment.
+//    // Function to cancel an appointment.
+//    private fun cancelAppointment(reason: String) {
+//        val db = FirebaseDatabase.getInstance().reference
+//
+//        // Step 1: Get the full appointment data for the student
+//        db.child("appointments").child(studentId).child(appointmentId)
+//            .addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    val appointment = snapshot.getValue(Appointment::class.java)
+//                    if (appointment != null) {
+//                        val lecturerId = appointment.lecturerId ?: return
+//                        val date = appointment.date
+//                        val time = appointment.time
+//
+//                        // Step 2: Update the student's appointment
+//                        val updates = mapOf(
+//                            "status" to "cancelled",
+//                            "cancellationReason" to reason
+//                        )
+//                        db.child("appointments").child(studentId).child(appointmentId)
+//                            .updateChildren(updates)
+//
+//                        // Step 3: Find the matching appointment under appointmentsLecturer
+//                        db.child("appointmentsLecturer").child(lecturerId)
+//                            .addListenerForSingleValueEvent(object : ValueEventListener {
+//                                override fun onDataChange(lecturerSnapshot: DataSnapshot) {
+//                                    for (lecturerAppSnap in lecturerSnapshot.children) {
+//                                        val lecApp =
+//                                            lecturerAppSnap.getValue(AppointmentLecturer::class.java)
+//                                        val lecKey = lecturerAppSnap.key ?: continue
+//
+//                                        // Match by date, time, and studentID
+//                                        if (lecApp?.date == date &&
+//                                            lecApp.time == time &&
+//                                            lecApp.studentId == studentId
+//                                        ) {
+//                                            db.child("appointmentsLecturer")
+//                                                .child(lecturerId)
+//                                                .child(lecKey)
+//                                                .updateChildren(updates)
+//                                            break
+//                                        }
+//                                    }
+//
+//                                    // Show a success message and finish the activity.
+//                                    Toast.makeText(
+//                                        this@CancelAppointmentActivity,
+//                                        "Appointment cancelled",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                    finish()
+//                                }
+//
+//                                override fun onCancelled(error: DatabaseError) {
+//                                    Toast.makeText(
+//                                        // Show an error message if the operation is cancelled.
+//                                        this@CancelAppointmentActivity,
+//                                        "Error updating lecturer view",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                }
+//                            })
+//                    } else {
+//                        // Show an error message if the appointment is not found.
+//                        Toast.makeText(
+//                            this@CancelAppointmentActivity,
+//                            "Appointment not found",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                }
+//                // Show an error message if the operation is cancelled.
+//                override fun onCancelled(error: DatabaseError) {
+//                    Toast.makeText(
+//                        this@CancelAppointmentActivity,
+//                        "Error accessing appointment",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            })
+//    }
+
     private fun cancelAppointment(reason: String) {
         val db = FirebaseDatabase.getInstance().reference
 
@@ -93,59 +175,34 @@ class CancelAppointmentActivity : AppCompatActivity() {
                     val appointment = snapshot.getValue(Appointment::class.java)
                     if (appointment != null) {
                         val lecturerId = appointment.lecturerId ?: return
-                        val date = appointment.date
-                        val time = appointment.time
 
-                        // Step 2: Update the student's appointment
+                        // Step 2: Create update map
                         val updates = mapOf(
                             "status" to "cancelled",
                             "cancellationReason" to reason
                         )
+
+                        Log.d("Cancel Student ID", studentId)
+                        Log.d("Cancel Lecturer ID", lecturerId)
+                        Log.d("Cancel Appointment ID", appointmentId)
+
+
+                        // Step 3: Update student appointment
                         db.child("appointments").child(studentId).child(appointmentId)
                             .updateChildren(updates)
 
-                        // Step 3: Find the matching appointment under appointmentsLecturer
-                        db.child("appointmentsLecturer").child(lecturerId)
-                            .addListenerForSingleValueEvent(object : ValueEventListener {
-                                override fun onDataChange(lecturerSnapshot: DataSnapshot) {
-                                    for (lecturerAppSnap in lecturerSnapshot.children) {
-                                        val lecApp =
-                                            lecturerAppSnap.getValue(AppointmentLecturer::class.java)
-                                        val lecKey = lecturerAppSnap.key ?: continue
+                        // Step 4: Update lecturer appointment using same ID
+                        db.child("appointmentsLecturer").child(lecturerId).child(appointmentId)
+                            .updateChildren(updates)
 
-                                        // Match by date, time, and studentID
-                                        if (lecApp?.date == date &&
-                                            lecApp.time == time &&
-                                            lecApp.studentId == studentId
-                                        ) {
-                                            db.child("appointmentsLecturer")
-                                                .child(lecturerId)
-                                                .child(lecKey)
-                                                .updateChildren(updates)
-                                            break
-                                        }
-                                    }
-
-                                    // Show a success message and finish the activity.
-                                    Toast.makeText(
-                                        this@CancelAppointmentActivity,
-                                        "Appointment cancelled",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    finish()
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                    Toast.makeText(
-                                        // Show an error message if the operation is cancelled.
-                                        this@CancelAppointmentActivity,
-                                        "Error updating lecturer view",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            })
+                        // Success message
+                        Toast.makeText(
+                            this@CancelAppointmentActivity,
+                            "Appointment cancelled",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        finish()
                     } else {
-                        // Show an error message if the appointment is not found.
                         Toast.makeText(
                             this@CancelAppointmentActivity,
                             "Appointment not found",
@@ -153,7 +210,7 @@ class CancelAppointmentActivity : AppCompatActivity() {
                         ).show()
                     }
                 }
-                // Show an error message if the operation is cancelled.
+
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(
                         this@CancelAppointmentActivity,
@@ -163,4 +220,5 @@ class CancelAppointmentActivity : AppCompatActivity() {
                 }
             })
     }
+
 }
