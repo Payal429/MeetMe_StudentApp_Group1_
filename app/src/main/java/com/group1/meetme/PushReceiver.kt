@@ -22,7 +22,7 @@ class PushReceiver : BroadcastReceiver() {
 
         // Prepare a notification with vibration, sound and lights
         val builder = NotificationCompat.Builder(context)
-            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setSmallIcon(R.drawable.app_logo_icon)
             .setContentTitle(notificationTitle)
             .setContentText(notificationText)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

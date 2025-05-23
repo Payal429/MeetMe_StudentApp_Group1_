@@ -2,31 +2,31 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.group1.meetme">
-
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <!--  This is for Cloudinary  -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" /> <!-- This is for Cloudinary -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        tools:replace="android:fullBackupContent"
         android:icon="@mipmap/app_logo_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/app_logo_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetMe"
+        tools:replace="android:fullBackupContent"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ManageUsersActivity"
+            android:exported="false" />
         <!-- Activities -->
         <activity
             android:name=".CancelAppointmentActivity"
@@ -48,7 +48,7 @@
             android:exported="false" />
         <activity
             android:name=".StudentDashboardActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ChangePasswordActivity"
             android:exported="false" />
@@ -68,57 +68,49 @@
         <activity
             android:name=".lecturer_review"
             android:exported="false" />
-
         <activity
             android:name=".MenuResourcesActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".UploadResourcesActivity"
             android:exported="false" />
         <activity
             android:name=".DownloadResourcesActivity"
             android:exported="false" />
-
         <activity
             android:name=".AccountSettingsActivity"
             android:exported="false" />
-
         <activity
             android:name=".AppSettingsActivity"
             android:exported="false" />
-
         <activity
             android:name=".ProfileSettingsActivity"
             android:exported="false" />
-
         <activity
             android:name=".SettingsActivity"
             android:exported="false" />
-
         <activity
             android:name=".GetStartedActivity"
             android:exported="true"
             android:theme="@style/splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Receivers and Services -->
+        </activity> <!-- Receivers and Services -->
         <!-- Pushy Declarations -->
-        <receiver android:name=".ReminderReceiver" />
-        <!-- Pushy Notification Receiver -->
+        <receiver android:name=".ReminderReceiver" /> <!-- Pushy Notification Receiver -->
         <!-- Incoming push notifications will invoke the following BroadcastReceiver -->
         <receiver
             android:name=".PushReceiver"
             android:exported="false">
             <intent-filter>
+
                 <!-- Do not modify this -->
                 <action android:name="pushy.me" />
             </intent-filter>
         </receiver> <!-- Pushy Update Receiver -->
-
         <!-- Do not modify - internal BroadcastReceiver that restarts the listener service -->
         <receiver
             android:name="me.pushy.sdk.receivers.PushyUpdateReceiver"
@@ -127,8 +119,6 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver> <!-- Pushy Boot Receiver -->
-
-
         <!-- Do not modify - internal BroadcastReceiver that restarts the listener service -->
         <receiver
             android:name="me.pushy.sdk.receivers.PushyBootReceiver"
@@ -147,4 +137,5 @@
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:stopWithTask="false" />
     </application>
+
 </manifest>

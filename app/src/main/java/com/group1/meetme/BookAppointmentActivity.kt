@@ -467,7 +467,7 @@ class BookAppointmentActivity : AppCompatActivity() {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         val appointmentDate = sdf.parse("$date $time") ?: return
 
-        val reminderTimeMillis = appointmentDate.time - (2 * 60 * 60 * 1000)
+        val reminderTimeMillis = appointmentDate.time - (24 * 60 * 60 * 1000)
         if (reminderTimeMillis < System.currentTimeMillis()) return
 
         val intent = Intent(this, ReminderReceiver::class.java).apply {

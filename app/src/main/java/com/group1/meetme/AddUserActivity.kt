@@ -46,8 +46,9 @@ class AddUserActivity : AppCompatActivity() {
         val backArrow: ImageButton = findViewById(R.id.backArrow)
         // Set a click listener for the back arrow button to navigate back to the dashboard.
         backArrow.setOnClickListener(){
-            val intent = Intent(this, StudentDashboardActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, StudentDashboardActivity::class.java)
+//            startActivity(intent)
+            finish()
         }
 //        val employeeId = binding.loginScreenEditEmpNumPlainText.text.toString()
 //        val password = binding.loginScreenEditPasswordPlainText.text.toString()

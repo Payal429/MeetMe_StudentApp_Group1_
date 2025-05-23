@@ -50,12 +50,12 @@ class AdminDashboardActivity : AppCompatActivity() {
             intent.putExtra("userType", lecturer);
             startActivity(intent)
         }
-//        // Set an OnClickListener for the "Manage Users" button
-//        manageUsersButton.setOnClickListener {
-//            // Navigate to ManageUsersActivity
-//            val intent = Intent(this, mange_users::class.java)
-//            startActivity(intent)
-//        }
+        // Set an OnClickListener for the "Manage Users" button
+        manageUsersButton.setOnClickListener {
+            // Navigate to ManageUsersActivity
+            val intent = Intent(this, ManageUsersActivity::class.java)
+            startActivity(intent)
+        }
 //
 //        // Set an OnClickListener for the "Reports and Analytics" button
 //        reportsAnalyticsButton.setOnClickListener {

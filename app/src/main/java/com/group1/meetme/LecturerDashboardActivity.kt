@@ -46,6 +46,7 @@ class LecturerDashboardActivity : AppCompatActivity() {
         val uploadResources: ImageButton = findViewById(R.id.uploadResources)
         val settingsbutton: ImageButton = findViewById(R.id.settingsbutton)
 
+
         // Enable offline persistence for Firebase Database.
         Firebase.database.setPersistenceEnabled(true)
 

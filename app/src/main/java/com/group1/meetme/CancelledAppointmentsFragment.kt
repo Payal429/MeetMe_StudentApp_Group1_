@@ -47,11 +47,6 @@ class CancelledAppointmentsFragment : Fragment() {
         listView = view.findViewById(R.id.appointmentsListView)
         database = FirebaseDatabase.getInstance().reference
 
-//        // Get user ID and role from SharedPreferences
-//        val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-//        userId = sharedPreferences.getString("ID_NUM", null)
-//        userType = sharedPreferences.getString("USER_TYPE", null)
-
         super.onCreate(savedInstanceState)
         // Get user ID and role from the arguments passed to the fragment.
         userId = arguments?.getString("USER_ID")
@@ -78,31 +73,6 @@ class CancelledAppointmentsFragment : Fragment() {
 
         return view
     }
-
-//    private fun loadCancelledAppointments() {
-//        database.child("appointments").child(userId!!)
-//            .addListenerForSingleValueEvent(object : ValueEventListener {
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    appointments.clear()
-//
-//                    for (snap in snapshot.children) {
-//                        val appointment = snap.getValue(Appointment::class.java)
-//                        val key = snap.key ?: continue
-//                        appointment?.id = key
-//
-//                        if (appointment != null && appointment.status == "cancelled") {
-//                            appointments.add(appointment)
-//                        }
-//                    }
-//
-//                    adapter.notifyDataSetChanged()
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    Log.e("CancelledAppointments", "Error loading appointments: ${error.message}")
-//                }
-//            })
-//    }
 
     // Function to load cancelled appointments based on user type.
     private fun loadCancelledAppointments() {

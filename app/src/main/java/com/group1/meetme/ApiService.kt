@@ -49,6 +49,9 @@ interface ApiService {
     @POST("get-usertype")
     fun getUserType(@Body request: GetUser): Call<UserTypeResponse>
 
+    @POST("resend-otp")
+    fun resendOtp(@Body body: Map<String, String>): Call<Map<String, String>>
+
 
 
 //    // Endpoint for OTP login (first-time login with OTP)

@@ -75,6 +75,20 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/noAppointmentsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_background"
+                android:text="No upcoming appointments currently."
+                android:gravity="center"
+                android:visibility="gone"
+                android:textSize="18sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="16dp" />
+
+
 
             <!-- Appointments -->
 
@@ -99,6 +113,18 @@
                 android:text="Previous Appointments"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
+            <TextView
+                android:id="@+id/noAppointmentsTextPrevious"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_background"
+                android:text="No previous appointments currently."
+                android:gravity="center"
+                android:visibility="gone"
+                android:textSize="18sp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:padding="16dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/appointmentsRecyclerViewPrevious"

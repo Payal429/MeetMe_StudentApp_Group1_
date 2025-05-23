@@ -30,7 +30,7 @@ object NotificationHelper {
         // Build the notification.
         val builder = NotificationCompat.Builder(context, channelId)
             // Set the small icon for the notification.
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setSmallIcon(R.drawable.app_logo_icon)
             // Set the title of the notification.
             .setContentTitle(title)
             // Set the content text of the notification.
