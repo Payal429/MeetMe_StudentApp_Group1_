@@ -70,28 +70,77 @@ class CancelledAppointmentsFragment : Fragment() {
         return view
     }
 
+//    private fun loadCancelledAppointments() {
+//        database.child("appointments").child(userId!!)
+//            .addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    appointments.clear()
+//
+//                    for (snap in snapshot.children) {
+//                        val appointment = snap.getValue(Appointment::class.java)
+//                        val key = snap.key ?: continue
+//                        appointment?.id = key
+//
+//                        if (appointment != null && appointment.status == "cancelled") {
+//                            appointments.add(appointment)
+//                        }
+//                    }
+//
+//                    adapter.notifyDataSetChanged()
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                    Log.e("CancelledAppointments", "Error loading appointments: ${error.message}")
+//                }
+//            })
+//    }
+
     private fun loadCancelledAppointments() {
-        database.child("appointments").child(userId!!)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    appointments.clear()
+        if (userType == "Lecturer") {
+            // Load cancelled appointments for lecturers
+            database.child("appointmentsLecturer").child(userId!!)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        appointments.clear()
+                        for (snap in snapshot.children) {
+                            val appointment = snap.getValue(Appointment::class.java)
+                            val key = snap.key ?: continue
+                            appointment?.id = key
 
-                    for (snap in snapshot.children) {
-                        val appointment = snap.getValue(Appointment::class.java)
-                        val key = snap.key ?: continue
-                        appointment?.id = key
-
-                        if (appointment != null && appointment.status == "cancelled") {
-                            appointments.add(appointment)
+                            if (appointment != null && appointment.status == "cancelled") {
+                                appointments.add(appointment)
+                            }
                         }
+                        adapter.notifyDataSetChanged()
                     }
 
-                    adapter.notifyDataSetChanged()
-                }
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e("CancelledAppointments", "Lecturer error: ${error.message}")
+                    }
+                })
+        } else {
+            // Load cancelled appointments for students
+            database.child("appointments").child(userId!!)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        appointments.clear()
+                        for (snap in snapshot.children) {
+                            val appointment = snap.getValue(Appointment::class.java)
+                            val key = snap.key ?: continue
+                            appointment?.id = key
 
-                override fun onCancelled(error: DatabaseError) {
-                    Log.e("CancelledAppointments", "Error loading appointments: ${error.message}")
-                }
-            })
+                            if (appointment != null && appointment.status == "cancelled") {
+                                appointments.add(appointment)
+                            }
+                        }
+                        adapter.notifyDataSetChanged()
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e("CancelledAppointments", "Student error: ${error.message}")
+                    }
+                })
+        }
     }
+
 }

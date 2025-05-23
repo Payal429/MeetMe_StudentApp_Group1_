@@ -1,4 +1,9 @@
 package com.group1.meetme
 
-class Review {
-}
+data class Review(
+    val appointmentId: String = "",
+    val studentId: String = "",
+    val lecturerId: String = "",
+    val rating: Float = 0f,
+    val comment: String = ""
+)

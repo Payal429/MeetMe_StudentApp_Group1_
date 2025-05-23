@@ -15,6 +15,18 @@ data class Appointment(
     var date: String = "",
     var time: String = "",
     var lecturerId: String = "",
+    var studentID: String = "",
+    var module: String = "",
+    var status: String = "",
+    var cancellationReason: String = ""
+)
+
+data class AppointmentLecturer(
+    var id: String = "",
+    var date: String = "",
+    var time: String = "",
+    var lecturerId: String = "",
+    var studentId: String = "",
     var module: String = "",
     var status: String = "",
     var cancellationReason: String = ""
