@@ -69,7 +69,6 @@
             android:name=".lecturer_review"
             android:exported="false" />
 
-
         <activity
             android:name=".MenuResourcesActivity"
             android:exported="false"/>
