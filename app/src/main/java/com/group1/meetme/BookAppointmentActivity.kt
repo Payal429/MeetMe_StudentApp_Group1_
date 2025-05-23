@@ -46,22 +46,27 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+// Activity for booking appointments.
 class BookAppointmentActivity : AppCompatActivity() {
 
+    // Variables for managing the calendar and date selection.
     private lateinit var holidayDates: List<Calendar>
     private lateinit var calendarView: CalendarView
     private lateinit var dateTextView: TextView
 
+    // Firebase database reference.
     private lateinit var database: DatabaseReference
     private lateinit var listView: ListView
     private lateinit var statusText: TextView
     private lateinit var moduleNameTv: EditText
     private lateinit var loadButton: Button
 
+    // List to store available times for booking.
     private var selectedDate: String = getTodayDate()
     private val availableTimes = mutableListOf<String>()
     private lateinit var adapter: ArrayAdapter<String>
 
+    // Spinner for selecting lecturers.
     private lateinit var lecturerSpinner: Spinner
     private val lecturerNames = mutableListOf<String>()
     private val lecturerIdMap = mutableMapOf<String, String>() // name -> id
@@ -80,15 +85,17 @@ class BookAppointmentActivity : AppCompatActivity() {
         // Return back to the dashboard
         val backArrow: ImageButton = findViewById(R.id.backArrow)
 
-        backArrow.setOnClickListener(){
+        // Find the back arrow button and set an OnClickListener to navigate back to the dashboard.
+        backArrow.setOnClickListener() {
             val intent = Intent(this, StudentDashboardActivity::class.java)
             startActivity(intent)
         }
 
-        // get the idnum of the user from the login
+        // Get the user's ID number from SharedPreferences.
         val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
         val idNum = sharedPreferences.getString("ID_NUM", null)
 
+        // Initialize views.
         dateTextView = findViewById(R.id.dateTextView)
         calendarView = findViewById(R.id.calendarView)
 
@@ -99,9 +106,11 @@ class BookAppointmentActivity : AppCompatActivity() {
 
         loadButton = findViewById<Button>(R.id.loadSlotsButton)
 
+        // Initialize the adapter for the list of available times.
         adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, availableTimes)
         listView.adapter = adapter
 
+        // Initialize the lecturer spinner.
         lecturerSpinner = findViewById(R.id.lecturerSpinner)
         loadLecturers()
 
@@ -240,8 +249,8 @@ class BookAppointmentActivity : AppCompatActivity() {
         calendarView.setEvents(events)
 
         // Set the calendar to show holidays and disable them
-//        for (holiday in holidayDates) {
-        //     calendarView.setDisabledDays(holidayDates)
+        // for (holiday in holidayDates) {
+        // calendarView.setDisabledDays(holidayDates)
 
         // Generate list of past days from today back to a specific limit (e.g., 2 years)
         val today = Calendar.getInstance()
@@ -257,10 +266,9 @@ class BookAppointmentActivity : AppCompatActivity() {
             dateIterator.add(Calendar.DAY_OF_MONTH, 1)
         }
 
-// Combine holidays and past dates
+        // Combine holidays and past dates
         val disabledDays = pastDates + holidayDates
         calendarView.setDisabledDays(disabledDays)
-
 
         // Show calendar when TextView is clicked
         dateTextView.setOnClickListener {
@@ -268,31 +276,38 @@ class BookAppointmentActivity : AppCompatActivity() {
         }
 
         // Handle date selection from calendar
-//        calendarView.setOnDayClickListener(object : OnDayClickListener {
-//            override fun onDayClick(eventDay: EventDay) {
-//                val selectedDate = eventDay.calendar
-//
-//                if (isHoliday(selectedDate)) {
-//                    Toast.makeText(this@BookAppointmentActivity, "This day is a holiday and cannot be booked!", Toast.LENGTH_SHORT).show()
-//                } else {
-//                    // Format the selected date and set it to the TextView
-//                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-//                    val formattedDate = dateFormat.format(selectedDate.time)
-//
-//                    dateTextView.text = formattedDate
-//                    calendarView.visibility = View.GONE // Hide the calendar once a date is selected
-//                }
-//            }
-//        })
+        //        calendarView.setOnDayClickListener(object : OnDayClickListener {
+        //            override fun onDayClick(eventDay: EventDay) {
+        //                val selectedDate = eventDay.calendar
+        //
+        //                if (isHoliday(selectedDate)) {
+        //                    Toast.makeText(this@BookAppointmentActivity, "This day is a holiday and cannot be booked!", Toast.LENGTH_SHORT).show()
+        //                } else {
+        //                    // Format the selected date and set it to the TextView
+        //                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        //                    val formattedDate = dateFormat.format(selectedDate.time)
+        //
+        //                    dateTextView.text = formattedDate
+        //                    calendarView.visibility = View.GONE // Hide the calendar once a date is selected
+        //                }
+        //            }
+        //        })
+
+        // Handle date selection from the calendar.
         calendarView.setOnDayClickListener(object : OnDayClickListener {
             override fun onDayClick(eventDay: EventDay) {
                 val selectedCal = eventDay.calendar
 
                 if (isHoliday(selectedCal)) {
-                    Toast.makeText(this@BookAppointmentActivity, "This day is a holiday and cannot be booked!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@BookAppointmentActivity,
+                        "This day is a holiday and cannot be booked!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                    selectedDate = dateFormat.format(selectedCal.time) // ✅ Fix: update class variable
+                    selectedDate =
+                        dateFormat.format(selectedCal.time) // ✅ Fix: update class variable
 
                     Log.d("date", selectedDate)
                     dateTextView.text = selectedDate
@@ -301,11 +316,12 @@ class BookAppointmentActivity : AppCompatActivity() {
             }
         })
 
-
+        // Load available slots when the load button is clicked.
         loadButton.setOnClickListener {
             loadAvailableSlots(idNum!!)
         }
 
+        // Handle item selection from the list of available times.
         listView.setOnItemClickListener { _, _, position, _ ->
             val selectedTime = availableTimes[position]
             bookSlot(selectedTime, idNum!!)
@@ -321,6 +337,7 @@ class BookAppointmentActivity : AppCompatActivity() {
         }
     }
 
+    // Load lecturers' names and IDs from the database.
     private fun loadLecturers() {
         val lecturersRef = FirebaseDatabase.getInstance().reference.child("users").child("Lecturer")
 
@@ -338,23 +355,31 @@ class BookAppointmentActivity : AppCompatActivity() {
                     }
                 }
 
-                val adapter = ArrayAdapter(this@BookAppointmentActivity, android.R.layout.simple_spinner_item, lecturerNames)
+                val adapter = ArrayAdapter(
+                    this@BookAppointmentActivity,
+                    android.R.layout.simple_spinner_item,
+                    lecturerNames
+                )
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 lecturerSpinner.adapter = adapter
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@BookAppointmentActivity, "Failed to load lecturers", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@BookAppointmentActivity,
+                    "Failed to load lecturers",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
 
-
-
+    // Get the current date in "yyyy-MM-dd" format.
     private fun getTodayDate(): String {
         return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
     }
 
+    // Load available time slots for the selected date and lecturer.
     private fun loadAvailableSlots(idNum: String) {
         val date = selectedDate
 
@@ -397,7 +422,7 @@ class BookAppointmentActivity : AppCompatActivity() {
         })
     }
 
-
+    // Book a selected time slot.
     private fun bookSlot(time: String, idNum: String) {
         val date = selectedDate
         val selectedLecturerName = lecturerSpinner.selectedItem as String
@@ -422,7 +447,11 @@ class BookAppointmentActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onComplete(error: DatabaseError?, committed: Boolean, snapshot: DataSnapshot?) {
+            override fun onComplete(
+                error: DatabaseError?,
+                committed: Boolean,
+                snapshot: DataSnapshot?
+            ) {
                 if (committed) {
                     statusText.text = "Appointment booked for $time!"
                     loadAvailableSlots(idNum)
@@ -448,23 +477,25 @@ class BookAppointmentActivity : AppCompatActivity() {
                         "status" to "upcoming"
                     )
 
-                    val appointmentRefLecturer = database.child("appointmentsLecturer").child(lecturerId).push()
+                    val appointmentRefLecturer =
+                        database.child("appointmentsLecturer").child(lecturerId).push()
                     appointmentRefLecturer.setValue(appointmentLecturer)
 
                     // Send notification
-                    database.child("tokens").child(lecturerId).get().addOnSuccessListener { tokenSnapshot ->
-                        val token = tokenSnapshot.getValue(String::class.java)
-                        if (token != null) {
-                            sendPushyNotification(
-                                token,
-                                "New Appointment Booked",
-                                "Student $idNum booked a slot at $time on $date"
-                            )
+                    database.child("tokens").child(lecturerId).get()
+                        .addOnSuccessListener { tokenSnapshot ->
+                            val token = tokenSnapshot.getValue(String::class.java)
+                            if (token != null) {
+                                sendPushyNotification(
+                                    token,
+                                    "New Appointment Booked",
+                                    "Student $idNum booked a slot at $time on $date"
+                                )
 
-                            // Schedule reminder
-                            scheduleReminder(date, time, token)
+                                // Schedule reminder
+                                scheduleReminder(date, time, token)
+                            }
                         }
-                    }
                 } else {
                     statusText.text = "Timeslot already booked."
                 }
@@ -472,6 +503,7 @@ class BookAppointmentActivity : AppCompatActivity() {
         })
     }
 
+    // Schedule a reminder for the booked appointment.
     private fun scheduleReminder(date: String, time: String, lecturerToken: String) {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         val appointmentDate = sdf.parse("$date $time") ?: return
@@ -492,19 +524,33 @@ class BookAppointmentActivity : AppCompatActivity() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        // Used an Alarm Manager
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (alarmManager.canScheduleExactAlarms()) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderTimeMillis, pendingIntent)
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    reminderTimeMillis,
+                    pendingIntent
+                )
             } else {
                 startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM))
-                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderTimeMillis, pendingIntent)
+                alarmManager.setAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    reminderTimeMillis,
+                    pendingIntent
+                )
             }
         } else {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderTimeMillis, pendingIntent)
+            alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                reminderTimeMillis,
+                pendingIntent
+            )
         }
     }
 
+    // Send a push notification using Pushy.
     fun sendPushyNotification(deviceToken: String, title: String, message: String) {
         val client = OkHttpClient()
 

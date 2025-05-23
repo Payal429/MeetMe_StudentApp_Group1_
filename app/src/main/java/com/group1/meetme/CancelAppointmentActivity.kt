@@ -17,12 +17,15 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
+// Activity for canceling appointments.
 class CancelAppointmentActivity : AppCompatActivity() {
 
+    // UI components.
     private lateinit var reasonGroup: RadioGroup
     private lateinit var otherReasonInput: EditText
     private lateinit var confirmButton: Button
 
+    // Data passed from the previous activity.
     private lateinit var appointmentId: String
     private lateinit var studentId: String
 
@@ -30,26 +33,33 @@ class CancelAppointmentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cancel_appointment)
 
+        // Initialize UI components.
         reasonGroup = findViewById(R.id.reasonGroup)
         otherReasonInput = findViewById(R.id.otherReasonInput)
         confirmButton = findViewById(R.id.confirmCancelButton)
 
+        // Retrieve the appointment ID and student ID from the intent.
         appointmentId = intent.getStringExtra("appointmentId")!!
         studentId = intent.getStringExtra("studentId")!!
 
+        // Set up the confirm button to handle appointment cancellation.
         confirmButton.setOnClickListener {
+            // Get the selected reason for cancellation.
             val selectedId = reasonGroup.checkedRadioButtonId
+            // If "Other" is selected, use the input from the EditText.
             val reason = if (selectedId == R.id.reasonOther) {
                 otherReasonInput.text.toString().ifEmpty { "No reason provided" }
             } else {
+                // Otherwise, use the text from the selected RadioButton.
                 findViewById<RadioButton>(selectedId).text.toString()
             }
+            // Call the function to cancel the appointment.
             cancelAppointment(reason)
         }
         // Return back to the dashboard
         val backArrow: ImageButton = findViewById(R.id.backArrow)
 
-        backArrow.setOnClickListener(){
+        backArrow.setOnClickListener() {
             val intent = Intent(this, StudentDashboardActivity::class.java)
             startActivity(intent)
         }
@@ -71,6 +81,7 @@ class CancelAppointmentActivity : AppCompatActivity() {
 //            }
 //    }
 
+    // Function to cancel an appointment.
     private fun cancelAppointment(reason: String) {
         val db = FirebaseDatabase.getInstance().reference
 
@@ -89,14 +100,16 @@ class CancelAppointmentActivity : AppCompatActivity() {
                             "status" to "cancelled",
                             "cancellationReason" to reason
                         )
-                        db.child("appointments").child(studentId).child(appointmentId).updateChildren(updates)
+                        db.child("appointments").child(studentId).child(appointmentId)
+                            .updateChildren(updates)
 
                         // Step 3: Find the matching appointment under appointmentsLecturer
                         db.child("appointmentsLecturer").child(lecturerId)
                             .addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(lecturerSnapshot: DataSnapshot) {
                                     for (lecturerAppSnap in lecturerSnapshot.children) {
-                                        val lecApp = lecturerAppSnap.getValue(AppointmentLecturer::class.java)
+                                        val lecApp =
+                                            lecturerAppSnap.getValue(AppointmentLecturer::class.java)
                                         val lecKey = lecturerAppSnap.key ?: continue
 
                                         // Match by date, time, and studentID
@@ -112,23 +125,41 @@ class CancelAppointmentActivity : AppCompatActivity() {
                                         }
                                     }
 
-                                    Toast.makeText(this@CancelAppointmentActivity, "Appointment cancelled", Toast.LENGTH_SHORT).show()
+                                    // Show a success message and finish the activity.
+                                    Toast.makeText(
+                                        this@CancelAppointmentActivity,
+                                        "Appointment cancelled",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                     finish()
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
-                                    Toast.makeText(this@CancelAppointmentActivity, "Error updating lecturer view", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        // Show an error message if the operation is cancelled.
+                                        this@CancelAppointmentActivity,
+                                        "Error updating lecturer view",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             })
                     } else {
-                        Toast.makeText(this@CancelAppointmentActivity, "Appointment not found", Toast.LENGTH_SHORT).show()
+                        // Show an error message if the appointment is not found.
+                        Toast.makeText(
+                            this@CancelAppointmentActivity,
+                            "Appointment not found",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
-
+                // Show an error message if the operation is cancelled.
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@CancelAppointmentActivity, "Error accessing appointment", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@CancelAppointmentActivity,
+                        "Error accessing appointment",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
     }
-
 }

@@ -16,13 +16,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// Activity for changing the user's password.
 class ChangePasswordActivity : AppCompatActivity() {
 
+    // Initialize the ApiService using the ApiClient.
     private val apiService: ApiService = ApiClient.create(ApiService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Enable edge-to-edge support for better visual experience.
         enableEdgeToEdge()
+        // Set the content view to the activity_change_password layout.
         setContentView(R.layout.activity_change_password)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -30,9 +34,11 @@ class ChangePasswordActivity : AppCompatActivity() {
             insets
         }
 
+        // Find the password input field and the change password button.
         val passwordEditText: TextInputEditText = findViewById(R.id.edtChangePassword)
         val btnChangePassword: Button = findViewById(R.id.btnChangePassword)
 
+        // Set up the button click listener to handle password change.
         btnChangePassword.setOnClickListener {
             //val employeeId = intent.getStringExtra("EMPLOYEE_ID") // Pass from LoginActivity
             val newPassword = passwordEditText.text.toString()
@@ -41,6 +47,7 @@ class ChangePasswordActivity : AppCompatActivity() {
             val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
             val idNum = sharedPreferences.getString("ID_NUM", null)
 
+            // Check if the ID number is available.
             if (idNum != null) {
                 Log.d("ID Num", idNum)
                 changePassword(idNum ?: "", newPassword)
@@ -52,23 +59,40 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     }
 
-    //this method will call the API to change the password to the value that the user has entered
+    // This method will call the API to change the password to the value that the user has entered
     private fun changePassword(idNum: String, newPassword: String) {
         val changePasswordRequest = ChangePassword(idNum, newPassword)
 
+        // Enqueue the API call to change the password.
         apiService.changePassword(changePasswordRequest).enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(this@ChangePasswordActivity, "Password changed successfully.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@ChangePasswordActivity,
+                        "Password changed successfully.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     startActivity(Intent(this@ChangePasswordActivity, LoginActivity::class.java))
                 } else {
-                    Toast.makeText(this@ChangePasswordActivity, "Failed to change password.", Toast.LENGTH_SHORT).show()
-                    Log.e("API_ERROR", "Error: ${response.code()}, ${response.errorBody()?.string()}")
+                    Toast.makeText(
+                        this@ChangePasswordActivity,
+                        "Failed to change password.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.e(
+                        "API_ERROR",
+                        "Error: ${response.code()}, ${response.errorBody()?.string()}"
+                    )
                 }
             }
 
+            // Handle any failure in making the API request.
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                Toast.makeText(this@ChangePasswordActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@ChangePasswordActivity,
+                    "Error: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
                 Log.e("API_FAILURE", "Failed to make request: ${t.message}")
             }
         })
