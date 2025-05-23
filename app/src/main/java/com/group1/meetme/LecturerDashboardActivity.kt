@@ -41,6 +41,11 @@ class LecturerDashboardActivity : AppCompatActivity() {
             val intent = Intent(this, UploadResourcesActivity::class.java)
             startActivity(intent)
         }
+
+        settingsbutton.setOnClickListener(){
+            val intent = Intent(this,SettingsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 

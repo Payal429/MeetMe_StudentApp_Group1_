@@ -81,6 +81,22 @@
             android:exported="false" />
 
         <activity
+            android:name=".AccountSettingsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AppSettingsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ProfileSettingsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".GetStartedActivity"
             android:exported="true"
             android:theme="@style/splash_screen">
