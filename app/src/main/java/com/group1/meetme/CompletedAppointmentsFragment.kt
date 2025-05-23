@@ -70,12 +70,37 @@ class CompletedAppointmentsFragment : Fragment() {
         return view
     }
 
-    private fun loadCompletedAppointments() {
-        database.child("appointments").child(userId!!)
+//    private fun loadCompletedAppointments() {
+//        database.child("appointments").child(userId!!)
+//            .addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    appointments.clear()
+//
+//                    for (snap in snapshot.children) {
+//                        val appointment = snap.getValue(Appointment::class.java)
+//                        val key = snap.key ?: continue
+//                        appointment?.id = key
+//
+//                        if (appointment != null && appointment.status == "completed") {
+//                            appointments.add(appointment)
+//                        }
+//                    }
+//
+//                    adapter.notifyDataSetChanged()
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                    Log.e("CompletedAppointments", "Error: ${error.message}")
+//                }
+//            })
+//    }
+private fun loadCompletedAppointments() {
+    if (userType == "Lecturer") {
+        // Lecturer view
+        database.child("appointmentsLecturer").child(userId!!)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     appointments.clear()
-
                     for (snap in snapshot.children) {
                         val appointment = snap.getValue(Appointment::class.java)
                         val key = snap.key ?: continue
@@ -85,15 +110,37 @@ class CompletedAppointmentsFragment : Fragment() {
                             appointments.add(appointment)
                         }
                     }
-
                     adapter.notifyDataSetChanged()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Log.e("CompletedAppointments", "Error: ${error.message}")
+                    Log.e("CompletedAppointments", "Lecturer error: ${error.message}")
+                }
+            })
+    } else {
+        // Student view
+        database.child("appointments").child(userId!!)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    appointments.clear()
+                    for (snap in snapshot.children) {
+                        val appointment = snap.getValue(Appointment::class.java)
+                        val key = snap.key ?: continue
+                        appointment?.id = key
+
+                        if (appointment != null && appointment.status == "completed") {
+                            appointments.add(appointment)
+                        }
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("CompletedAppointments", "Student error: ${error.message}")
                 }
             })
     }
+}
 
     private fun rebookAppointment(appointment: Appointment) {
         if (userType != "Student") return
@@ -109,7 +156,25 @@ class CompletedAppointmentsFragment : Fragment() {
     private fun reviewAppointment(appointment: Appointment) {
         if (userType != "Student") return
 
-        // TODO: Replace with your review dialog or screen
-        Toast.makeText(requireContext(), "Review ${appointment.module}", Toast.LENGTH_SHORT).show()
+//         val intent = Intent(requireContext(), RescheduleActivity::class.java).apply {
+//            putExtra("appointmentId", appointment.id)
+//            putExtra("studentId", userId)
+//            putExtra("lecturerId", appointment.lecturerId)
+//            putExtra("oldDate", appointment.date)
+//            putExtra("oldTime", appointment.time)
+//        }
+//        startActivity(intent)
+//        Toast.makeText(requireContext(), "Review ${appointment.module}", Toast.LENGTH_SHORT).show()
+//        reviewButton.setOnClickListener {
+        val intent = Intent(context, lecturer_review::class.java).apply {
+            putExtra("appointmentId", appointment.id)
+            putExtra("studentId", userId)
+            putExtra("lecturerId",appointment.lecturerId)
+//
+        }
+        startActivity(intent)
+        //   context.startActivity(intent)
+//        }
+
     }
 }

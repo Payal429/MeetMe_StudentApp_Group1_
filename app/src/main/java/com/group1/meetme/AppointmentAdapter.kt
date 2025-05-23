@@ -8,8 +8,13 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.core.content.ContentProviderCompat.requireContext
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class AppointmentAdapter(
     private val context: Context,
@@ -48,7 +53,7 @@ class AppointmentAdapter(
                     "Date: ${appointment.date} ${appointment.time}\n" +
                     "Module: ${appointment.module}"
         } else {
-            "Student: ${appointment.id}\n" +
+            "Student: ${appointment.studentID}\n" +
                     "Date: ${appointment.date} ${appointment.time}\n" +
                     "Module: ${appointment.module}"
         }
@@ -80,6 +85,83 @@ class AppointmentAdapter(
             actionLayout.visibility = View.GONE
         }
 
+        if (userRole == "Lecturer" || userRole == "Student") {
+            val reviewBlock = view.findViewById<LinearLayout>(R.id.reviewBlock)
+            val ratingBar = view.findViewById<RatingBar>(R.id.reviewRatingBar)
+            val commentText = view.findViewById<TextView>(R.id.reviewComment)
+            val btn2 = view.findViewById<Button>(R.id.btnAction2) // or whatever ID you used
+
+            val reviewRef = FirebaseDatabase.getInstance().reference
+                .child("reviews").child(appointment.id)
+
+            reviewRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val rating = snapshot.child("rating").getValue(Float::class.java) ?: 0f
+                        val comment = snapshot.child("comment").getValue(String::class.java) ?: ""
+
+                        ratingBar.rating = rating
+                        commentText.text = if (comment.isNotEmpty()) comment else "No comment"
+                        reviewBlock.visibility = View.VISIBLE
+
+                        btn2?.visibility = View.GONE
+                    } else {
+                        if (userRole == "Student") {
+                            reviewBlock.visibility = View.GONE
+                            btn2?.visibility = View.VISIBLE
+                        } else {
+                            reviewBlock.visibility = View.GONE
+                            btn2?.visibility = View.GONE
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    reviewBlock.visibility = View.GONE
+                    btn2?.visibility = if (userType == "Student") View.VISIBLE else View.GONE
+                }
+            })
+        }
+
+
+//        val reviewBlock = view.findViewById<LinearLayout>(R.id.reviewBlock)
+//        val ratingBar = view.findViewById<RatingBar>(R.id.reviewRatingBar)
+//        val commentText = view.findViewById<TextView>(R.id.reviewComment)
+////        val reviewButton = view.findViewById<Button>(R.id.btnAction2)
+//
+//        val reviewRef = FirebaseDatabase.getInstance().reference
+//            .child("reviews").child(appointment.id)
+//
+//        reviewRef.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if (snapshot.exists()) {
+//                    // Show review block
+//                    val rating = snapshot.child("rating").getValue(Float::class.java) ?: 0f
+//                    val comment = snapshot.child("comment").getValue(String::class.java) ?: ""
+//
+//                    ratingBar.rating = rating
+//                    commentText.text = if (comment.isNotEmpty()) comment else "No comment"
+//                    reviewBlock.visibility = View.VISIBLE
+//
+//                    // Hide the "Leave Review" button
+//                    btn2.visibility = View.GONE
+//                } else {
+//                    reviewBlock.visibility = View.GONE
+//                    btn2.visibility = View.VISIBLE
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                reviewBlock.visibility = View.GONE
+//                btn2.visibility = View.VISIBLE
+//            }
+//        })
+
+
         return view
+
+
+
+
     }
 }

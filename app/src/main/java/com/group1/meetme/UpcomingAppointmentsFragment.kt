@@ -84,51 +84,123 @@ class UpcomingAppointmentsFragment : Fragment() {
         return view
     }
 
+//    private fun loadAppointments() {
+//        val currentDateTime = Calendar.getInstance()
+//
+//        val rolePath = if (userType == "Lecturer") "lecturerId" else "studentId"
+//
+//        database.child("appointments").child(userId!!)
+//            .addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    appointments.clear()
+//
+//                    for (snap in snapshot.children) {
+//                        val appointment = snap.getValue(Appointment::class.java)
+//                        val key = snap.key ?: continue
+//                        appointment?.id = key
+//
+//                        if (appointment != null) {
+//                            val appointmentDateTime = getAppointmentDateTime(appointment.date, appointment.time)
+//                            Log.d("appDate", appointment.date)
+//                            Log.d("appTime", appointment.time)
+//                            Log.d("appStatus", appointment.status)
+//                            Log.d("appid", appointment.id)
+//
+//                            if (appointmentDateTime.before(currentDateTime.time)) {
+//                                if (appointment.status == "upcoming") {
+//                                    // Mark past "upcoming" appointments as "completed"
+//                                    database.child("appointments")
+//                                        .child(userId!!)
+//                                        .child(key)
+//                                        .child("status")
+//                                        .setValue("completed")
+//                                }
+//                            } else if (appointment.status == "upcoming") {
+//                                appointments.add(appointment)
+//                            }
+//                        }
+//                    }
+//
+//                    adapter.notifyDataSetChanged()
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                    Log.e("Appointments", "Failed to load appointments: ${error.message}")
+//                }
+//            })
+//    }
+
     private fun loadAppointments() {
         val currentDateTime = Calendar.getInstance()
 
-        val rolePath = if (userType == "Lecturer") "lecturerId" else "studentId"
+        appointments.clear()
 
-        database.child("appointments").child(userId!!)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    appointments.clear()
+        if (userType == "Student") {
+            // Load from appointments/{studentId}
+            database.child("appointments").child(userId!!)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (snap in snapshot.children) {
+                            val appointment = snap.getValue(Appointment::class.java)
+                            val key = snap.key ?: continue
+                            appointment?.id = key
 
-                    for (snap in snapshot.children) {
-                        val appointment = snap.getValue(Appointment::class.java)
-                        val key = snap.key ?: continue
-                        appointment?.id = key
+                            if (appointment != null) {
+                                val appointmentDateTime = getAppointmentDateTime(appointment.date, appointment.time)
 
-                        if (appointment != null) {
-                            val appointmentDateTime = getAppointmentDateTime(appointment.date, appointment.time)
-                            Log.d("appDate", appointment.date)
-                            Log.d("appTime", appointment.time)
-                            Log.d("appStatus", appointment.status)
-                            Log.d("appid", appointment.id)
-
-                            if (appointmentDateTime.before(currentDateTime.time)) {
-                                if (appointment.status == "upcoming") {
-                                    // Mark past "upcoming" appointments as "completed"
-                                    database.child("appointments")
-                                        .child(userId!!)
-                                        .child(key)
-                                        .child("status")
-                                        .setValue("completed")
+                                if (appointmentDateTime.before(currentDateTime.time)) {
+                                    if (appointment.status == "upcoming") {
+                                        // Auto-mark as completed
+                                        database.child("appointments").child(userId!!).child(key).child("status")
+                                            .setValue("completed")
+                                    }
+                                } else if (appointment.status == "upcoming") {
+                                    appointments.add(appointment)
                                 }
-                            } else if (appointment.status == "upcoming") {
-                                appointments.add(appointment)
                             }
                         }
+                        adapter.notifyDataSetChanged()
                     }
 
-                    adapter.notifyDataSetChanged()
-                }
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e("Appointments", "Student load failed: ${error.message}")
+                    }
+                })
+        } else if (userType == "Lecturer") {
+            // Load from appointmentsLecturer/{lecturerId}
+            database.child("appointmentsLecturer").child(userId!!)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (snap in snapshot.children) {
+                            val appointment = snap.getValue(Appointment::class.java)
+                            val key = snap.key ?: continue
+                            appointment?.id = key
+                            appointment?.lecturerId = userId!! // Manually set lecturerId
 
-                override fun onCancelled(error: DatabaseError) {
-                    Log.e("Appointments", "Failed to load appointments: ${error.message}")
-                }
-            })
+                            if (appointment != null) {
+                                val appointmentDateTime = getAppointmentDateTime(appointment.date, appointment.time)
+
+                                if (appointmentDateTime.before(currentDateTime.time)) {
+                                    if (appointment.status == "upcoming") {
+                                        // Auto-mark as completed
+                                        database.child("appointmentsLecturer").child(userId!!).child(key).child("status")
+                                            .setValue("completed")
+                                    }
+                                } else if (appointment.status == "upcoming") {
+                                    appointments.add(appointment)
+                                }
+                            }
+                        }
+                        adapter.notifyDataSetChanged()
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e("Appointments", "Lecturer load failed: ${error.message}")
+                    }
+                })
+        }
     }
+
 
     private fun getAppointmentDateTime(dateStr: String, timeStr: String): Date {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
