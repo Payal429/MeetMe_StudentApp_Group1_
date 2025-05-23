@@ -4,6 +4,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 //https://firebase.google.com/docs/database/android/read-and-write
 @IgnoreExtraProperties
+// Data class to represent a user.
 data class User(
     var idNum: String = "",
     var name: String = "",

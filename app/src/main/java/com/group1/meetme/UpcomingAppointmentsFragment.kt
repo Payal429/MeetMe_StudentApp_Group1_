@@ -21,11 +21,7 @@ import java.util.Date
 import java.util.Locale
 import kotlin.math.log
 
-/**
- * A simple [Fragment] subclass.
- * Use the [UpcomingAppointmentsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+// A simple [Fragment] subclass. Use the [UpcomingAppointmentsFragment.newInstance] factory method to  create an instance of this fragment.
 class UpcomingAppointmentsFragment : Fragment() {
     private lateinit var listView: ListView
     private lateinit var database: DatabaseReference
@@ -35,6 +31,7 @@ class UpcomingAppointmentsFragment : Fragment() {
     private var userId: String? = ""
     private var userType: String? = ""
 
+    // Companion object to create a new instance of the fragment with user information.
     companion object {
         fun newInstance(userId: String, userType: String): UpcomingAppointmentsFragment {
             val fragment = UpcomingAppointmentsFragment()
@@ -49,6 +46,7 @@ class UpcomingAppointmentsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        // Inflate the fragment layout.
         val view = inflater.inflate(R.layout.fragment_upcoming_appointments, container, false)
         listView = view.findViewById(R.id.appointmentsListView)
         database = FirebaseDatabase.getInstance().reference
@@ -61,16 +59,19 @@ class UpcomingAppointmentsFragment : Fragment() {
 //        Log.d("userType------", userType!!)
 
         super.onCreate(savedInstanceState)
+
+        // Get user ID and type from the arguments passed to the fragment.
         userId = arguments?.getString("USER_ID")
         userType = arguments?.getString("USER_ROLE")
         Log.d("FragmentArgs", "userId = $userId, userType = $userType")
 
+        // Check if user information is available.
         if (userId.isNullOrEmpty() || userType.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "User info not found", Toast.LENGTH_SHORT).show()
             return view
         }
 
-
+        // Initialize the adapter for the list of appointments.
         adapter = AppointmentAdapter(
             requireContext(),
             appointments,
@@ -80,6 +81,7 @@ class UpcomingAppointmentsFragment : Fragment() {
         )
         listView.adapter = adapter
 
+        // Load upcoming appointments.
         loadAppointments()
         return view
     }
@@ -130,9 +132,11 @@ class UpcomingAppointmentsFragment : Fragment() {
 //            })
 //    }
 
+    // Function to load upcoming appointments based on user type.
     private fun loadAppointments() {
         val currentDateTime = Calendar.getInstance()
 
+        // Clear the list of appointments.
         appointments.clear()
 
         if (userType == "Student") {
@@ -146,12 +150,14 @@ class UpcomingAppointmentsFragment : Fragment() {
                             appointment?.id = key
 
                             if (appointment != null) {
-                                val appointmentDateTime = getAppointmentDateTime(appointment.date, appointment.time)
+                                val appointmentDateTime =
+                                    getAppointmentDateTime(appointment.date, appointment.time)
 
                                 if (appointmentDateTime.before(currentDateTime.time)) {
                                     if (appointment.status == "upcoming") {
                                         // Auto-mark as completed
-                                        database.child("appointments").child(userId!!).child(key).child("status")
+                                        database.child("appointments").child(userId!!).child(key)
+                                            .child("status")
                                             .setValue("completed")
                                     }
                                 } else if (appointment.status == "upcoming") {
@@ -178,12 +184,14 @@ class UpcomingAppointmentsFragment : Fragment() {
                             appointment?.lecturerId = userId!! // Manually set lecturerId
 
                             if (appointment != null) {
-                                val appointmentDateTime = getAppointmentDateTime(appointment.date, appointment.time)
+                                val appointmentDateTime =
+                                    getAppointmentDateTime(appointment.date, appointment.time)
 
                                 if (appointmentDateTime.before(currentDateTime.time)) {
                                     if (appointment.status == "upcoming") {
                                         // Auto-mark as completed
-                                        database.child("appointmentsLecturer").child(userId!!).child(key).child("status")
+                                        database.child("appointmentsLecturer").child(userId!!)
+                                            .child(key).child("status")
                                             .setValue("completed")
                                     }
                                 } else if (appointment.status == "upcoming") {
@@ -202,11 +210,13 @@ class UpcomingAppointmentsFragment : Fragment() {
     }
 
 
+    // Function to get the appointment date and time as a Date object.
     private fun getAppointmentDateTime(dateStr: String, timeStr: String): Date {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         return sdf.parse("$dateStr $timeStr") ?: Date(0)
     }
 
+    // Function to handle canceling an appointment.
     private fun cancelAppointment(appointment: Appointment) {
         Log.d("cancelAppointment: ", appointment.toString())
         if (userType != "Student") return
@@ -217,6 +227,7 @@ class UpcomingAppointmentsFragment : Fragment() {
         startActivity(intent)
     }
 
+    // Function to handle rescheduling an appointment.
     private fun rescheduleAppointment(appointment: Appointment) {
         if (userType != "Student") return
         val intent = Intent(requireContext(), RescheduleActivity::class.java).apply {

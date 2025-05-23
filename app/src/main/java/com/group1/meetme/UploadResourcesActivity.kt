@@ -11,6 +11,7 @@ import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
+// Activity for uploading resources.
 class UploadResourcesActivity : AppCompatActivity() {
 
     private lateinit var courseDropdown: MaterialAutoCompleteTextView
@@ -31,6 +32,7 @@ class UploadResourcesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_resources)
 
+        // Initialize UI components.
         courseDropdown = findViewById(R.id.courseDropdown)
         moduleDropdown = findViewById(R.id.moduleDropdown)
         btnSelectFile = findViewById(R.id.btnSelectFile)
@@ -39,6 +41,7 @@ class UploadResourcesActivity : AppCompatActivity() {
         paperclipIcon = findViewById(R.id.paperclipIcon)
         backButton = findViewById(R.id.backArrow)
 
+        // Set up dropdowns for courses and modules.
         setupDropdowns()
 
         // Go back to menu when back button is clicked
@@ -47,11 +50,11 @@ class UploadResourcesActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // File picker
+        // Open file picker when the paperclip icon or select file button is clicked.
         paperclipIcon.setOnClickListener { openFilePicker() }
         btnSelectFile.setOnClickListener { openFilePicker() }
 
-        // Upload to Cloudinary
+        // Upload the selected file to Cloudinary when the upload button is clicked.
         btnUpload.setOnClickListener {
             selectedFileUri?.let { uri ->
                 uploadToCloudinary(uri)
@@ -59,6 +62,7 @@ class UploadResourcesActivity : AppCompatActivity() {
         }
     }
 
+    // Function to set up the dropdowns for courses and modules.
     private fun setupDropdowns() {
         val courses = listOf("IT", "Law", "Education", "Commerce", "Policing and Law Enforcement", "Administration and Management", "Fashion")
         val modules = listOf("Information Systems", "Web Development Project", "Mobile Application Development A", "Commercial Law", "Project Management", "Introduction to Research")
@@ -70,12 +74,14 @@ class UploadResourcesActivity : AppCompatActivity() {
         moduleDropdown.setAdapter(moduleAdapter)
     }
 
+    // Function to open the file picker
     private fun openFilePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
         startActivityForResult(Intent.createChooser(intent, "Select a file"), FILE_PICKER_REQUEST_CODE)
     }
 
+    // Handle the result of the file picker.
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == FILE_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
@@ -86,6 +92,7 @@ class UploadResourcesActivity : AppCompatActivity() {
         }
     }
 
+    // Function to upload the selected file to Cloudinary.
     private fun uploadToCloudinary(fileUri: Uri) {
         val selectedModule = moduleDropdown.text.toString()
 
