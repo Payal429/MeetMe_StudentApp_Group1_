@@ -1,65 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/settingsRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/leaves"
     tools:context=".SettingsActivity">
 
-    <!-- Background Image -->
-    <ImageView
-        android:id="@+id/backgroundImage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/settings"
-        android:alpha="0.85"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+<!--    &lt;!&ndash; Background Image &ndash;&gt;-->
+<!--    <ImageView-->
+<!--        android:id="@+id/backgroundImage"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@drawable/settings"-->
+<!--        android:alpha="0.85"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent" />-->
 
     <!-- Top Bar with Centered Title and Back Arrow -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topBar"
-        android:layout_width="0dp"
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/ivory">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/backArrow"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_backarrow"
-            android:layout_marginStart="4dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <TextView
-            android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Settings"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:src="@drawable/back_arrow"
+            android:contentDescription="Home"
+            android:padding="5dp"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        <TextView
+            android:id="@+id/headerTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Add New User"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <!-- Settings Buttons ScrollView -->
     <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/topBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -78,9 +74,9 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="8dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="8dp"
                 app:cardElevation="6dp"
                 android:backgroundTint="#D9588F">
 
@@ -90,13 +86,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:background="@drawable/button_shape"
                     android:gravity="center_vertical">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_account"
-                        />
+                        android:src="@drawable/ic_account"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -104,15 +102,14 @@
                         android:layout_marginStart="12dp"
                         android:layout_weight="1"
                         android:text="Account"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_right_arrow"
-                        />
+                        android:src="@drawable/ic_right_arrow"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -123,8 +120,9 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="8dp"
+                android:background="@drawable/button_shape"
                 app:cardElevation="6dp"
                 android:backgroundTint="#FCA85B">
 
@@ -133,6 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@drawable/button_shape"
                     android:padding="16dp"
                     android:gravity="center_vertical">
 
@@ -164,8 +163,8 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="8dp"
                 app:cardElevation="6dp"
                 android:backgroundTint="#FCA85B">
 
@@ -173,6 +172,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@drawable/button_shape"
                     android:padding="16dp"
                     android:gravity="center_vertical">
 
@@ -204,8 +204,8 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="8dp"
                 app:cardElevation="6dp"
                 android:backgroundTint="#FCA85B">
 
@@ -214,6 +214,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="16dp"
+                    android:background="@drawable/button_shape"
                     android:gravity="center_vertical">
 
                     <ImageView
@@ -245,7 +246,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
+                app:cardCornerRadius="8dp"
                 app:cardElevation="6dp"
                 android:backgroundTint="#FCA85B">
 
@@ -254,6 +255,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@drawable/button_shape"
                     android:padding="16dp"
                     android:gravity="center_vertical">
 
@@ -284,4 +286,4 @@
         </LinearLayout>
     </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

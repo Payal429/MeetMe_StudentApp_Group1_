@@ -2,145 +2,165 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF9F0"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_background_color">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:orientation="vertical">
 
-        <!-- Back Arrow -->
-        <ImageView
-            android:id="@+id/backArrow"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_back"
-            android:layout_gravity="start"
-            android:contentDescription="Back"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Title -->
-        <TextView
-            android:id="@+id/profileTitle"
-            android:layout_width="wrap_content"
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Profile"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginBottom="24dp" />
+            android:background="@color/ivory"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-        <!-- Profile Picture -->
-        <FrameLayout
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginBottom="24dp">
+            <ImageButton
+                android:id="@+id/backArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Home"
+                android:padding="5dp"
+                android:src="@drawable/back_arrow" />
 
+            <TextView
+                android:id="@+id/headerTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Add New User"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
             <ImageView
-                android:id="@+id/profileImage"
+                android:id="@+id/topImage"
+                android:layout_marginTop="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/african"/>
+            <!-- Profile Picture -->
+<!--            <FrameLayout-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="120dp"-->
+<!--                android:layout_marginBottom="24dp">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/profileImage"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:background="@drawable/circle_background"-->
+<!--                    android:contentDescription="Profile Image"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/profile_placeholder" />-->
+
+                <!--            <ImageView-->
+                <!--                android:id="@+id/cameraIcon"-->
+                <!--                android:layout_width="32dp"-->
+                <!--                android:layout_height="32dp"-->
+                <!--                android:src="@drawable/ic_camera"-->
+                <!--                android:layout_gravity="bottom|end"-->
+                <!--                android:layout_margin="4dp"-->
+                <!--                android:background="@drawable/circle_button"-->
+                <!--                android:padding="4dp"-->
+                <!--                android:contentDescription="Change Photo"/>-->
+<!--            </FrameLayout>-->
+
+            <!-- Name Field -->
+            <EditText
+                android:id="@+id/nameEditText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/profile_placeholder"
-                android:scaleType="centerCrop"
-                android:background="@drawable/circle_background"
-                android:contentDescription="Profile Image"/>
+                android:layout_height="60dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="Name"
+                android:padding="12dp"
+                android:text="Melissa Peters"
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
-            <ImageView
-                android:id="@+id/cameraIcon"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_camera"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="4dp"
-                android:background="@drawable/circle_button"
-                android:padding="4dp"
-                android:contentDescription="Change Photo"/>
-        </FrameLayout>
+            <!-- Email Field -->
+            <EditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:padding="12dp"
+                android:text="melpeters@gmail.com"
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
-        <!-- Name Field -->
-        <EditText
-            android:id="@+id/nameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Name"
-            android:text="Melissa Peters"
-            android:background="@drawable/text_background"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+            <!-- Password Field -->
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:text="***********"
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
-        <!-- Email Field -->
-        <EditText
-            android:id="@+id/emailEditText"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Email"
-            android:text="melpeters@gmail.com"
-            android:background="@drawable/text_background"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:inputType="textEmailAddress"
-            android:layout_marginBottom="16dp"/>
+            <!-- Date of Birth Field -->
+            <EditText
+                android:id="@+id/dobEditText"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edit_text_background"
+                android:focusable="false"
+                android:hint="Date of Birth"
+                android:padding="12dp"
+                android:text="23/05/1995"
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
-        <!-- Password Field -->
-        <EditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Password"
-            android:text="***********"
-            android:background="@drawable/text_background"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:inputType="textPassword"
-            android:layout_marginBottom="16dp"/>
+            <!-- Country/Region Field -->
+            <EditText
+                android:id="@+id/countryEditText"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/edit_text_background"
+                android:focusable="false"
+                android:hint="Country/Region"
+                android:padding="12dp"
+                android:text="South Africa"
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
-        <!-- Date of Birth Field -->
-        <EditText
-            android:id="@+id/dobEditText"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Date of Birth"
-            android:text="23/05/1995"
-            android:background="@drawable/text_background"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:focusable="false"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Country/Region Field -->
-        <EditText
-            android:id="@+id/countryEditText"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Country/Region"
-            android:text="South Africa"
-            android:background="@drawable/text_background"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:focusable="false"
-            android:layout_marginBottom="24dp"/>
-
-        <!-- Save Changes Button -->
-        <Button
-            android:id="@+id/saveButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save Changes"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            android:backgroundTint="#F25C91"
-            android:textColor="#FFFFFF"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/rounded_button"/>
-
+            <!-- Save Changes Button -->
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#EA4C89"
+                app:cornerRadius="8dp"
+                android:textColor="@color/black"
+                android:text="Save Changes"
+                android:textSize="20sp" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
