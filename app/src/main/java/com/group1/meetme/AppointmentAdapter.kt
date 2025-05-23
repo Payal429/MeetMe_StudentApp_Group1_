@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
+// Custom adapter for displaying a list of appointments.
 class AppointmentAdapter(
     private val context: Context,
     private val appointments: List<Appointment>,
@@ -23,25 +24,31 @@ class AppointmentAdapter(
     private val onAction1: ((Appointment) -> Unit)? = null,
     private val onAction2: ((Appointment) -> Unit)? = null
 ) : BaseAdapter() {
-
+    // Returns the number of items in the appointments list.
     override fun getCount(): Int = appointments.size
+
+    // Returns the item at the specified position in the list.
     override fun getItem(position: Int): Any = appointments[position]
+
+    // Returns the ID of the item at the specified position.
     override fun getItemId(position: Int): Long = position.toLong()
 
+    // Returns the view for the item at the specified position.
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        // Inflate the view if it's not already provided.
         val view = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.item_appointment, parent, false)
-
+        // Get the appointment at the current position.
         val appointment = appointments[position]
 
         // Get user ID and type from SharedPreferences
         val sharedPreferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-       val userId = sharedPreferences.getString("ID_NUM", null)
-       val  userRole = sharedPreferences.getString("USER_ROLE", null)!!
+        val userId = sharedPreferences.getString("ID_NUM", null)
+        val userRole = sharedPreferences.getString("USER_ROLE", null)!!
         Log.d("userId", userId!!)
         Log.d("userType", userRole!!)
 
-
+        // Find views by ID.
         val infoText = view.findViewById<TextView>(R.id.infoText)
         val actionLayout = view.findViewById<LinearLayout>(R.id.actionButtons)
         val btn1 = view.findViewById<Button>(R.id.btnAction1)
@@ -68,6 +75,7 @@ class AppointmentAdapter(
                     btn1.setOnClickListener { onAction1?.invoke(appointment) }
                     btn2.setOnClickListener { onAction2?.invoke(appointment) }
                 }
+
                 "completed" -> {
                     actionLayout.visibility = View.VISIBLE
 //                    btn1.text = "Rebook"
@@ -76,6 +84,7 @@ class AppointmentAdapter(
                     btn1.setOnClickListener { onAction1?.invoke(appointment) }
                     btn2.setOnClickListener { onAction2?.invoke(appointment) }
                 }
+
                 "cancelled" -> {
                     actionLayout.visibility = View.GONE
                 }
@@ -85,17 +94,21 @@ class AppointmentAdapter(
             actionLayout.visibility = View.GONE
         }
 
+        // Check if the user is a lecturer or student and handle reviews accordingly.
         if (userRole == "Lecturer" || userRole == "Student") {
             val reviewBlock = view.findViewById<LinearLayout>(R.id.reviewBlock)
             val ratingBar = view.findViewById<RatingBar>(R.id.reviewRatingBar)
             val commentText = view.findViewById<TextView>(R.id.reviewComment)
             val btn2 = view.findViewById<Button>(R.id.btnAction2) // or whatever ID you used
 
+            // Reference to the Firebase database for reviews.
             val reviewRef = FirebaseDatabase.getInstance().reference
                 .child("reviews").child(appointment.id)
 
+            // Add a listener to fetch review data.
             reviewRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    // If a review exists, display it.
                     if (snapshot.exists()) {
                         val rating = snapshot.child("rating").getValue(Float::class.java) ?: 0f
                         val comment = snapshot.child("comment").getValue(String::class.java) ?: ""
@@ -104,8 +117,11 @@ class AppointmentAdapter(
                         commentText.text = if (comment.isNotEmpty()) comment else "No comment"
                         reviewBlock.visibility = View.VISIBLE
 
+                        // Hide the "Leave Review" button if a review exists.
                         btn2?.visibility = View.GONE
+
                     } else {
+                        // If no review exists, hide the review block and show the "Leave Review" button.
                         if (userRole == "Student") {
                             reviewBlock.visibility = View.GONE
                             btn2?.visibility = View.VISIBLE
@@ -115,7 +131,7 @@ class AppointmentAdapter(
                         }
                     }
                 }
-
+                // Handle errors.
                 override fun onCancelled(error: DatabaseError) {
                     reviewBlock.visibility = View.GONE
                     btn2?.visibility = if (userType == "Student") View.VISIBLE else View.GONE
@@ -156,12 +172,7 @@ class AppointmentAdapter(
 //                btn2.visibility = View.VISIBLE
 //            }
 //        })
-
-
+        // Return the view for the current item.
         return view
-
-
-
-
     }
 }
