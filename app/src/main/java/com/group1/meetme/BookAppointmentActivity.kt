@@ -375,34 +375,38 @@ class BookAppointmentActivity : AppCompatActivity() {
         }
     }
 
-
-
-//
-
     // Book a selected time slot.
     private fun bookSlot(time: String, idNum: String) {
+        // Retrieve the selected date from a presumably defined variable
         val date = selectedDate
+        // Get the selected lecturer's name from a spinner component
         val selectedLecturerName = lecturerSpinner.selectedItem as String
+        // Get the module name from a text view component and trim any extra spaces
         val moduleName = moduleNameTv.text.toString().trim()
-
+        // Retrieve the lecturer's ID from a map using the lecturer's name, or return if not found
         val lecturerId = lecturerIdMap[selectedLecturerName] ?: return
-
+        // Define the reference to the specific slot in the database
         val slotRef = database.child("availability").child(lecturerId).child(date).child(time)
 
+        // Run a transaction on the database reference
         slotRef.runTransaction(object : Transaction.Handler {
             override fun doTransaction(currentData: MutableData): Transaction.Result {
+                // Check if the slot is already booked
                 val booked = currentData.child("booked").getValue(Boolean::class.java) ?: false
+                // If the slot is not booked, update the data and commit the transaction
                 return if (!booked) {
                     currentData.child("booked").value = true
                     currentData.child("student").value = idNum
                     currentData.child("module").value = moduleName
                     Transaction.success(currentData)
                 } else {
+                    // Abort the transaction if the slot is already booked
                     Transaction.abort()
                 }
             }
 
             override fun onComplete(error: DatabaseError?, committed: Boolean, snapshot: DataSnapshot?) {
+                // If the transaction was committed successfully
                 if (committed) {
                     statusText.text = "Appointment booked for $time!"
                     loadAvailableSlots(idNum)
@@ -479,17 +483,23 @@ class BookAppointmentActivity : AppCompatActivity() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        // Used an Alarm Manager
+        // Alarm Manager
+        // Get the system service for managing alarms
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        // Check if the device is running Android version S (API level 31) or higher
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            // Check if the device supports scheduling exact alarms
             if (alarmManager.canScheduleExactAlarms()) {
+                // If exact alarms are supported, set an exact alarm that will wake up the device
                 alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    reminderTimeMillis,
-                    pendingIntent
+                    AlarmManager.RTC_WAKEUP, // Use real-time clock to schedule the alarm
+                    reminderTimeMillis, // The time at which the alarm should go off
+                    pendingIntent // The pending intent to be executed when the alarm triggers
                 )
             } else {
+                // If exact alarms are not supported, prompt the user to change settings
                 startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM))
+                // Set an inexact alarm that allows the device to optimize its use of the doze mode
                 alarmManager.setAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
                     reminderTimeMillis,
@@ -497,6 +507,7 @@ class BookAppointmentActivity : AppCompatActivity() {
                 )
             }
         } else {
+            // For devices running versions before Android S, set an exact alarm that allows the device to be woken up
             alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
                 reminderTimeMillis,
