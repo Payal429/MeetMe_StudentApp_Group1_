@@ -27,6 +27,11 @@
         <item>AL 6</item>
     </string-array>
 
+    <string-array name="times">
+        <item>Select a New Time</item>
+
+    </string-array>
+
 <!--    <string-array name="times">-->
 <!--        <item-->
 <!--        -->

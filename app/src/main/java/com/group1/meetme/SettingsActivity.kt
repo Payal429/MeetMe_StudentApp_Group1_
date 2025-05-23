@@ -39,12 +39,12 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun navigateToDashboard() {
-        val intent = if (getUserType() == "student") {
-            Intent(this, StudentDashboardActivity::class.java)
-        } else {
-            Intent(this, LecturerDashboardActivity::class.java)
-        }
-        startActivity(intent)
+//        val intent = if (getUserType() == "student") {
+//            Intent(this, StudentDashboardActivity::class.java)
+//        } else {
+//            Intent(this, LecturerDashboardActivity::class.java)
+//        }
+//        startActivity(intent)
         finish()
     }
 

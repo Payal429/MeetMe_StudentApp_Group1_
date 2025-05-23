@@ -9,5 +9,7 @@
     <color name="tabSelectedTextColor">#FFFFFF</color> <!-- White text for selected tab -->
     <color name="tabUnselectedTextColor">#B3FFFFFF</color> <!-- Semi-transparent white for unselected -->
     <color name="tabRippleColor">#33FFFFFF</color>
-    <color name="ivory">#F0EDDC</color> <!-- Light ripple effect -->
+    <color name="ivory">#F0EDDC</color>
+    <color name="pinkdark">#EA4C89</color>
+    <color name="orangebutton">#FFA07A</color> <!-- Light ripple effect -->
 </resources>

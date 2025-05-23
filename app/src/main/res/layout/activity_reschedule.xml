@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -46,12 +47,14 @@
                 android:padding="16dp"
                 app:selectionColor="@color/orange" />
 
+
             <Spinner
                 android:id="@+id/timeSlotSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                android:entries="@array/times"/>
 
             <Button
                 android:id="@+id/rescheduleConfirmButton"
@@ -63,7 +66,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:backgroundTint="#EA4C89"
+                android:backgroundTint="@color/orangebutton"
                 app:cornerRadius="8dp"
                 android:textColor="@color/black"
                 android:text="Confirm Reschedule"/>

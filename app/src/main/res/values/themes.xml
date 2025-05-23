@@ -1,27 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+<!--    The theme to remove the action bar-->
     <style name="Base.Theme.MeetMe" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
 <!--         <item name="android:colorPrimaryDark">@color/ivory</item>-->
-<!--        <item name="android:statusBarColor" >@color/ivory</item>-->
-<!--        <item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
-    <style name="Theme.MeetMe" parent="Base.Theme.MeetMe" >
-<!--        <item name="android:statusBarColor" >@color/ivory</item>-->
-    </style>
+    <style name="Theme.MeetMe" parent="Base.Theme.MeetMe" />
 
+<!--    Theme for the splash screen on the get started page-->
     <style name="splash_screen" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-<!--    <style name="StatusBarTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
-<!--        <item name="android:statusBarColor" >@color/ivory</item>-->
-<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="colorPrimary">@color/color-Primary</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="colorAccent">@color/color-Accent</item>&ndash;&gt;-->
-
-<!--&lt;!&ndash;        &lt;!&ndash; Defining that new color in ColorPrimaryDark &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="colorPrimaryDark">@color/color-PrimaryDark</item>&ndash;&gt;-->
-<!--    </style>-->
 </resources>

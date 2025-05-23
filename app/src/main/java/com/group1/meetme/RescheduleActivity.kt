@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -16,6 +17,7 @@ import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.google.firebase.database.*
+import com.group1.meetme.HolidayUtils.holidayDates
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
@@ -34,6 +36,7 @@ class RescheduleActivity : AppCompatActivity() {
     private lateinit var calendarView: CalendarView
     private lateinit var timeSlotSpinner: Spinner
     private lateinit var rescheduleButton: Button
+    private lateinit var holidayDates: List<Calendar>
 
     private lateinit var lecturerId: String
     private lateinit var module: String
@@ -55,6 +58,7 @@ class RescheduleActivity : AppCompatActivity() {
         timeSlotSpinner = findViewById(R.id.timeSlotSpinner)
         rescheduleButton = findViewById(R.id.rescheduleConfirmButton)
 
+
         // Retrieve data from the intent.
         lecturerId = intent.getStringExtra("lecturerId") ?: ""
         module = intent.getStringExtra("module") ?: ""
@@ -66,6 +70,39 @@ class RescheduleActivity : AppCompatActivity() {
         studentId = sharedPreferences.getString("ID_NUM", "") ?: ""
         // val userType = sharedPreferences.getString("USER_ROLE", "") ?: ""
 
+        val backArrow = findViewById<ImageView>(R.id.backArrow)
+        backArrow.setOnClickListener {
+            finish() // Optional: finishes current activity so it's removed from back stack
+        }
+
+        // Define holiday dates/non-bookable days
+        holidayDates = HolidayUtils.holidayDates
+
+        // Add red highlights for holidays
+        val events = holidayDates.map {
+            EventDay(it, ColorDrawable(resources.getColor(android.R.color.holo_red_light)))
+        }
+        calendarView.setEvents(events)
+
+        // Generate list of past days from today back to a specific limit (e.g., 2 years)
+        val today = Calendar.getInstance()
+        val pastDates = mutableListOf<Calendar>()
+
+        //val moduleName = moduleNameTv.getText().toString();
+
+        val pastLimit = Calendar.getInstance().apply { add(Calendar.YEAR, -2) }
+
+        val dateIterator = pastLimit.clone() as Calendar
+        while (dateIterator.before(today)) {
+            pastDates.add(dateIterator.clone() as Calendar)
+            dateIterator.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        // Combine holidays and past dates
+        val disabledDays = pastDates + holidayDates
+        calendarView.setDisabledDays(disabledDays)
+
+
         // Set the title based on whether it's a rebooking or rescheduling.
         if (isRebooking) {
             title = "Rebook Appointment - $module"
@@ -73,12 +110,50 @@ class RescheduleActivity : AppCompatActivity() {
             title = "Reschedule Appointment"
         }
 
-        // Set up the calendar view to handle day clicks.
+//        // Set up the calendar view to handle day clicks.
+//        calendarView.setOnDayClickListener(object : OnDayClickListener {
+//            override fun onDayClick(eventDay: EventDay) {
+//                val cal = eventDay.calendar
+//                selectedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.time)
+//                loadAvailableTimesForDate(selectedDate)
+//            }
+//        })
+
+        // Handle date selection from the calendar.
         calendarView.setOnDayClickListener(object : OnDayClickListener {
             override fun onDayClick(eventDay: EventDay) {
-                val cal = eventDay.calendar
-                selectedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.time)
-                loadAvailableTimesForDate(selectedDate)
+                val selectedCal = eventDay.calendar
+                val todayDate = Calendar.getInstance().apply {
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }
+
+                if (isHoliday(selectedCal)) {
+                    Toast.makeText(
+                        this@RescheduleActivity,
+                        "This day is a holiday and cannot be booked!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else  // Check if the selected date is before today
+                    if (selectedCal.before(todayDate)) {
+                        Toast.makeText(
+                            this@RescheduleActivity,
+                            "You cannot select a past date.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return
+                    } else {
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        selectedDate =
+                            dateFormat.format(selectedCal.time) // ✅ Fix: update class variable
+
+                        Log.d("date", selectedDate)
+                        loadAvailableTimesForDate(selectedDate)
+//                        dateTextView.text = selectedDate
+//                        calendarView.visibility = View.GONE
+                    }
             }
         })
 
@@ -97,6 +172,15 @@ class RescheduleActivity : AppCompatActivity() {
                     intent.getStringExtra("appointmentId") ?: return@setOnClickListener
                 updateExistingAppointment(appointmentId, selectedDate, time)
             }
+        }
+    }
+
+    // Check if selected date matches a holiday
+    private fun isHoliday(date: Calendar): Boolean {
+        return holidayDates.any {
+            it.get(Calendar.YEAR) == date.get(Calendar.YEAR) &&
+                    it.get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
+                    it.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH)
         }
     }
 

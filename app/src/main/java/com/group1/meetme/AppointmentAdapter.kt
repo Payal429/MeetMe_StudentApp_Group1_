@@ -80,7 +80,7 @@ class AppointmentAdapter(
                     actionLayout.visibility = View.VISIBLE
 //                    btn1.text = "Rebook"
                     btn1.visibility = View.GONE
-                    btn2.text = "Review"
+                    btn2.text = "Add Review"
                     btn1.setOnClickListener { onAction1?.invoke(appointment) }
                     btn2.setOnClickListener { onAction2?.invoke(appointment) }
                 }

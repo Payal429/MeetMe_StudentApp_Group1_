@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.Spinner
 import android.widget.Toast
@@ -63,6 +64,11 @@ class lecturer_review : AppCompatActivity() {
         appointmentId = intent.getStringExtra("appointmentId")
         studentId = intent.getStringExtra("studentId")
         lecturerId = intent.getStringExtra("lecturerId")
+
+        val backArrow = findViewById<ImageView>(R.id.backArrow)
+        backArrow.setOnClickListener {
+            finish() // Optional: finishes current activity so it's removed from back stack
+        }
 
         // Disable button initially
         submitButton.isEnabled = false

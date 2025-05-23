@@ -5,15 +5,30 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 // Activity for the student's dashboard.
 class StudentDashboardActivity : AppCompatActivity() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: UpcomingAppointmentsAdapter
+    private val upcomingAppointments = mutableListOf<Appointment>()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,6 +38,8 @@ class StudentDashboardActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        // Enable offline persistence for Firebase Database.
+        Firebase.database.setPersistenceEnabled(true)
 
         // Find the login button by its ID
         val homebutton: ImageButton = findViewById(R.id.homebutton)
@@ -31,6 +48,24 @@ class StudentDashboardActivity : AppCompatActivity() {
         //  val downloadResource: ImageButton = findViewById(R.id.downloadResources)
         val resourcebutton: ImageButton = findViewById(R.id.resourcesbutton)
         val settingsbutton: ImageButton = findViewById(R.id.settingsbutton)
+
+        // RecyclerView for the upcoming appointments.
+        recyclerView = findViewById(R.id.appointmentsRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+//        // Get the user's ID number from SharedPreferences.
+//        val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+//        val userId = sharedPreferences.getString("ID_NUM", null)
+////        val userId = getUserIdFromSharedPreferences()
+//        val userType = sharedPreferences.getString("USER_ROLE", null)
+
+        val userId = getUserIdFromSharedPreferences()
+        val userType = getUserTypeFromSharedPreferences()
+
+        adapter = UpcomingAppointmentsAdapter(upcomingAppointments, userType)
+        recyclerView.adapter = adapter
+
+        loadUpcomingAppointments(userId, userType)
 
         // Set up the schedule button click listener.
         schedulebutton.setOnClickListener(){
@@ -80,5 +115,37 @@ class StudentDashboardActivity : AppCompatActivity() {
         }
         // Show the AlertDialog.
         alertDialog.show()
+    }
+
+    private fun loadUpcomingAppointments(userId: String, userType: String) {
+        val db = FirebaseDatabase.getInstance().reference
+        db.child("appointments").child(userId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    upcomingAppointments.clear()
+                    for (snap in snapshot.children) {
+                        val appointment = snap.getValue(Appointment::class.java)
+                        if (appointment?.status == "upcoming") {
+                            appointment.id = snap.key!!
+                            upcomingAppointments.add(appointment)
+                        }
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@StudentDashboardActivity, "Failed to load appointments", Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
+
+    private fun getUserIdFromSharedPreferences(): String {
+        val prefs = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        return prefs.getString("ID_NUM", "") ?: ""
+    }
+
+    private fun getUserTypeFromSharedPreferences(): String {
+        val prefs = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        return prefs.getString("USER_ROLE", "") ?: ""
     }
 }

@@ -60,8 +60,9 @@ class CancelAppointmentActivity : AppCompatActivity() {
         val backArrow: ImageButton = findViewById(R.id.backArrow)
 
         backArrow.setOnClickListener() {
-            val intent = Intent(this, StudentDashboardActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, StudentDashboardActivity::class.java)
+//            startActivity(intent)
+            finish()
         }
     }
 

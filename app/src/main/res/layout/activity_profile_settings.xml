@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Add New User"
+                android:text="Profile"
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </LinearLayout>

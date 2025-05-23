@@ -1,5 +1,6 @@
 package com.group1.meetme
 
+import android.app.AlertDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -8,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -52,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
         val loginButton: Button = findViewById(R.id.loginButton)
         val emailEditText: TextInputEditText = findViewById(R.id.email)
         val passwordEditText: TextInputEditText = findViewById(R.id.password)
+        val forgotPasswordButton = findViewById<TextView>(R.id.forgotPassword)
 
         // Set an OnClickListener for the login button
         loginButton.setOnClickListener {
@@ -79,6 +82,24 @@ class LoginActivity : AppCompatActivity() {
                 login(username, password)
             }
         }
+
+        // Set onclickListener for the forgot password button
+        forgotPasswordButton.setOnClickListener {
+            showAdminContactDialog()
+        }
+    }
+
+    // Function to show the message dialog for forgot password
+    private fun showAdminContactDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Password Assistance")
+        builder.setMessage("Please contact Administration to reset your password.")
+        builder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
     // Function to handle user login.
