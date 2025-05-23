@@ -4,7 +4,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-
+// Data class representing the request body for onboarding a new user.
 data class OnboardRequest(
     val idNum: String,
     val name: String,
@@ -13,6 +13,8 @@ data class OnboardRequest(
     val course: String,
     val email: String
 )
+
+// Data class representing the request body for verifying OTP.
 data class VerifyOtpRequest(val idNum: String, val otp: String)
 data class ChangePassword(val idNum: String, val password: String)
 data class GetUser(val idNum: String)
@@ -21,6 +23,7 @@ data class UserTypeResponse(
     val typeOfUser: String
 )
 
+// Interface defining the API endpoints and their corresponding HTTP methods.
 interface ApiService {
 
     // Endpoint for onboarding new user

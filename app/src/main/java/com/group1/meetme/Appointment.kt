@@ -10,6 +10,7 @@ import com.google.firebase.database.Exclude
 //    val status: String = "" // "upcoming", "completed", or "cancelled"
 //)
 
+// Data class representing an appointment.
 data class Appointment(
     var id: String = "",
     var date: String = "",
@@ -21,6 +22,7 @@ data class Appointment(
     var cancellationReason: String = ""
 )
 
+// Data class representing an appointment from the lecturer's perspective.
 data class AppointmentLecturer(
     var id: String = "",
     var date: String = "",
