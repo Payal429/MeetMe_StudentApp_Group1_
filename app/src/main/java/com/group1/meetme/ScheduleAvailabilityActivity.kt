@@ -29,6 +29,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+// Activity for scheduling availability.
 class ScheduleAvailabilityActivity : AppCompatActivity() {
 
     private lateinit var holidayDates: List<Calendar>
@@ -55,9 +56,9 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
         "15:40 - 16:20",
         "16:30 - 17:10",
         "17:20 - 18:00",
-        "21:43 - 21:50",
-        "21:45 - 22:30",
-        "21:47 - 22:40",
+//        "21:43 - 21:50",
+//        "21:45 - 22:30",
+//        "21:47 - 22:40",
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,11 +71,12 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
             insets
         }
 
-        // get the idnum of the user from the login
+        // Get the user's ID number from SharedPreferences.
         val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
         val idNum = sharedPreferences.getString("ID_NUM", null)
         Log.d("idNum", idNum!!)
 
+        // Initialize UI components.
         dateTextView = findViewById(R.id.dateTextView)
         calendarView = findViewById(R.id.calendarView)
         btnAddAvailability = findViewById(R.id.btnAddAvailability)
@@ -83,13 +85,13 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
         venueSpinner = findViewById(R.id.venueSpinner)
         val statusText = findViewById<TextView>(R.id.statusText)
 
-        // Set up Spinner
+        // Set up the time slot spinner.
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, timeSlots)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         timeSlotSpinner.adapter = adapter
 
+        // Initialize Firebase database reference.
         database = FirebaseDatabase.getInstance().reference
-
 
         // Define holiday dates/non-bookable days
         holidayDates = listOf(
@@ -218,14 +220,15 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
 
             Calendar.getInstance().apply { set(2026, Calendar.JANUARY, 1) }
         )
-// Add red highlights for holidays
+
+        // Add red highlights for holidays
         val events = holidayDates.map {
             EventDay(it, ColorDrawable(resources.getColor(android.R.color.holo_red_light)))
         }
         calendarView.setEvents(events)
 
         // Set the calendar to show holidays and disable them
-//        for (holiday in holidayDates) {
+        //        for (holiday in holidayDates) {
         //     calendarView.setDisabledDays(holidayDates)
 
         // Generate list of past days from today back to a specific limit (e.g., 2 years)
@@ -240,7 +243,7 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
             dateIterator.add(Calendar.DAY_OF_MONTH, 1)
         }
 
-// Combine holidays and past dates
+        // Combine holidays and past dates
         val disabledDays = pastDates + holidayDates
         calendarView.setDisabledDays(disabledDays)
 
@@ -251,15 +254,21 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
         }
 
 
+        // Handle date selection from the calendar.
         calendarView.setOnDayClickListener(object : OnDayClickListener {
             override fun onDayClick(eventDay: EventDay) {
                 val selectedCal = eventDay.calendar
 
                 if (isHoliday(selectedCal)) {
-                    Toast.makeText(this@ScheduleAvailabilityActivity, "This day is a holiday and cannot be booked!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@ScheduleAvailabilityActivity,
+                        "This day is a holiday and cannot be booked!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                    selectedDate = dateFormat.format(selectedCal.time) // ✅ Fix: update class variable
+                    selectedDate =
+                        dateFormat.format(selectedCal.time) // ✅ Fix: update class variable
                     Log.d("date", selectedDate)
                     dateTextView.text = selectedDate
                     calendarView.visibility = View.GONE
@@ -268,6 +277,7 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
         })
 
 
+        // Handle adding availability.
         btnAddAvailability.setOnClickListener {
             val selectedTimeSlot = timeSlotSpinner.selectedItem.toString()
             val selectedVenue = venueSpinner.selectedItem.toString()
@@ -279,13 +289,13 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
                 .child(idNum!!)
                 .child(date)
                 .child(selectedTimeSlot)
-//                .child(selectedVenue)
+            //                .child(selectedVenue)
 
-//            val slotRef = FirebaseDatabase.getInstance().reference
-//                .child("availability")
-//                .child(lecturerId)
-//                .child(date)
-//                .child(selectedTime)
+            //            val slotRef = FirebaseDatabase.getInstance().reference
+            //                .child("availability")
+            //                .child(lecturerId)
+            //                .child(date)
+            //                .child(selectedTime)
 
             // Optional: prevent duplicates
             slotRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -328,9 +338,8 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
         }
     }
 
+    // Get the current date in "yyyy-MM-dd" format.
     private fun getTodayDate(): String {
         return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
     }
-
-
 }

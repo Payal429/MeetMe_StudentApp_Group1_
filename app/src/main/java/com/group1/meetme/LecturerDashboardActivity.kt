@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
+// Activity for the lecturer's dashboard.
 class LecturerDashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,42 +29,51 @@ class LecturerDashboardActivity : AppCompatActivity() {
         val uploadResources: ImageButton = findViewById(R.id.uploadResources)
         val settingsbutton: ImageButton = findViewById(R.id.settingsbutton)
 
-        schedulebutton.setOnClickListener(){
+        // Set up the schedule button click listener.
+        schedulebutton.setOnClickListener() {
             val intent = Intent(this, ScheduleAvailabilityActivity::class.java)
             startActivity(intent)
         }
 
-        bookingsbutton.setOnClickListener(){
+        // Set up the bookings button click listener.
+        bookingsbutton.setOnClickListener() {
             val intent = Intent(this, AppointmentsActivity::class.java)
             startActivity(intent)
         }
-        uploadResources.setOnClickListener(){
+        // Set up the upload resources button click listener.
+        uploadResources.setOnClickListener() {
             val intent = Intent(this, UploadResourcesActivity::class.java)
             startActivity(intent)
         }
 
-        settingsbutton.setOnClickListener(){
-            val intent = Intent(this,SettingsActivity::class.java)
+        // Set up the settings button click listener.
+        settingsbutton.setOnClickListener() {
+            val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
     }
 
-
+    // Override the back button to show a logout confirmation dialog.
     override fun onBackPressed() {
+        // Create an AlertDialog to confirm logout.
         val alertDialog = AlertDialog.Builder(this).create()
         alertDialog.setTitle("Logout")
         alertDialog.setMessage("Are you sure you want to Logout?")
 
+        // Set up the positive button (Yes) to clear shared preferences and log out.
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes") { dialog, which ->
+            // Clear the user ID from shared preferences.
             val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
             editor.putString("ID_NUM", "")
             editor.apply()
 
+            // Call the superclass onBackPressed to finish the activity.
             super.onBackPressed()
             dialog.dismiss()
         }
 
+        // Set up the negative button (No) to dismiss the dialog.
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No") { dialog, which ->
             dialog.dismiss()
         }

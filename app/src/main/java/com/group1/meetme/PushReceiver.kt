@@ -11,6 +11,7 @@ import android.content.BroadcastReceiver
 import androidx.core.app.NotificationCompat
 import android.content.Context.NOTIFICATION_SERVICE
 
+// BroadcastReceiver to handle reminders.
 class PushReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         // Attempt to extract the "title" property from the data payload, or fallback to app shortcut label

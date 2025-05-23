@@ -54,26 +54,20 @@ class MenuResourcesActivity : AppCompatActivity() {
 //
 //            startActivity(intent)
 //        }
-//
 //        schedulebutton.setOnClickListener(){
 //            val intent = Intent(this, BookAppointmentActivity::class.java)
 //            startActivity(intent)
 //        }
-//
 //        bookingsbutton.setOnClickListener(){
 //            val intent = Intent(this, AppointmentsActivity::class.java)
 //            startActivity(intent)
 //        }
-//
 //        resourcebutton.setOnClickListener(){
 //            val intent = Intent(this, MenuResourcesActivity::class.java)
 //            startActivity(intent)
 //        }
-//
-//
 //        settingsbutton.setOnClickListener(){
 //
 //        }
-
     }
 }

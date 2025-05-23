@@ -20,17 +20,23 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.group1.meetme.BookAppointmentActivity
 
+// Activity for submitting a review for a lecturer.
 class lecturer_review : AppCompatActivity() {
 
-//    // Lecturer
-//    private lateinit var lecturerSpinner: Spinner
-//    private val lecturerNames = mutableListOf<String>()
-//    private val lecturerIdMap = mutableMapOf<String, String>() // name -> id
+    //Lecturer
+    //    private lateinit var lecturerSpinner: Spinner
+    //    private val lecturerNames = mutableListOf<String>()
+    //    private val lecturerIdMap = mutableMapOf<String, String>() // name -> id
+
+    // UI components.
     private lateinit var ratingBar: RatingBar
     private lateinit var commentEditText: EditText
     private lateinit var submitButton: Button
 
+    // Firebase database reference.
     private lateinit var database: DatabaseReference
+
+    // Data passed from the previous activity.
     private var appointmentId: String? = null
     private var studentId: String? = null
     private var lecturerId: String? = null
@@ -45,12 +51,15 @@ class lecturer_review : AppCompatActivity() {
             insets
         }
 
+        // Initialize UI components.
         ratingBar = findViewById(R.id.ratingBar)
         commentEditText = findViewById(R.id.commentEditText)
         submitButton = findViewById(R.id.submitReviewButton)
 
+        // Initialize Firebase database reference.
         database = FirebaseDatabase.getInstance().reference
 
+        // Retrieve data passed from the previous activity.
         appointmentId = intent.getStringExtra("appointmentId")
         studentId = intent.getStringExtra("studentId")
         lecturerId = intent.getStringExtra("lecturerId")
@@ -60,32 +69,46 @@ class lecturer_review : AppCompatActivity() {
 
         // Check if review already exists
         if (appointmentId != null) {
-            database.child("reviews").child(appointmentId!!).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        Toast.makeText(this@lecturer_review, "You already submitted a review for this appointment.", Toast.LENGTH_LONG).show()
-                        finish() // Close the activity
-                    } else {
-                        submitButton.isEnabled = true
+            database.child("reviews").child(appointmentId!!)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            // Show a toast if a review already exists and close the activity.
+                            Toast.makeText(
+                                this@lecturer_review,
+                                "You already submitted a review for this appointment.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            finish() // Close the activity
+                        } else {
+                            submitButton.isEnabled = true
+                        }
                     }
-                }
 
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@lecturer_review, "Error checking review: ${error.message}", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-            })
+                    override fun onCancelled(error: DatabaseError) {
+                        Toast.makeText(
+                            this@lecturer_review,
+                            "Error checking review: ${error.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        finish()
+                    }
+                })
         }
 
+        // Set up the submit button click listener.
         submitButton.setOnClickListener {
+            // Get the rating and comment from the UI components.
             val rating = ratingBar.rating
             val comment = commentEditText.text.toString().trim()
 
+            // Check if the rating is given.
             if (rating == 0f) {
                 Toast.makeText(this, "Please give a rating", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            // Create a Review object with the provided data.
             val review = Review(
                 appointmentId = appointmentId!!,
                 studentId = studentId!!,
@@ -94,6 +117,7 @@ class lecturer_review : AppCompatActivity() {
                 comment = comment
             )
 
+            // Save the review to the Firebase database.
             database.child("reviews").child(appointmentId!!).setValue(review).addOnSuccessListener {
                 Toast.makeText(this, "Review submitted!", Toast.LENGTH_SHORT).show()
                 finish()

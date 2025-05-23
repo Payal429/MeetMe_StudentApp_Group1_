@@ -22,8 +22,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// Activity for user login.
 class LoginActivity : AppCompatActivity() {
 
+    // Initialize the ApiService using the ApiClient.
     private val apiService: ApiService = ApiClient.create(ApiService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +37,8 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // Enable offline persistence for Firebase Database.
         Firebase.database.setPersistenceEnabled(true)
 
         // 1. Request permission (Android 13+)
@@ -57,7 +61,8 @@ class LoginActivity : AppCompatActivity() {
 
             // Check if the email and password fields are not empty
             if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please enter both email and password.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter both email and password.", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
 
@@ -76,14 +81,18 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // Function to handle user login.
     private fun login(idNum: String, password: String) {
+        // Create a login request object.
         val loginRequest = VerifyOtpRequest(idNum, password)
         val userId = GetUser(idNum)
 
+        // Enqueue the API call to verify OTP.
         apiService.loginWithOtp(loginRequest).enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 if (response.isSuccessful && response.body()?.message == "OTP verified. Please set your password.") {
-                    val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+                    val sharedPreferences =
+                        getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
                     editor.putString("ID_NUM", idNum)
                     editor.apply()
@@ -93,75 +102,130 @@ class LoginActivity : AppCompatActivity() {
                     // Attempt subsequent login
                     val changePasswordRequest = ChangePassword(idNum, password)
                     apiService.login(changePasswordRequest).enqueue(object : Callback<ApiResponse> {
-                        override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                        override fun onResponse(
+                            call: Call<ApiResponse>,
+                            response: Response<ApiResponse>
+                        ) {
                             if (response.isSuccessful) {
                                 // Successful login, get user type and redirect accordingly
-                                apiService.getUserType(userId).enqueue(object : Callback<UserTypeResponse> {
-                                    override fun onResponse(call: Call<UserTypeResponse>, response: Response<UserTypeResponse>) {
-                                        if (response.isSuccessful) {
-                                            // get the type of user
-                                            val userType = response.body()?.typeOfUser
+                                apiService.getUserType(userId)
+                                    .enqueue(object : Callback<UserTypeResponse> {
+                                        override fun onResponse(
+                                            call: Call<UserTypeResponse>,
+                                            response: Response<UserTypeResponse>
+                                        ) {
+                                            if (response.isSuccessful) {
+                                                // get the type of user
+                                                val userType = response.body()?.typeOfUser
 
-                                            // store the idNum and userType of the user so that it can be used in whole app
-                                            val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-                                            val editor = sharedPreferences.edit()
-                                            editor.putString("ID_NUM", idNum)
-                                            editor.putString("USER_ROLE", userType)
-                                            editor.apply()
+                                                // store the idNum and userType of the user so that it can be used in whole app
+                                                val sharedPreferences = getSharedPreferences(
+                                                    "MyPreferences",
+                                                    Context.MODE_PRIVATE
+                                                )
+                                                val editor = sharedPreferences.edit()
+                                                editor.putString("ID_NUM", idNum)
+                                                editor.putString("USER_ROLE", userType)
+                                                editor.apply()
 
-                                            Log.d("userType", userType ?: "null")
-                                            Log.d("userID", userId.idNum)
+                                                Log.d("userType", userType ?: "null")
+                                                Log.d("userID", userId.idNum)
 
-                                            // Register Pushy & Save Token
-                                            Thread {
-                                                try {
-                                                    val deviceToken = Pushy.register(this@LoginActivity)
-                                                    Log.d("FirebaseWrite", deviceToken)
-                                                    // Save token under correct user
-                                                    FirebaseDatabase.getInstance().getReference("tokens")
-                                                        .child(userId.idNum).setValue(deviceToken)
+                                                // Register Pushy & Save Token
+                                                Thread {
+                                                    try {
+                                                        val deviceToken =
+                                                            Pushy.register(this@LoginActivity)
+                                                        Log.d("FirebaseWrite", deviceToken)
+                                                        // Save token under correct user
+                                                        FirebaseDatabase.getInstance()
+                                                            .getReference("tokens")
+                                                            .child(userId.idNum)
+                                                            .setValue(deviceToken)
 
-                                                    // Log token for debugging
-                                                    println("Pushy Device Token: $deviceToken")
-                                                } catch (e: Exception) {
-                                                    e.printStackTrace()
-                                                    Log.e("Error", e.toString() )
+                                                        // Log token for debugging
+                                                        println("Pushy Device Token: $deviceToken")
+                                                    } catch (e: Exception) {
+                                                        e.printStackTrace()
+                                                        Log.e("Error", e.toString())
+                                                    }
+                                                }.start()
+
+                                                Pushy.listen(this@LoginActivity) // Start receiving push messages
+
+                                                when (userType) {
+                                                    "Student" -> {
+                                                        finish()
+                                                        startActivity(
+                                                            Intent(
+                                                                this@LoginActivity,
+                                                                StudentDashboardActivity::class.java
+                                                            )
+                                                        )
+                                                    }
+
+                                                    "Lecturer" -> {
+                                                        finish()
+                                                        startActivity(
+                                                            Intent(
+                                                                this@LoginActivity,
+                                                                LecturerDashboardActivity::class.java
+                                                            )
+                                                        )
+                                                    }
+
+                                                    else -> Toast.makeText(
+                                                        this@LoginActivity,
+                                                        "Unknown user type.",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
                                                 }
-                                            }.start()
-
-                                            Pushy.listen(this@LoginActivity) // Start receiving push messages
-
-                                            when (userType) {
-                                                "Student" -> {
-                                                    finish()
-                                                    startActivity(Intent(this@LoginActivity,
-                                                        StudentDashboardActivity::class.java))
-                                                }
-                                                "Lecturer" -> {
-                                                    finish()
-                                                    startActivity(Intent(this@LoginActivity, LecturerDashboardActivity::class.java))
-                                                }
-                                                else -> Toast.makeText(this@LoginActivity, "Unknown user type.", Toast.LENGTH_SHORT).show()
+                                            } else {
+                                                Toast.makeText(
+                                                    this@LoginActivity,
+                                                    "Failed to get user type.",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                                Log.e(
+                                                    "API_ERROR",
+                                                    "Error: ${response.code()}, ${
+                                                        response.errorBody()?.string()
+                                                    }"
+                                                )
                                             }
-                                        } else {
-                                            Toast.makeText(this@LoginActivity, "Failed to get user type.", Toast.LENGTH_SHORT).show()
-                                            Log.e("API_ERROR", "Error: ${response.code()}, ${response.errorBody()?.string()}")
                                         }
-                                    }
 
-                                    override fun onFailure(call: Call<UserTypeResponse>, t: Throwable) {
-                                        Toast.makeText(this@LoginActivity, "Failed to get user type.", Toast.LENGTH_SHORT).show()
-                                        Log.e("API_FAILURE", "Failed to make request: ${t.message}")
-                                    }
-                                })
+                                        override fun onFailure(
+                                            call: Call<UserTypeResponse>,
+                                            t: Throwable
+                                        ) {
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "Failed to get user type.",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                            Log.e(
+                                                "API_FAILURE",
+                                                "Failed to make request: ${t.message}"
+                                            )
+                                        }
+                                    })
                             } else {
-                                Toast.makeText(this@LoginActivity, "Invalid credentials.", Toast.LENGTH_SHORT).show()
-                                Log.e("API_ERROR", "Error: ${response.code()}, ${response.errorBody()?.string()}")
+                                Toast.makeText(
+                                    this@LoginActivity,
+                                    "Invalid credentials.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                Log.e(
+                                    "API_ERROR",
+                                    "Error: ${response.code()}, ${response.errorBody()?.string()}"
+                                )
                             }
                         }
 
                         override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                            Toast.makeText(this@LoginActivity, "Login failed.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginActivity, "Login failed.", Toast.LENGTH_SHORT)
+                                .show()
                             Log.e("API_FAILURE", "Failed to make request: ${t.message}")
                         }
                     })
@@ -175,12 +239,14 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    // Function to request notification permission for Android 13+.
     private fun requestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 100)
         }
     }
 
+    // Function to create a notification channel for Android 8+.
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Default Channel"
@@ -194,7 +260,5 @@ class LoginActivity : AppCompatActivity() {
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
-
     }
-
 }

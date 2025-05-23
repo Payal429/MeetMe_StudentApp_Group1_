@@ -28,6 +28,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
+// Activity for rescheduling appointments.
 class RescheduleActivity : AppCompatActivity() {
 
     private lateinit var calendarView: CalendarView
@@ -41,6 +42,7 @@ class RescheduleActivity : AppCompatActivity() {
     private var selectedDate: String = ""
     private var availableTimes: List<String> = emptyList()
 
+    // Data class to represent a time slot.
     data class Slot(val booked: Boolean = false)
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -48,26 +50,30 @@ class RescheduleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reschedule)
 
+        // Initialize UI components.
         calendarView = findViewById(R.id.rescheduleCalendarView)
         timeSlotSpinner = findViewById(R.id.timeSlotSpinner)
         rescheduleButton = findViewById(R.id.rescheduleConfirmButton)
 
+        // Retrieve data from the intent.
         lecturerId = intent.getStringExtra("lecturerId") ?: ""
         module = intent.getStringExtra("module") ?: ""
         isRebooking = intent.getBooleanExtra("isRebooking", false)
-//        studentId = "student123"
+        // studentId = "student123"
 
         // Get userId and userType from SharedPreferences or Intent
         val sharedPreferences = getSharedPreferences("MyPreferences", MODE_PRIVATE)
         studentId = sharedPreferences.getString("ID_NUM", "") ?: ""
-//        val userType = sharedPreferences.getString("USER_ROLE", "") ?: ""
+        // val userType = sharedPreferences.getString("USER_ROLE", "") ?: ""
 
+        // Set the title based on whether it's a rebooking or rescheduling.
         if (isRebooking) {
             title = "Rebook Appointment - $module"
         } else {
             title = "Reschedule Appointment"
         }
 
+        // Set up the calendar view to handle day clicks.
         calendarView.setOnDayClickListener(object : OnDayClickListener {
             override fun onDayClick(eventDay: EventDay) {
                 val cal = eventDay.calendar
@@ -76,6 +82,7 @@ class RescheduleActivity : AppCompatActivity() {
             }
         })
 
+        // Set up the reschedule button click listener.
         rescheduleButton.setOnClickListener {
             val time = timeSlotSpinner.selectedItem?.toString()?.trim() ?: ""
             if (selectedDate.isEmpty() || time.isEmpty()) {
@@ -86,12 +93,14 @@ class RescheduleActivity : AppCompatActivity() {
             if (isRebooking) {
                 createNewAppointment(selectedDate, time)
             } else {
-                val appointmentId = intent.getStringExtra("appointmentId") ?: return@setOnClickListener
+                val appointmentId =
+                    intent.getStringExtra("appointmentId") ?: return@setOnClickListener
                 updateExistingAppointment(appointmentId, selectedDate, time)
             }
         }
     }
 
+    // Function to load available times for the selected date.
     private fun loadAvailableTimesForDate(date: String) {
         val db = FirebaseDatabase.getInstance().reference
         val ref = db.child("availability").child(lecturerId).child(date)
@@ -108,22 +117,35 @@ class RescheduleActivity : AppCompatActivity() {
                 }
 
                 if (timeList.isEmpty()) {
-                    Toast.makeText(this@RescheduleActivity, "No available times on $date", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@RescheduleActivity,
+                        "No available times on $date",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     timeSlotSpinner.adapter = null
                 } else {
                     availableTimes = timeList.sorted()
-                    val adapter = ArrayAdapter(this@RescheduleActivity, android.R.layout.simple_spinner_item, availableTimes)
+                    val adapter = ArrayAdapter(
+                        this@RescheduleActivity,
+                        android.R.layout.simple_spinner_item,
+                        availableTimes
+                    )
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     timeSlotSpinner.adapter = adapter
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@RescheduleActivity, "Error loading times: ${error.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@RescheduleActivity,
+                    "Error loading times: ${error.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
 
+    // Function to create a new appointment.
     private fun createNewAppointment(date: String, time: String) {
         val db = FirebaseDatabase.getInstance().reference
         val newRef = db.child("appointments").child(studentId).push()
@@ -138,7 +160,8 @@ class RescheduleActivity : AppCompatActivity() {
 
         newRef.setValue(data)
             .addOnSuccessListener {
-                Toast.makeText(this, "Appointment booked for $date at $time", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Appointment booked for $date at $time", Toast.LENGTH_SHORT)
+                    .show()
                 finish()
             }
             .addOnFailureListener {
@@ -146,11 +169,14 @@ class RescheduleActivity : AppCompatActivity() {
             }
 
 
-       val oldtime = intent.getStringExtra("oldTime")
-       val olddate = intent.getStringExtra("oldDate")
+        // Update the old appointment slot to unbooked.
+        val oldtime = intent.getStringExtra("oldTime")
+        val olddate = intent.getStringExtra("oldDate")
         Log.d("oldTime", oldtime!!)
         Log.d("oldDate", olddate!!)
-        val slotRef = FirebaseDatabase.getInstance().reference.child("availability").child(lecturerId!!).child(olddate!!).child(oldtime!!)
+        val slotRef =
+            FirebaseDatabase.getInstance().reference.child("availability").child(lecturerId!!)
+                .child(olddate!!).child(oldtime!!)
 
         slotRef.runTransaction(object : Transaction.Handler {
             override fun doTransaction(currentData: MutableData): Transaction.Result {
@@ -165,7 +191,11 @@ class RescheduleActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onComplete(error: DatabaseError?, committed: Boolean, snapshot: DataSnapshot?) {
+            override fun onComplete(
+                error: DatabaseError?,
+                committed: Boolean,
+                snapshot: DataSnapshot?
+            ) {
                 if (committed) {
                     // Add an entry for the lecturer appointments
                     val appointmentLecturer = mapOf(
@@ -176,25 +206,28 @@ class RescheduleActivity : AppCompatActivity() {
                         "status" to "upcoming"
                     )
 
-                    val appointmentRefLecturer = FirebaseDatabase.getInstance().reference.child("appointmentsLecturer").child(lecturerId).push()
+                    val appointmentRefLecturer =
+                        FirebaseDatabase.getInstance().reference.child("appointmentsLecturer")
+                            .child(lecturerId).push()
                     appointmentRefLecturer.setValue(appointmentLecturer)
 
-                    // Send notification
-                    FirebaseDatabase.getInstance().reference.child("tokens").child(lecturerId).get().addOnSuccessListener { tokenSnapshot ->
-                        val token = tokenSnapshot.getValue(String::class.java)
-                        if (token != null) {
-                            sendPushyNotification(
-                                token,
-                                "New Appointment Booked",
-                                "Student $studentId booked a slot at $time on $date"
-                            )
+                    // Send notification to the lecturer.
+                    FirebaseDatabase.getInstance().reference.child("tokens").child(lecturerId).get()
+                        .addOnSuccessListener { tokenSnapshot ->
+                            val token = tokenSnapshot.getValue(String::class.java)
+                            if (token != null) {
+                                sendPushyNotification(
+                                    token,
+                                    "New Appointment Booked",
+                                    "Student $studentId booked a slot at $time on $date"
+                                )
 
-                            // Schedule reminder
-                            scheduleReminder(date, time, token)
+                                // Schedule a reminder for the appointment.
+                                scheduleReminder(date, time, token)
+                            }
                         }
-                    }
                 } else {
-                   // statusText.text = "Timeslot already booked."
+                    // statusText.text = "Timeslot already booked."
                     Log.d("Already Booked", "Time Already Booked")
 
                 }
@@ -204,6 +237,7 @@ class RescheduleActivity : AppCompatActivity() {
         })
     }
 
+    // Function to schedule a reminder for the appointment.
     private fun scheduleReminder(date: String, time: String, lecturerToken: String) {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         val appointmentDate = sdf.parse("$date $time") ?: return
@@ -227,16 +261,29 @@ class RescheduleActivity : AppCompatActivity() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (alarmManager.canScheduleExactAlarms()) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderTimeMillis, pendingIntent)
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    reminderTimeMillis,
+                    pendingIntent
+                )
             } else {
                 startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM))
-                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderTimeMillis, pendingIntent)
+                alarmManager.setAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    reminderTimeMillis,
+                    pendingIntent
+                )
             }
         } else {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderTimeMillis, pendingIntent)
+            alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                reminderTimeMillis,
+                pendingIntent
+            )
         }
     }
 
+    // Function to send a Pushy notification.
     fun sendPushyNotification(deviceToken: String, title: String, message: String) {
         val client = OkHttpClient()
 
@@ -266,7 +313,7 @@ class RescheduleActivity : AppCompatActivity() {
         })
     }
 
-
+    // Function to update an existing appointment.
     private fun updateExistingAppointment(appointmentId: String, date: String, time: String) {
         val db = FirebaseDatabase.getInstance().reference
         db.child("appointments").child(studentId).child(appointmentId)
