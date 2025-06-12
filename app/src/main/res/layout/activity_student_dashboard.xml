@@ -28,7 +28,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@id/imageViewProfile"
-            android:text="Hi, Student"
+            android:text="@string/hi_student"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="Daily Quote"
+                    android:text="@string/daily_quote"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -108,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="“Empowering Your Academic Journey Schedule, Connect, Succeed!”"
+                        android:text="@string/empowering_your_academic_journey_schedule_connect_succeed"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -127,7 +127,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="10dp"
-                android:text="List of Schools"
+                android:text="@string/list_of_schools"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -156,7 +156,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="School of IT"
+                            android:text="@string/school_of_it"
                             android:textAlignment="center"
                             android:textColor="@color/black" />
                     </LinearLayout>
@@ -175,7 +175,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="School of Commerce"
+                            android:text="@string/school_of_commerce"
                             android:textAlignment="center"
                             android:textColor="@color/black" />
                     </LinearLayout>
@@ -194,7 +194,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="School of Education"
+                            android:text="@string/school_of_education"
                             android:textAlignment="center"
                             android:textColor="@color/black" />
                     </LinearLayout>
@@ -213,7 +213,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="School of Law"
+                            android:text="@string/school_of_law"
                             android:textAlignment="center"
                             android:textColor="@color/black" />
                     </LinearLayout>
@@ -232,7 +232,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="School of Policing and Law Enforcement"
+                            android:text="@string/school_of_policing_and_law_enforcement"
                             android:textAlignment="center"
                             android:textColor="@color/black" />
                     </LinearLayout>
@@ -251,7 +251,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="School of Administration and Management"
+                            android:text="@string/school_of_administration_and_management"
                             android:textAlignment="center"
                             android:textColor="@color/black" />
                     </LinearLayout>
@@ -270,7 +270,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="School of Fashion"
+                            android:text="@string/school_of_fashion"
                             android:textAlignment="center"
                             android:textColor="@color/black" />
                     </LinearLayout>
@@ -284,7 +284,7 @@
                 android:layout_margin="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Appointments"
+                android:text="@string/appointments"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 

@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Settings"
+            android:text="@string/settings"
             android:textSize="24sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -98,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_weight="1"
-                        android:text="Profile"
+                        android:text="@string/profile1"
                         android:textColor="@color/black"
                         android:textSize="22sp"
                         android:textStyle="bold" />
@@ -185,7 +185,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_weight="1"
-                        android:text="Support"
+                        android:text="@string/support"
                         android:textColor="#000000"
                         android:textSize="22sp"
                         android:textStyle="bold" />
@@ -228,7 +228,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_weight="1"
-                        android:text="About"
+                        android:text="@string/about"
                         android:textColor="#000000"
                         android:textSize="22sp"
                         android:textStyle="bold" />
@@ -271,7 +271,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_weight="1"
-                        android:text="App Settings"
+                        android:text="@string/app_settings"
                         android:textColor="#000000"
                         android:textSize="22sp"
                         android:textStyle="bold" />

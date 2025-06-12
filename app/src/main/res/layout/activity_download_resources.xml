@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Select Module"
+                    android:text="@string/select_module"
                     android:textSize="16sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -116,7 +116,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Activity 1.docx"
+                                android:text="@string/activity_1_docx"
                                 android:textSize="16sp" />
 
                             <View
@@ -154,7 +154,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Topic 1 Notes.pdf"
+                                android:text="@string/topic_1_notes_pdf"
                                 android:textSize="16sp" />
 
                             <View
@@ -192,7 +192,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Activity 2.docx"
+                                android:text="@string/activity_2_docx"
                                 android:textSize="16sp" />
 
                             <View
@@ -230,7 +230,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Topic 3 Notes.pdf"
+                                android:text="@string/topic_3_notes_pdf"
                                 android:textSize="16sp" />
 
                             <View

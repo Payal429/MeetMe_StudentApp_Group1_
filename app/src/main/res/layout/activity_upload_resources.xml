@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Upload Resources"
+                android:text="@string/upload_resources1"
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Select Course"
+                    android:text="@string/select_course"
                     android:textSize="16sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Select Module"
+                    android:text="@string/select_module1"
                     android:textSize="16sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -127,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Upload File"
+                    android:text="@string/upload_file"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -169,7 +169,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@android:color/transparent"
-                            android:text="Select File"
+                            android:text="@string/select_file"
                             android:textAllCaps="false"
                             android:textColor="@android:color/black"
                             app:strokeColor="@android:color/black" />
@@ -201,7 +201,7 @@
                 android:backgroundTint="#EA4C89"
                 app:cornerRadius="8dp"
                 android:textColor="@color/black"
-                android:text="Upload Resource"/>
+                android:text="@string/upload_resource"/>
 
         </LinearLayout>
 

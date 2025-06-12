@@ -28,7 +28,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@id/imageViewProfile"
-            android:text="Hi, Lecturer"
+            android:text="@string/hi_lecturer"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -71,7 +71,7 @@
                 android:layout_margin="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Upcoming Appointments"
+                android:text="@string/upcoming_appointments"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -110,7 +110,7 @@
                 android:layout_margin="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Previous Appointments"
+                android:text="@string/previous_appointments"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
             <TextView
@@ -118,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_background"
-                android:text="No previous appointments currently."
+                android:text="@string/no_previous_appointments_currently"
                 android:gravity="center"
                 android:visibility="gone"
                 android:textSize="18sp"

@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Cancellation Reason"
+            android:text="@string/cancellation_reason"
             android:textSize="24sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -49,19 +49,19 @@
 
         <RadioButton
             android:id="@+id/reason1"
-            android:text="Not feeling well"
+            android:text="@string/not_feeling_well"
             android:textSize="18sp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
         <RadioButton
             android:id="@+id/reason2"
-            android:text="Personal reasons"
+            android:text="@string/personal_reasons"
             android:textSize="18sp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
         <RadioButton
             android:id="@+id/reasonOther"
-            android:text="Other"
+            android:text="@string/other"
             android:textSize="18sp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
@@ -94,5 +94,5 @@
         android:backgroundTint="#EA4C89"
         app:cornerRadius="8dp"
         android:textColor="@color/black"
-        android:text="Confirm Cancellation"/>
+        android:text="@string/confirm_cancellation"/>
 </LinearLayout>

@@ -29,7 +29,7 @@
             android:layout_marginTop="1dp"
             android:background="@drawable/heading"
             android:backgroundTint="#FFDAB9"
-            android:text="Log in"
+            android:text="@string/log_in"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textColorLink="#673AB7"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Hi, Welcome! 👋"
+            android:text="@string/hi_welcome"
             android:textSize="28sp" />
 
         <!-- Email Label -->
@@ -160,7 +160,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="28dp"
-            android:text="Forgot Password?"
+            android:text="@string/forgot_password"
             android:textSize="16sp"
             android:textAlignment="textEnd"
             android:textColor="#814700" />
@@ -176,7 +176,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="18sp"
-            android:text="Login"
+            android:text="@string/login"
             android:textColor="@color/black" />
     </LinearLayout>
 

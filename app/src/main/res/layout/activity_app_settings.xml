@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="App Language:"
+                android:text="@string/app_language"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/pink"
                     android:textSize="18sp"
-                    android:text="English" />
+                    android:text="@string/english" />
 
                 <RadioButton
                     android:id="@+id/radioAfrikaans"
@@ -79,7 +79,7 @@
                     android:layout_marginStart="24dp"
                     android:textSize="18sp"
                     android:buttonTint="@color/pink"
-                    android:text="Afrikaans" />
+                    android:text="@string/afrikaans" />
             </RadioGroup>
 
 
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:text="Reminder Time Before Appointment 🔽"
+                    android:text="@string/reminder_time_before_appointment"
                     android:layout_marginTop="24dp"
                     android:textSize="18sp" />
 
@@ -215,7 +215,7 @@
                 android:backgroundTint="#EA4C89"
                 app:cornerRadius="8dp"
                 android:textColor="@color/black"
-                android:text="Save Settings"
+                android:text="@string/save_settings"
                 android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>

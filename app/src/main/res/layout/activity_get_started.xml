@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Student Appointment Scheduler"
+        android:text="@string/student_appointment_scheduler"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="24sp" />
@@ -51,7 +51,7 @@
             android:layout_centerHorizontal="true"
             android:backgroundTint="#CE4993"
             android:fontFamily="sans-serif-black"
-            android:text="GET STARTED"
+            android:text="@string/get_started"
             android:textSize="18dp"
             app:cornerRadius="8dp"
             android:textColor="#020202" />

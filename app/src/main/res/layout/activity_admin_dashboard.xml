@@ -34,7 +34,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_marginEnd="30dp"
-                android:text="Hi, Admin"
+                android:text="@string/hi_admin"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -64,7 +64,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add New Student"
+            android:text="@string/add_new_student"
             android:textStyle="bold"
             android:textSize="18dp"
             android:textColor="@color/black" />
@@ -92,7 +92,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add New Lecturer"
+            android:text="@string/add_new_lecturer"
             android:textSize="18dp"
             android:textStyle="bold"
             android:textColor="@color/black" />
@@ -120,7 +120,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Manage Users"
+            android:text="@string/manage_users"
             android:textSize="18dp"
             android:textStyle="bold"
             android:textColor="@color/black" />
@@ -148,7 +148,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reports and Analytics"
+            android:text="@string/reports_and_analytics"
             android:textSize="18dp"
             android:textStyle="bold"
             android:textColor="@color/black" />

@@ -26,20 +26,20 @@
             android:id="@+id/LecturerTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lecturer: ..."
+            android:text="@string/lecturer"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/DateTimeVenueTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DTV: ..." />
+            android:text="@string/dtv" />
 
         <TextView
             android:id="@+id/ModuleName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Module: ..." />
+            android:text="@string/module" />
 
     </LinearLayout>
 

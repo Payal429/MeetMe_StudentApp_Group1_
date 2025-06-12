@@ -1,22 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="intro_message">-----------Welkom to the support page of the MeetMe app! We’re here to help you understand how to use the app, manage your account, and ensure a smooth experience for both students and lecturers. If you encounter any issues, our support team is ready to assist.</string>
-    <string name="overview_message">-------------MeetMe is a smart appointment scheduling app designed for students and lecturers to connect easily. Whether you need to book a consultation, check availability, or manage your upcoming meetings, MeetMe provides a seamless and user-friendly experience.</string>
-    <string name="user_account_message">-----------To use MeetMe, you must log in using your registered student or lecturer credentials. Each user has access to features based on their role:
-        \n- Students can view lecturer availability, book appointments, cancel or reschedule meetings, and receive reminders.
-        \n- Lecturers can set their available times, manage appointments, upload resources, and receive notifications.</string>
-    <string name="app_use_message">-----------Students: Select a lecturer, choose a module, pick a date and available timeslot, and confirm your booking.\nLecturers: Add availability slots, receive booking notifications, and view/manage upcoming appointments. \nBoth user types can access a profile page, review past appointments, and manage account settings.</string>
-    <string name="data_collection_message">-----------MeetMe collects only essential data such as your name, ID number, course, and email address. This information is used to personalize your experience and is never shared with third parties. All data is securely stored using Firebase services, ensuring your privacy and safety.</string>
-    <string name="limitation_message">-----------While MeetMe strives to offer a reliable and efficient scheduling service, we are not liable for missed appointments, incorrect bookings, or technical disruptions beyond our control. Users are responsible for confirming their bookings and attending scheduled sessions as agreed.</string>
-    <string name="about_us_message">-----------MeetMe was developed by a passionate group of students who understand the challenges of managing appointments between students and lecturers. Our goal is to make academic scheduling simple, fast, and reliable.</string>
-    <string name="mission_message">-----------Our mission is to enhance academic communication by providing a digital platform that simplifies appointment scheduling, saves time, and improves the learning experience for both students and educators.</string>
-    <string name="offer_message">----------- - Real-time scheduling between students and lecturers
-        \n- Appointment reminders and notifications
-        \n- Profile management for users
-        \n- Booking history and analytics for admin and support staff
-        \n- Easy-to-use, mobile-friendly interface</string>
-    <string name="meet_the_team_message">-----------We are a team of tech-savvy students committed to building meaningful software for academic environments. Each of us brings unique skills in development, design, and user experience to ensure MeetMe delivers value to every user.</string>
+    <string name="intro_message">Welkom by die ondersteuningsbladsy van die MeetMe‑app! Ons is hier om jou te help om die app te gebruik, jou rekening te bestuur, en \'n gladde ervaring vir beide studente en dosente te verseker. As jy enige probleme ondervind, is ons ondersteuning-span gereed om te help.</string>
+    <string name="overview_message">MeetMe is \'n slim afspraakbeplannings‑app ontwerp om studente en dosente maklik te verbind. Of jy \'n konsultasie wil bespreek, beskikbaarheid wil nagaan, of jou komende byeenkomste wil bestuur – MeetMe bied 'n naatlose en gebruikersvriendelike ervaring.</string>
+    <string name="user_account_message">Om MeetMe te gebruik, moet jy aanmeld met jou geregistreerde student‑ of dosentbewyse. Elke gebruiker het toegang tot funksies volgens hul rol:\n- Studente kan dosentbeskikbaarheid sien, afsprake bespreek, kanselleer of herskeduleer, en herinneringe ontvang.\n- Dosente kan hul beskikbare tye instel, afsprake bestuur, hulpbronne oplaai en kennisgewings ontvang.</string>
+    <string name="app_use_message">Studente: Kies \'n dosent, kies \'n module, selekteer \'n datum en beskikbare tydgleuf, en bevestig jou bespreking.\nDosente: Voeg beskikbaarheid by, ontvang besprekingkennisgewings, en bestuur komende afsprake.\nAlbei gebruikers kan hul profielbladsy besoek, vorige afsprake hersien en rekeninginstellings aanpas.</string>
+    <string name="data_collection_message">MeetMe versamel slegs noodsaaklike data soos jou naam, ID‑nommer, kursus en e‑posadres. Hierdie inligting word gebruik om jou ervaring te personaliseer en word nooit met derde partye gedeel nie. Alle data word veilig gestoor via Firebase‑dienste om jou privaatheid te beskerm.</string>
+    <string name="limitation_message">Alhoewel MeetMe poog om \'n betroubare en doeltreffende planningsdiens te lewer, is ons nie aanspreeklik vir gemiste afsprake, verkeerde besprekings of tegniese onderbrekings buite ons beheer nie. Gebruikers is verantwoordelik om besprekings te bevestig en afsprake by te woon soos ooreengekom.</string>
 
+    <!-- About Page -->
+    <string name="about_us_message">MeetMe is ontwikkel deur \'n passievolle groep studente wat die uitdagings van akademiese afspraakbestuur verstaan. Ons doel is om akademiese beplanning eenvoudig, vinnig en betroubaar te maak.</string>
+    <string name="mission_message">Ons missie is om akademiese kommunikasie te verbeter deur \'n digitale platform te bied wat afspraakbeplanning vereenvoudig, tyd bespaar en leerervaring verbeter vir studente en onderwysers.</string>
+    <string name="offer_message">- Regstreekse afspraakbeplanning tussen studente en dosente\n- Herinneringe en kennisgewings oor afsprake\n- Profielbestuur vir gebruikers\n- Besprekingsgeskiedenis en analise vir admin en ondersteuning\n- Maklik‑om‑te‑gebruik, selfoonvriendelike koppelvlak</string>
+    <string name="meet_the_team_message">Ons is \'n span tegnologie‑vaardige studente toegewyd aan die bou van betekenisvolle sagteware vir akademiese omgewings. Elke lid dra unieke vaardighede in ontwikkeling, ontwerp en gebruikerservaring om waarde aan elke gebruiker te lewer.</string>
+
+
+    <!-- Labels and UI Text -->
+
+    <string name="home1">Tuis</string>
+    <string name="name1">Naam</string>
+    <string name="activity_1_docx">Aktiwiteit 1.docx</string>
+    <string name="topic_1_notes_pdf">Notas oor Onderwerp 1.pdf</string>
+    <string name="activity_2_docx">Aktiwiteit 2.docx</string>
+    <string name="topic_3_notes_pdf">Notas oor Onderwerp 3.pdf</string>
+    <string name="manage_users1">Bestuur Gebruikers</string>
+    <string name="id_number1">ID-nommer:</string>
+    <string name="full_name">Volledige Naam:</string>
+    <string name="email_address">E-posadres:</string>
+    <string name="user_type">Gebruikerstipe:</string>
+    <string name="profile1">Profiel</string>
+
+
+    <!-- Labels and UI Text -->
+    <string name="home">Tuis</string>
+    <string name="about_us">Oor Ons</string>
+    <string name="our_mission">Ons Missie</string>
+    <string name="what_we_offer">Wat Ons Bied</string>
+    <string name="meet_the_team">Ontmoet die Span</string>
+    <string name="profile">Profiel</string>
+    <string name="account">Rekening</string>
+    <string name="name">Naam</string>
+    <string name="add_new_user">Voeg Nuwe Gebruiker</string>
+    <string name="id_number">ID‑nommer</string>
+    <string name="surname1">Van</string>
+    <string name="select_the_course">Kies \'n Kursus ▼</string>
+    <string name="email">E‑pos</string>
+    <string name="add_user">Voeg Gebruiker By</string>
+    <string name="start_date">Begin­datum</string>
+    <string name="end_date">Eind­datum</string>
+    <string name="apply_filter">Pas Filter Toe</string>
+    <string name="hi_admin">Haai, Admin</string>
+    <string name="add_new_student">Voeg Nuwe Student By</string>
+    <string name="add_new_lecturer">Voeg Nuwe Dosent By</string>
+    <string name="manage_users">Bestuur Gebruikers</string>
+    <string name="reports_and_analytics">Verslae en Analise</string>
+    <string name="app_language">App‑taal:</string>
+    <string name="english">Engels</string>
+    <string name="afrikaans">Afrikaans</string>
+    <string name="reminder_time_before_appointment">Herinneringstyd voor Afspraak 🔽</string>
+    <string name="save_settings">Stoor Instellings</string>
+    <string name="bookings">Afsprake</string>
+    <string name="schedule_appointments">Beplan Afsprake</string>
+    <string name="select_the_lecturer">Kies die dosent:</string>
+    <string name="load_available_times">Laai Beskikbare Tye</string>
+    <string name="cancellation_reason">Redenaar vir Kansellasie</string>
+    <string name="personal_reasons">Persoonlike redes</string>
+    <string name="not_feeling_well">Nie lekker nie</string>
+    <string name="other">Ander</string>
+    <string name="confirm_cancellation">Bevestig Kansellasie</string>
+    <string name="enter_new_password">Voer Nuwe Wagwoord In</string>
+    <string name="change_password">Verander Wagwoord</string>
+    <string name="select_module">Kies Module</string>
+    <string name="student_appointment_scheduler">Student Afsprakebeplanner</string>
+    <string name="get_started">BEGIN</string>
+    <string name="hi_lecturer">Goeie dag, Dosent</string>
+    <string name="upcoming_appointments">Komende Afsprake</string>
+    <string name="previous_appointments">Vorige Afsprake</string>
+    <string name="no_previous_appointments_currently">Geen vorige afsprake tans nie.</string>
+    <string name="lecturer_review">Dosent­resensie</string>
+    <string name="add_review">Voeg Resensie By</string>
+    <string name="log_in">Teken In</string>
+    <string name="hi_welcome">Goeie dag, welkom! 👋</string>
+    <string name="forgot_password">Wagwoord Vergete?</string>
+    <string name="login">Teken In</string>
+    <string name="user_id_number">Gebruiker‑ID‑nommer</string>
+    <string name="resend_otp">Herstuur OTP</string>
+    <string name="resources">Hulpbronne</string>
+    <string name="upload_or_download_resources">Laai op of aflaai hulpbronne?</string>
+    <string name="upload_resources">Laai Hulpbronne Op</string>
+    <string name="download_resources">Laai Hulpbronne Af</string>
+    <string name="reschedule_appointment">Herskeduleer Afspraak</string>
+    <string name="confirm_reschedule">Bevestig Herskedulering</string>
+    <string name="schedule_availability">Beplan Beskikbaarheid</string>
+    <string name="select_the_time">Kies die tyd:</string>
+    <string name="select_the_venue">Kies die lokaal/aanlyn:</string>
+    <string name="add_availability">Voeg Beskikbaarheid By</string>
+    <string name="app_settings">App‑instellings</string>
+    <string name="about">Oor</string>
+    <string name="support">Ondersteuning</string>
+    <string name="settings">Instellings</string>
+    <string name="hi_student">Haai, Student</string>
+    <string name="daily_quote">Daaglikse Aanhalings</string>
+    <string name="empowering_your_academic_journey_schedule_connect_succeed">“Bemagtig jou akademiese reis – beplan, verbind, slaag!”</string>
+    <string name="list_of_schools">Lys van skoletoestelle</string>
+    <string name="school_of_it">Skool van IT</string>
+    <string name="school_of_commerce">Skool van Handel</string>
+    <string name="school_of_education">Skool van Onderwys</string>
+    <string name="school_of_law">Skool van Regte</string>
+    <string name="school_of_policing_and_law_enforcement">Skool van Polisie en Regsdienste</string>
+    <string name="school_of_administration_and_management">Skool van Administrasie en Bestuur</string>
+    <string name="school_of_fashion">Skool van Mode</string>
+    <string name="appointments">Afsprake</string>
+    <string name="support1">Ondersteuning</string>
+    <string name="introduction">Inleiding</string>
+    <string name="app_overview">App‑oorsig</string>
+    <string name="user_accounts">Gebruikersrekeninge</string>
+    <string name="use_of_the_app">Gebruik van die App</string>
+    <string name="data_collection_and_privacy">Dataversameling en Privaatheid</string>
+    <string name="limitation_of_liability">Aanspreeklikheidsbeperking</string>
+    <string name="upload_resources1">Laai Bronne Op</string>
+    <string name="select_course">Kies Kursus</string>
+    <string name="select_module1">Kies Module</string>
+    <string name="upload_file">Laai Lêer Op</string>
+    <string name="select_file">Kies Lêer</string>
+    <string name="upload_resource">Laai Hulpbron Op</string>
+    <string name="appointment_info">Afspraakinligting</string>
+    <string name="module">Module: ...</string>
+    <string name="dtv">Datum/Tyd: ...</string>
+    <string name="lecturer">Dosent: ...</string>
 
 
 </resources>
