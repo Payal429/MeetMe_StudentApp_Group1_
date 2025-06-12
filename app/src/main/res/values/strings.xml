@@ -127,6 +127,9 @@
     <string name="module">Module: ...</string>
     <string name="dtv">DTV: ...</string>
     <string name="lecturer">Lecturer: ...</string>
+    <string name="filter_by_date_range">Filter by Date Range</string>
+    <string name="analytics_and_reporting">Analytics and Reporting</string>
+    <string name="filter_by_date_range1">Filter by Date Range</string>
 
 
     <string-array name="reminder_times">

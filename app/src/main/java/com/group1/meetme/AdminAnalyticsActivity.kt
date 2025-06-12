@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -42,7 +43,18 @@ class AdminAnalyticsActivity : AppCompatActivity() {
         applyFilterBtn.setOnClickListener { loadStats() }
 
         loadStats() // Load unfiltered stats on launch
+
+        // Return back to the dashboard
+        val backArrow: ImageButton = findViewById(R.id.backArrow)
+
+        // Find the back arrow button and set an OnClickListener to navigate back to the dashboard.
+        backArrow.setOnClickListener() {
+//            val intent = Intent(this, StudentDashboardActivity::class.java)
+//            startActivity(intent)
+            finish()
+        }
     }
+
 
     private fun pickDate(onDateSelected: (String) -> Unit) {
         val calendar = Calendar.getInstance()

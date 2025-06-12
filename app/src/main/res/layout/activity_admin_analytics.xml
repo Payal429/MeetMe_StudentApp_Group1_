@@ -1,6 +1,40 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_background_color_option_two">>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/ivory">
+
+        <ImageButton
+            android:id="@+id/backArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_arrow"
+            android:contentDescription="Home"
+            android:padding="5dp"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        <TextView
+            android:id="@+id/headerTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/analytics_and_reporting"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -10,7 +44,7 @@
 
         <!-- Date Range Filter -->
         <TextView
-            android:text="Filter by Date Range"
+            android:text="@string/filter_by_date_range1"
             android:textStyle="bold"
             android:textSize="18sp"
             android:layout_marginBottom="8dp"
@@ -27,6 +61,13 @@
                 android:layout_weight="1"
                 android:text="@string/start_date"
                 android:layout_width="0dp"
+                android:drawableEnd="@drawable/calendar_icon"
+                android:backgroundTint="#EA4C89"
+                app:cornerRadius="8dp"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:padding="16dp"
+                android:layout_margin="5dp"
                 android:layout_height="wrap_content" />
 
             <Button
@@ -34,6 +75,13 @@
                 android:layout_weight="1"
                 android:text="@string/end_date"
                 android:layout_width="0dp"
+                android:drawableEnd="@drawable/calendar_icon"
+                android:backgroundTint="#EA4C89"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:cornerRadius="8dp"
+                android:padding="16dp"
+                android:layout_margin="5dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
@@ -42,6 +90,10 @@
             android:text="@string/apply_filter"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
+            android:backgroundTint="#EA4C89"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:cornerRadius="8dp"
             android:layout_height="wrap_content" />
 
         <View
@@ -57,5 +109,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+    </LinearLayout>
     </LinearLayout>
 </ScrollView>
