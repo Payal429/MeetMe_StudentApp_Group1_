@@ -2,4 +2,31 @@
     <string name="app_name">MeetMe</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="intro_message">Welcome to the support page of the MeetMe app! We’re here to help you understand how to use the app, manage your account, and ensure a smooth experience for both students and lecturers. If you encounter any issues, our support team is ready to assist.</string>
+    <string name="overview_message">MeetMe is a smart appointment scheduling app designed for students and lecturers to connect easily. Whether you need to book a consultation, check availability, or manage your upcoming meetings, MeetMe provides a seamless and user-friendly experience.</string>
+    <string name="user_account_message">To use MeetMe, you must log in using your registered student or lecturer credentials. Each user has access to features based on their role:
+        \n- Students can view lecturer availability, book appointments, cancel or reschedule meetings, and receive reminders.
+        \n- Lecturers can set their available times, manage appointments, upload resources, and receive notifications.</string>
+    <string name="app_use_message">Students: Select a lecturer, choose a module, pick a date and available timeslot, and confirm your booking.\nLecturers: Add availability slots, receive booking notifications, and view/manage upcoming appointments. \nBoth user types can access a profile page, review past appointments, and manage account settings.</string>
+    <string name="data_collection_message">MeetMe collects only essential data such as your name, ID number, course, and email address. This information is used to personalize your experience and is never shared with third parties. All data is securely stored using Firebase services, ensuring your privacy and safety.</string>
+    <string name="limitation_message">While MeetMe strives to offer a reliable and efficient scheduling service, we are not liable for missed appointments, incorrect bookings, or technical disruptions beyond our control. Users are responsible for confirming their bookings and attending scheduled sessions as agreed.</string>
+    <string name="about_us_message">MeetMe was developed by a passionate group of students who understand the challenges of managing appointments between students and lecturers. Our goal is to make academic scheduling simple, fast, and reliable.</string>
+    <string name="mission_message">Our mission is to enhance academic communication by providing a digital platform that simplifies appointment scheduling, saves time, and improves the learning experience for both students and educators.</string>
+    <string name="offer_message">- Real-time scheduling between students and lecturers
+        \n- Appointment reminders and notifications
+        \n- Profile management for users
+        \n- Booking history and analytics for admin and support staff
+        \n- Easy-to-use, mobile-friendly interface</string>
+    <string name="meet_the_team_message">We are a team of tech-savvy students committed to building meaningful software for academic environments. Each of us brings unique skills in development, design, and user experience to ensure MeetMe delivers value to every user.</string>
+
+
+    <string-array name="reminder_times">
+        <item>24 hours</item>
+        <item>12 hours</item>
+        <item>6 hours</item>
+        <item>1 hour</item>
+    </string-array>
+
+
+
 </resources>

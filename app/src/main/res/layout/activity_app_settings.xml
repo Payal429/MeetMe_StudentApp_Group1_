@@ -82,142 +82,129 @@
                     android:text="Afrikaans" />
             </RadioGroup>
 
-            <!-- Dark/Light Mode Toggle -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Dark Mode or Light Mode"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+
 
             <LinearLayout
-                android:id="@+id/themeToggleGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="2dp">
 
-                <Button
-                    android:id="@+id/darkModeBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_moon"
-                    android:text="Dark Mode"
-                    app:cornerRadius="8dp"
-                    android:backgroundTint="@color/white"
-                    android:textSize="16sp"
-                    android:textColor="@color/black" />
 
-                <Button
-                    android:id="@+id/lightModeBtn"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_moon"
-                    android:text="Light Mode"
-                    app:cornerRadius="8dp"
-                    android:backgroundTint="#EA4C89"
-                    android:textSize="16sp"
-                    android:textColor="@color/black" />
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:text="Reminder Time Before Appointment 🔽"
+                    android:layout_marginTop="24dp"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/reminderSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="18sp"
+                    android:padding="15dp"
+                    android:background="@drawable/input_text_background_1"
+                    android:entries="@array/reminder_times" />
             </LinearLayout>
 
             <!-- Appointment Notification -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Appointment Notifications"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:text="Appointment Notifications"-->
+<!--                android:textSize="18sp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textStyle="bold" />-->
 
-            <Switch
-                android:id="@+id/appointmentSwitch"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="end"
-                android:checked="true" />
-            </LinearLayout>
+<!--            <Switch-->
+<!--                android:id="@+id/appointmentSwitch"-->
+<!--                android:layout_width="60dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:checked="true" />-->
+<!--            </LinearLayout>-->
 
 
-            <LinearLayout
-                android:id="@+id/appointmentTimePicker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/edit_text_background"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="12dp">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/appointmentTimePicker"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:background="@drawable/edit_text_background"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:padding="12dp">-->
 
-                <TextView
-                    android:id="@+id/appointmentTimeText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Select Time"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/appointmentTimeText"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Select Time"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="18sp" />-->
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_clock" />
-            </LinearLayout>
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_clock" />-->
+<!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <!-- Resources Notification -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Resources Notifications"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+<!--            &lt;!&ndash; Resources Notification &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:text="Resources Notifications"-->
+<!--                android:textSize="18sp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textStyle="bold" />-->
 
-            <Switch
-                android:id="@+id/resourcesSwitch"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="end"
-                android:checked="true" />
-            </LinearLayout>
+<!--            <Switch-->
+<!--                android:id="@+id/resourcesSwitch"-->
+<!--                android:layout_width="60dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:checked="true" />-->
+<!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:id="@+id/resourcesTimePicker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/edit_text_background"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="12dp">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/resourcesTimePicker"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:background="@drawable/edit_text_background"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:padding="12dp">-->
 
-                <TextView
-                    android:id="@+id/resourcesTimeText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Select Time"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/resourcesTimeText"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Select Time"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="18sp" />-->
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_clock" />
-            </LinearLayout>
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_clock" />-->
+<!--            </LinearLayout>-->
 
             <!-- Save Button -->
             <Button

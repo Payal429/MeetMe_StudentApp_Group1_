@@ -464,10 +464,25 @@ class BookAppointmentActivity : AppCompatActivity() {
 
     // Schedule a reminder for the booked appointment.
     private fun scheduleReminder(date: String, time: String, lecturerToken: String) {
+//        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+//        val appointmentDate = sdf.parse("$date $time") ?: return
+//
+//        val reminderTimeMillis = appointmentDate.time - (24 * 60 * 60 * 1000)
+//        if (reminderTimeMillis < System.currentTimeMillis()) return
+//
+//        val intent = Intent(this, ReminderReceiver::class.java).apply {
+//            putExtra("title", "Confirmed - Upcoming Appointment")
+//            putExtra("message", "You have an appointment at $time on $date.")
+//            putExtra("lecturerToken", lecturerToken)
+//        }
+
+        val sharedPrefs = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        val reminderHours = sharedPrefs.getInt("reminderHours", 24) // default 24
+
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         val appointmentDate = sdf.parse("$date $time") ?: return
 
-        val reminderTimeMillis = appointmentDate.time - (24 * 60 * 60 * 1000)
+        val reminderTimeMillis = appointmentDate.time - (reminderHours * 60 * 60 * 1000)
         if (reminderTimeMillis < System.currentTimeMillis()) return
 
         val intent = Intent(this, ReminderReceiver::class.java).apply {
@@ -475,6 +490,7 @@ class BookAppointmentActivity : AppCompatActivity() {
             putExtra("message", "You have an appointment at $time on $date.")
             putExtra("lecturerToken", lecturerToken)
         }
+
 
         val pendingIntent = PendingIntent.getBroadcast(
             this,

@@ -243,46 +243,46 @@
             </com.google.android.material.card.MaterialCardView>
 
             <!-- APP SETTINGS -->
-<!--            <com.google.android.material.card.MaterialCardView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="24dp"-->
-<!--                app:cardCornerRadius="8dp"-->
-<!--                app:cardElevation="6dp"-->
-<!--                android:backgroundTint="#FCA85B">-->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="6dp"
+                android:backgroundTint="#FCA85B">
 
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/appSettingsLayout"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:background="@drawable/button_shape"-->
-<!--                    android:padding="16dp"-->
-<!--                    android:gravity="center_vertical">-->
+                <LinearLayout
+                    android:id="@+id/appSettingsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/button_shape"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
 
-<!--                    <ImageView-->
-<!--                        android:layout_width="24dp"-->
-<!--                        android:layout_height="24dp"-->
-<!--                        android:src="@drawable/ic_settings"-->
-<!--                        />-->
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/settings_icon"
+                        />
 
-<!--                    <TextView-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="12dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="App Settings"-->
-<!--                        android:textColor="#000000"-->
-<!--                        android:textSize="18sp"-->
-<!--                        android:textStyle="bold" />-->
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="App Settings"
+                        android:textColor="#000000"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
-<!--                    <ImageView-->
-<!--                        android:layout_width="24dp"-->
-<!--                        android:layout_height="24dp"-->
-<!--                        android:src="@drawable/ic_right_arrow"-->
-<!--                        />-->
-<!--                </LinearLayout>-->
-<!--            </com.google.android.material.card.MaterialCardView>-->
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_forward"
+                        />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>

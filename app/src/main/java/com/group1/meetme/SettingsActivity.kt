@@ -17,20 +17,26 @@ class SettingsActivity : AppCompatActivity() {
             navigateToDashboard()
         }
 
-//        // Navigate to Account Settings
-//        findViewById<LinearLayout>(R.id.aboutLayout).setOnClickListener {
-//            startActivity(Intent(this, AboutActivity::class.java))
-//        }
+        // Navigate to About
+        findViewById<LinearLayout>(R.id.aboutLayout).setOnClickListener {
+            startActivity(Intent(this, AboutActivity::class.java))
+        }
 
         // Navigate to Profile Settings
         findViewById<LinearLayout>(R.id.profileLayout).setOnClickListener {
             startActivity(Intent(this, ProfileSettingsActivity::class.java))
         }
 
-//        // Navigate to App Settings
-//        findViewById<LinearLayout>(R.id.supportLayout).setOnClickListener {
-//            startActivity(Intent(this, SupportActivity::class.java))
-//        }
+        // Navigate to Support
+        findViewById<LinearLayout>(R.id.supportLayout).setOnClickListener {
+            startActivity(Intent(this, SupportActivity::class.java))
+        }
+
+        // Navigate to App Settings
+        findViewById<LinearLayout>(R.id.appSettingsLayout).setOnClickListener {
+            startActivity(Intent(this, AppSettingsActivity::class.java))
+        }
+
     }
 
     private fun getUserType(): String {
@@ -39,12 +45,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun navigateToDashboard() {
-//        val intent = if (getUserType() == "student") {
-//            Intent(this, StudentDashboardActivity::class.java)
-//        } else {
-//            Intent(this, LecturerDashboardActivity::class.java)
-//        }
-//        startActivity(intent)
         finish()
     }
 
