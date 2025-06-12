@@ -72,4 +72,8 @@ dependencies {
 
     // Cloudinary
     implementation("com.cloudinary:cloudinary-android:2.0.0")
+
+//    // Graphs
+//    implementation ("com.github.PhilJay:MPAndroidChart:3.1.0")
+
 }

@@ -55,10 +55,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,7 +78,7 @@
                 android:backgroundTint="#D9588F">
 
                 <LinearLayout
-                    android:id="@+id/accountLayout"
+                    android:id="@+id/profileLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -92,54 +89,9 @@
                     android:gravity="center_vertical">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_account"/>
-
-                    <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:text="Account"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_right_arrow"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- REUSABLE TEMPLATE -->
-            <!-- Replace values for each section -->
-
-            <!-- PROFILE -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="8dp"
-                android:background="@drawable/button_shape"
-                app:cardElevation="6dp"
-                android:backgroundTint="#FCA85B">
-
-                <LinearLayout
-                    android:id="@+id/profileLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/button_shape"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_profile_settings"
-                        />
+                        android:src="@drawable/user_icon"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -147,17 +99,63 @@
                         android:layout_marginStart="12dp"
                         android:layout_weight="1"
                         android:text="Profile"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_right_arrow"
-                        />
+                        android:id="@+id/btnProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_forward"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <!-- REUSABLE TEMPLATE -->
+            <!-- Replace values for each section -->
+
+            <!-- PROFILE -->
+<!--            <com.google.android.material.card.MaterialCardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                app:cardCornerRadius="8dp"-->
+<!--                android:background="@drawable/button_shape"-->
+<!--                app:cardElevation="6dp"-->
+<!--                android:backgroundTint="#FCA85B">-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/profileLayout"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:background="@drawable/button_shape"-->
+<!--                    android:padding="16dp"-->
+<!--                    android:gravity="center_vertical">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:src="@drawable/ic_profile_settings"-->
+<!--                        />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="12dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="Profile"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:src="@drawable/ic_right_arrow"-->
+<!--                        />-->
+<!--                </LinearLayout>-->
+<!--            </com.google.android.material.card.MaterialCardView>-->
 
             <!-- SUPPORT -->
             <com.google.android.material.card.MaterialCardView
@@ -169,6 +167,7 @@
                 android:backgroundTint="#FCA85B">
 
                 <LinearLayout
+                    android:id="@+id/supportLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -177,10 +176,9 @@
                     android:gravity="center_vertical">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_support"
-                        />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_contact_support_24" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -189,13 +187,14 @@
                         android:layout_weight="1"
                         android:text="Support"
                         android:textColor="#000000"
-                        android:textSize="18sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_right_arrow"
+                        android:id="@+id/btnSupport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_forward"
                         />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -210,6 +209,7 @@
                 android:backgroundTint="#FCA85B">
 
                 <LinearLayout
+                    android:id="@+id/aboutLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -218,9 +218,9 @@
                     android:gravity="center_vertical">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_about"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_info_outline_24"
                         />
 
                     <TextView
@@ -230,58 +230,59 @@
                         android:layout_weight="1"
                         android:text="About"
                         android:textColor="#000000"
-                        android:textSize="18sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_right_arrow"
+                        android:id="@+id/btnAbout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_forward"
                         />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- APP SETTINGS -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="6dp"
-                android:backgroundTint="#FCA85B">
+<!--            <com.google.android.material.card.MaterialCardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="24dp"-->
+<!--                app:cardCornerRadius="8dp"-->
+<!--                app:cardElevation="6dp"-->
+<!--                android:backgroundTint="#FCA85B">-->
 
-                <LinearLayout
-                    android:id="@+id/appSettingsLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/button_shape"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/appSettingsLayout"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:background="@drawable/button_shape"-->
+<!--                    android:padding="16dp"-->
+<!--                    android:gravity="center_vertical">-->
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_settings"
-                        />
+<!--                    <ImageView-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:src="@drawable/ic_settings"-->
+<!--                        />-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:text="App Settings"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="12dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="App Settings"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_right_arrow"
-                        />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+<!--                    <ImageView-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:src="@drawable/ic_right_arrow"-->
+<!--                        />-->
+<!--                </LinearLayout>-->
+<!--            </com.google.android.material.card.MaterialCardView>-->
 
         </LinearLayout>
     </ScrollView>

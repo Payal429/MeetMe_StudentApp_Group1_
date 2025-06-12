@@ -17,20 +17,20 @@ class SettingsActivity : AppCompatActivity() {
             navigateToDashboard()
         }
 
-        // Navigate to Account Settings
-        findViewById<LinearLayout>(R.id.accountLayout).setOnClickListener {
-            startActivity(Intent(this, AccountSettingsActivity::class.java))
-        }
+//        // Navigate to Account Settings
+//        findViewById<LinearLayout>(R.id.aboutLayout).setOnClickListener {
+//            startActivity(Intent(this, AboutActivity::class.java))
+//        }
 
         // Navigate to Profile Settings
         findViewById<LinearLayout>(R.id.profileLayout).setOnClickListener {
             startActivity(Intent(this, ProfileSettingsActivity::class.java))
         }
 
-        // Navigate to App Settings
-        findViewById<LinearLayout>(R.id.appSettingsLayout).setOnClickListener {
-            startActivity(Intent(this, AppSettingsActivity::class.java))
-        }
+//        // Navigate to App Settings
+//        findViewById<LinearLayout>(R.id.supportLayout).setOnClickListener {
+//            startActivity(Intent(this, SupportActivity::class.java))
+//        }
     }
 
     private fun getUserType(): String {

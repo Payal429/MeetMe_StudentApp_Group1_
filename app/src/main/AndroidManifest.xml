@@ -25,9 +25,11 @@
         tools:replace="android:fullBackupContent"
         tools:targetApi="31">
         <activity
-            android:name=".ManageUsersActivity"
+            android:name=".AdminAnalyticsActivity"
             android:exported="false" />
-        <!-- Activities -->
+        <activity
+            android:name=".ManageUsersActivity"
+            android:exported="false" /> <!-- Activities -->
         <activity
             android:name=".CancelAppointmentActivity"
             android:exported="false" />

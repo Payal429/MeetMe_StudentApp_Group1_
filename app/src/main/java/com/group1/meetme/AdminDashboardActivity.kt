@@ -57,12 +57,12 @@ class AdminDashboardActivity : AppCompatActivity() {
             startActivity(intent)
         }
 //
-//        // Set an OnClickListener for the "Reports and Analytics" button
-//        reportsAnalyticsButton.setOnClickListener {
-//            // Navigate to ReportsAnalyticsActivity
-//            val intent = Intent(this, reports_and_analytics::class.java)
-//            startActivity(intent)
-//        }
+        // Set an OnClickListener for the "Reports and Analytics" button
+        reportsAnalyticsButton.setOnClickListener {
+            // Navigate to ReportsAnalyticsActivity
+            val intent = Intent(this, AdminAnalyticsActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
