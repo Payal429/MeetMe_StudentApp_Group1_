@@ -1,5 +1,6 @@
 package com.group1.meetme
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.group1.meetme.BookAppointmentActivity
+import java.util.Locale
 
 // Activity for submitting a review for a lecturer.
 class lecturer_review : AppCompatActivity() {
@@ -131,6 +133,23 @@ class lecturer_review : AppCompatActivity() {
                 Toast.makeText(this, "Failed to submit review", Toast.LENGTH_SHORT).show()
             }
         }
+        // Load saved language preference
+        loadLanguage()
+
+    }
+
+    private fun loadLanguage() {
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val savedLanguage = sharedPref.getString("language", "en")  // Default to English
+        setLocale(savedLanguage ?: "en")
+    }
+
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }
 

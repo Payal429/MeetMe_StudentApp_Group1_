@@ -23,6 +23,7 @@ import me.pushy.sdk.Pushy
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Locale
 
 // Activity for user login.
 class LoginActivity : AppCompatActivity() {
@@ -87,6 +88,23 @@ class LoginActivity : AppCompatActivity() {
         forgotPasswordButton.setOnClickListener {
             showAdminContactDialog()
         }
+        // Load saved language preference
+        loadLanguage()
+
+    }
+
+    private fun loadLanguage() {
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val savedLanguage = sharedPref.getString("language", "en")  // Default to English
+        setLocale(savedLanguage ?: "en")
+    }
+
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     // Function to show the message dialog for forgot password

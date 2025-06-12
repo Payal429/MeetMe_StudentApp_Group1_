@@ -21,6 +21,7 @@ import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Locale
 
 //  This activity is responsible for adding a new user to the system.
 // It provides a form for inputting user details and handles the logic for
@@ -128,5 +129,22 @@ class AddUserActivity : AppCompatActivity() {
                 Log.e("API_FAILURE", "Failed to make request: ${t.message}")
             }
         })
+        // Load saved language preference
+        loadLanguage()
+
+    }
+
+    private fun loadLanguage() {
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val savedLanguage = sharedPref.getString("language", "en")  // Default to English
+        setLocale(savedLanguage ?: "en")
+    }
+
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }

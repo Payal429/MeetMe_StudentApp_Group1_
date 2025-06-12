@@ -1,5 +1,6 @@
 package com.group1.meetme
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
@@ -11,6 +12,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import java.util.Locale
 
 // Activity for displaying appointments.
 class AppointmentsActivity : AppCompatActivity() {
@@ -62,5 +64,23 @@ class AppointmentsActivity : AppCompatActivity() {
             // Set the text for each tab based on the titles list.
             tab.text = titles[position]
         }.attach() // Attach the mediator to the TabLayout and ViewPager2.
+
+        // Load saved language preference
+        loadLanguage()
+
+    }
+
+    private fun loadLanguage() {
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val savedLanguage = sharedPref.getString("language", "en")  // Default to English
+        setLocale(savedLanguage ?: "en")
+    }
+
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }

@@ -1,6 +1,7 @@
 package com.group1.meetme
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +11,7 @@ import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
+import java.util.Locale
 
 // Activity for uploading resources.
 class UploadResourcesActivity : AppCompatActivity() {
@@ -60,6 +62,24 @@ class UploadResourcesActivity : AppCompatActivity() {
                 uploadToCloudinary(uri)
             } ?: Toast.makeText(this, "Please select a file first.", Toast.LENGTH_SHORT).show()
         }
+
+        // Load saved language preference
+        loadLanguage()
+
+    }
+
+    private fun loadLanguage() {
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val savedLanguage = sharedPref.getString("language", "en")  // Default to English
+        setLocale(savedLanguage ?: "en")
+    }
+
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     // Function to set up the dropdowns for courses and modules.

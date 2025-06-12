@@ -1,5 +1,6 @@
 package com.group1.meetme
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +11,7 @@ import com.cloudinary.android.MediaManager
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import org.json.JSONObject
+import java.util.Locale
 
 // Activity for downloading resources.
 class DownloadResourcesActivity : AppCompatActivity() {
@@ -37,6 +39,23 @@ class DownloadResourcesActivity : AppCompatActivity() {
 
         // Set up the module dropdown
         setupModuleDropdown()
+        // Load saved language preference
+        loadLanguage()
+
+    }
+
+    private fun loadLanguage() {
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val savedLanguage = sharedPref.getString("language", "en")  // Default to English
+        setLocale(savedLanguage ?: "en")
+    }
+
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     // Function to set up the module dropdown.
