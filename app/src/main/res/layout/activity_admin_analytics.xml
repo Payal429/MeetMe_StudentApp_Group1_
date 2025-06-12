@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/gradient_background_color_option_two">>
+    android:background="@drawable/gradient_background_color_option_two">
 
     <LinearLayout
         android:orientation="vertical"
