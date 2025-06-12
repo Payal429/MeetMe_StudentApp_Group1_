@@ -18,15 +18,19 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.group1.meetme.databinding.ActivityCancelAppointmentBinding
 import java.util.Locale
 
 // Activity for canceling appointments.
 class CancelAppointmentActivity : AppCompatActivity() {
 
+    // binding for the activity
+    private lateinit var binding : ActivityCancelAppointmentBinding
+
     // UI components.
-    private lateinit var reasonGroup: RadioGroup
-    private lateinit var otherReasonInput: EditText
-    private lateinit var confirmButton: Button
+//    private lateinit var reasonGroup: RadioGroup
+//    private lateinit var otherReasonInput: EditText
+//    private lateinit var confirmButton: Button
 
     // Data passed from the previous activity.
     private lateinit var appointmentId: String
@@ -34,24 +38,27 @@ class CancelAppointmentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cancel_appointment)
+//        setContentView(R.layout.activity_cancel_appointment)
+
+        binding = ActivityCancelAppointmentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Initialize UI components.
-        reasonGroup = findViewById(R.id.reasonGroup)
-        otherReasonInput = findViewById(R.id.otherReasonInput)
-        confirmButton = findViewById(R.id.confirmCancelButton)
+//        reasonGroup = findViewById(R.id.reasonGroup)
+//        otherReasonInput = findViewById(R.id.otherReasonInput)
+//        confirmButton = findViewById(R.id.confirmCancelButton)
 
         // Retrieve the appointment ID and student ID from the intent.
         appointmentId = intent.getStringExtra("appointmentId")!!
         studentId = intent.getStringExtra("studentId")!!
 
         // Set up the confirm button to handle appointment cancellation.
-        confirmButton.setOnClickListener {
+        binding.confirmCancelButton.setOnClickListener {
             // Get the selected reason for cancellation.
-            val selectedId = reasonGroup.checkedRadioButtonId
+            val selectedId = binding.reasonGroup.checkedRadioButtonId
             // If "Other" is selected, use the input from the EditText.
             val reason = if (selectedId == R.id.reasonOther) {
-                otherReasonInput.text.toString().ifEmpty { "No reason provided" }
+                binding.otherReasonInput.text.toString().ifEmpty { "No reason provided" }
             } else {
                 // Otherwise, use the text from the selected RadioButton.
                 findViewById<RadioButton>(selectedId).text.toString()

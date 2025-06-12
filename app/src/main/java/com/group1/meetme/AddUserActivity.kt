@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.group1.meetme.databinding.ActivityAddUserBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +29,10 @@ import java.util.Locale
 // writing the user data to Firebase and making an API call to onboard the user.
 
 class AddUserActivity : AppCompatActivity() {
+
+    // binding for the activity
+    private lateinit var binding : ActivityAddUserBinding
+
     // Retrofit API service instance for making network requests.
     private val apiService: ApiService = ApiClient.create(ApiService::class.java)
     // Firebase database reference for storing user data.
@@ -36,7 +41,10 @@ class AddUserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_add_user)
+//        setContentView(R.layout.activity_add_user)
+        binding = ActivityAddUserBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -44,9 +52,9 @@ class AddUserActivity : AppCompatActivity() {
         }
 
         // Find the back arrow button by its ID.
-        val backArrow: ImageButton = findViewById(R.id.backArrow)
+//        val backArrow: ImageButton = findViewById(R.id.backArrow)
         // Set a click listener for the back arrow button to navigate back to the dashboard.
-        backArrow.setOnClickListener(){
+        binding.backArrow.setOnClickListener(){
 //            val intent = Intent(this, StudentDashboardActivity::class.java)
 //            startActivity(intent)
             finish()
@@ -56,34 +64,34 @@ class AddUserActivity : AppCompatActivity() {
 //        login(employeeId, password)
 
         // Find the UI elements buttons by their IDs
-        val edtIDNumber: EditText = findViewById(R.id.edtIDNumber)
-        val edtName: EditText = findViewById(R.id.edtName)
-        val edtSurname: EditText = findViewById(R.id.edtSurname)
-        val edtUser: EditText = findViewById(R.id.edtUser)
-        val spnCourse: Spinner = findViewById(R.id.spnCourse)
-        val edtEmail: EditText = findViewById(R.id.edtEmail)
-        val addStudentButton: Button = findViewById(R.id.addStudentButton)
-        val headerTitle: TextView = findViewById(R.id.headerTitle)
+//        val edtIDNumber: EditText = findViewById(R.id.edtIDNumber)
+//        val edtName: EditText = findViewById(R.id.edtName)
+//        val edtSurname: EditText = findViewById(R.id.edtSurname)
+//        val edtUser: EditText = findViewById(R.id.edtUser)
+//        val spnCourse: Spinner = findViewById(R.id.spnCourse)
+//        val edtEmail: EditText = findViewById(R.id.edtEmail)
+//        val addStudentButton: Button = findViewById(R.id.addStudentButton)
+//        val headerTitle: TextView = findViewById(R.id.headerTitle)
 
         // Get the user type passed from the previous activity.
         val userType = getIntent().getStringExtra("userType")
         //edtUser.setText(userType)
 
         // Set the header title based on the user type.
-        headerTitle.text = "Add New $userType"
+        binding.headerTitle.text = "Add New $userType"
         // Set the user type in the edtUser EditText.
-        edtUser.setText(userType)
+        binding.edtUser.setText(userType)
         // Initialize the Firebase database reference
         database = Firebase.database.reference
 
         // Get the user details from the input fields.
-        addStudentButton.setOnClickListener {
-            val idNum = edtIDNumber.text.toString()
-            val name = edtName.text.toString()
-            val surname = edtSurname.text.toString()
-            val typeOfUser = edtUser.text.toString()
-            val course = spnCourse.selectedItem.toString()
-            val email = edtEmail.text.toString()
+        binding.addStudentButton.setOnClickListener {
+            val idNum = binding.edtIDNumber.text.toString()
+            val name = binding.edtName.text.toString()
+            val surname = binding.edtSurname.text.toString()
+            val typeOfUser = binding.edtUser.text.toString()
+            val course = binding.spnCourse.selectedItem.toString()
+            val email = binding.edtEmail.text.toString()
 
             // Call the onboardUser function to onboard the user via API.
             onboardUser(idNum, name, surname, typeOfUser, course, email)

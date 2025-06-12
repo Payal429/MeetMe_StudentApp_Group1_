@@ -107,7 +107,7 @@
                     android:layout_marginTop="8dp"
                     android:textSize="18sp"
                     android:padding="15dp"
-                    android:background="@drawable/input_text_background_1"
+                    android:background="@drawable/edit_text_background"
                     android:entries="@array/reminder_times" />
             </LinearLayout>
 

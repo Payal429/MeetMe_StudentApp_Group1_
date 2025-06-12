@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.group1.meetme.databinding.ActivityManageUsersBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,9 +19,12 @@ import java.util.Locale
 
 class ManageUsersActivity : AppCompatActivity() {
 
-    private lateinit var idNumEditText: EditText
-    private lateinit var resendOtpButton: Button
-    private lateinit var statusTextView: TextView
+    // binding for the activity
+    private lateinit var binding : ActivityManageUsersBinding
+
+//    private lateinit var idNumEditText: EditText
+//    private lateinit var resendOtpButton: Button
+//    private lateinit var statusTextView: TextView
 
     // Initialize the ApiService using the ApiClient.
     private val apiService: ApiService = ApiClient.create(ApiService::class.java)
@@ -28,23 +32,26 @@ class ManageUsersActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_manage_users)
+//        setContentView(R.layout.activity_manage_users)
 
-        idNumEditText = findViewById(R.id.idNumEditText)
-        resendOtpButton = findViewById(R.id.resendOtpButton)
-        statusTextView = findViewById(R.id.statusTextView)
+        binding = ActivityManageUsersBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+//        idNumEditText = findViewById(R.id.idNumEditText)
+//        resendOtpButton = findViewById(R.id.resendOtpButton)
+//        statusTextView = findViewById(R.id.statusTextView)
 
         // Find the back arrow button by its ID.
-        val backArrow: ImageButton = findViewById(R.id.backArrow)
+//        val backArrow: ImageButton = findViewById(R.id.backArrow)
         // Set a click listener for the back arrow button to navigate back to the dashboard.
-        backArrow.setOnClickListener(){
+        binding.backArrow.setOnClickListener(){
 //            val intent = Intent(this, StudentDashboardActivity::class.java)
 //            startActivity(intent)
             finish()
         }
 
-        resendOtpButton.setOnClickListener {
-            val idNum = idNumEditText.text.toString().trim()
+        binding.resendOtpButton.setOnClickListener {
+            val idNum = binding.idNumEditText.text.toString().trim()
 
             if (idNum.isEmpty()) {
                 Toast.makeText(this, "Please enter a user ID number", Toast.LENGTH_SHORT).show()
@@ -81,14 +88,14 @@ class ManageUsersActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val message = response.body()?.get("message") ?: "OTP resent."
-                    statusTextView.text = message
+                    binding.statusTextView.text = message
                 } else {
-                    statusTextView.text = "Failed to resend OTP. Please try again."
+                    binding.statusTextView.text = "Failed to resend OTP. Please try again."
                 }
             }
 
             override fun onFailure(call: Call<Map<String, String>>, t: Throwable) {
-                statusTextView.text = "Network error: ${t.localizedMessage}"
+                binding.statusTextView.text = "Network error: ${t.localizedMessage}"
             }
         })
     }

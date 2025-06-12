@@ -12,34 +12,43 @@ import android.widget.RadioButton
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.group1.meetme.databinding.ActivityAppSettingsBinding
 import java.util.Locale
 
 class AppSettingsActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var radioEnglish: RadioButton
-    private lateinit var radioAfrikaans: RadioButton
+//    private lateinit var radioEnglish: RadioButton
+//    private lateinit var radioAfrikaans: RadioButton
+
+    // binding for the activity
+    private lateinit var binding : ActivityAppSettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_app_settings) // Change to your layout's name if different
+//        setContentView(R.layout.activity_app_settings) // Change to your layout's name if different
 
-        val backArrow = findViewById<ImageView>(R.id.backArrow)
-        backArrow.setOnClickListener {
+        binding = ActivityAppSettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+//        val backArrow = binding.backArrow
+
+//        val backArrow = findViewById<ImageView>(R.id.backArrow)
+        binding.backArrow.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
             finish() // Optional: finishes current activity so it's removed from back stack
         }
 
-        val saveSettingsBtn = findViewById<Button>(R.id.saveSettingsBtn)
-         radioEnglish = findViewById<RadioButton>(R.id.radioEnglish)
-         radioAfrikaans = findViewById<RadioButton>(R.id.radioAfrikaans)
+//        val saveSettingsBtn = findViewById<Button>(R.id.saveSettingsBtn)
+//        binding.radioEnglish = findViewById<RadioButton>(R.id.radioEnglish)
+//        binding.radioAfrikaans = findViewById<RadioButton>(R.id.radioAfrikaans)
 
 
-        saveSettingsBtn.setOnClickListener {
+        binding.saveSettingsBtn.setOnClickListener {
             // Handle save button click
             finish()
             // Get selected language
-            val selectedLanguage = if (radioEnglish.isChecked) "en" else "af"
+            val selectedLanguage = if (binding.radioEnglish.isChecked) "en" else "af"
 
             // Save the selected language in SharedPreferences
             saveLanguagePreference(selectedLanguage)
@@ -111,9 +120,9 @@ class AppSettingsActivity : AppCompatActivity() {
 
         // Set the appropriate radio button based on the saved preference
         if (savedLanguage == "af") {
-            radioAfrikaans.isChecked = true
+            binding.radioAfrikaans.isChecked = true
         } else {
-            radioEnglish.isChecked = true
+            binding.radioEnglish.isChecked = true
         }
     }
 

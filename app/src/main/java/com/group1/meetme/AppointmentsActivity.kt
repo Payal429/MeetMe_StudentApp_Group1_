@@ -12,21 +12,28 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.group1.meetme.databinding.ActivityAppointmentsBinding
 import java.util.Locale
 
 // Activity for displaying appointments.
 class AppointmentsActivity : AppCompatActivity() {
 
+    // binding for the activity
+    private lateinit var binding : ActivityAppointmentsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Set the content view to the appointments activity layout.
-        setContentView(R.layout.activity_appointments)
+//        setContentView(R.layout.activity_appointments)
+
+        binding = ActivityAppointmentsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Find the back arrow ImageButton and set an OnClickListener to navigate back to the dashboard.
-        val backArrow: ImageButton = findViewById(R.id.backArrow)
+//        val backArrow: ImageButton = findViewById(R.id.backArrow)
 
         // Create an Intent to navigate back to the StudentDashboardActivity.
-        backArrow.setOnClickListener() {
+        binding.backArrow.setOnClickListener() {
             val intent = Intent(this, StudentDashboardActivity::class.java)
             startActivity(intent)
         }

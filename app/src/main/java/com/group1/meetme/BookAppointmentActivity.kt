@@ -32,6 +32,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.MutableData
 import com.google.firebase.database.Transaction
 import com.google.firebase.database.ValueEventListener
+import com.group1.meetme.HolidayUtils.holidayDates
+import com.group1.meetme.databinding.ActivityBookAppointmentBinding
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
@@ -49,17 +51,20 @@ import java.util.Locale
 // Activity for booking appointments.
 class BookAppointmentActivity : AppCompatActivity() {
 
+    // binding for the activity
+    private lateinit var binding : ActivityBookAppointmentBinding
+
     // Variables for managing the calendar and date selection.
     private lateinit var holidayDates: List<Calendar>
-    private lateinit var calendarView: CalendarView
-    private lateinit var dateTextView: TextView
+//    private lateinit var calendarView: CalendarView
+//    private lateinit var dateTextView: TextView
 
     // Firebase database reference.
     private lateinit var database: DatabaseReference
-    private lateinit var listView: ListView
-    private lateinit var statusText: TextView
-    private lateinit var moduleNameTv: EditText
-    private lateinit var loadButton: Button
+//    private lateinit var listView: ListView
+//    private lateinit var statusText: TextView
+//    private lateinit var moduleNameTv: EditText
+//    private lateinit var loadButton: Button
 
     // List to store available times for booking.
     private var selectedDate: String = getTodayDate()
@@ -67,7 +72,7 @@ class BookAppointmentActivity : AppCompatActivity() {
     private lateinit var adapter: ArrayAdapter<String>
 
     // Spinner for selecting lecturers.
-    private lateinit var lecturerSpinner: Spinner
+//    private lateinit var lecturerSpinner: Spinner
     private val lecturerNames = mutableListOf<String>()
     private val lecturerIdMap = mutableMapOf<String, String>() // name -> id
 
@@ -75,7 +80,11 @@ class BookAppointmentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_book_appointment)
+//        setContentView(R.layout.activity_book_appointment)
+
+        binding = ActivityBookAppointmentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -83,10 +92,10 @@ class BookAppointmentActivity : AppCompatActivity() {
         }
 
         // Return back to the dashboard
-        val backArrow: ImageButton = findViewById(R.id.backArrow)
+//        val backArrow: ImageButton = findViewById(R.id.backArrow)
 
         // Find the back arrow button and set an OnClickListener to navigate back to the dashboard.
-        backArrow.setOnClickListener() {
+        binding.backArrow.setOnClickListener() {
 //            val intent = Intent(this, StudentDashboardActivity::class.java)
 //            startActivity(intent)
             finish()
@@ -97,22 +106,22 @@ class BookAppointmentActivity : AppCompatActivity() {
         val idNum = sharedPreferences.getString("ID_NUM", null)
 
         // Initialize views.
-        dateTextView = findViewById(R.id.dateTextView)
-        calendarView = findViewById(R.id.calendarView)
+//        dateTextView = findViewById(R.id.dateTextView)
+//        calendarView = findViewById(R.id.calendarView)
 
         database = FirebaseDatabase.getInstance().reference
-        listView = findViewById(R.id.slotsListView)
-        statusText = findViewById(R.id.statusText)
-        moduleNameTv = findViewById(R.id.moduleNameTv)
+//        listView = findViewById(R.id.slotsListView)
+//        statusText = findViewById(R.id.statusText)
+//        moduleNameTv = findViewById(R.id.moduleNameTv)
 
-        loadButton = findViewById<Button>(R.id.loadSlotsButton)
+//        loadButton = findViewById<Button>(R.id.loadSlotsButton)
 
         // Initialize the adapter for the list of available times.
         adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, availableTimes)
-        listView.adapter = adapter
+        binding.slotsListView.adapter = adapter
 
         // Initialize the lecturer spinner.
-        lecturerSpinner = findViewById(R.id.lecturerSpinner)
+//        lecturerSpinner = findViewById(R.id.lecturerSpinner)
         loadLecturers()
 
         // Define holiday dates/non-bookable days
@@ -122,7 +131,7 @@ class BookAppointmentActivity : AppCompatActivity() {
         val events = holidayDates.map {
             EventDay(it, ColorDrawable(resources.getColor(android.R.color.holo_red_light)))
         }
-        calendarView.setEvents(events)
+        binding.calendarView.setEvents(events)
 
         // Set the calendar to show holidays and disable them
         // for (holiday in holidayDates) {
@@ -144,15 +153,15 @@ class BookAppointmentActivity : AppCompatActivity() {
 
         // Combine holidays and past dates
         val disabledDays = pastDates + holidayDates
-        calendarView.setDisabledDays(disabledDays)
+        binding.calendarView.setDisabledDays(disabledDays)
 
         // Show calendar when TextView is clicked
-        dateTextView.setOnClickListener {
-            calendarView.visibility = View.VISIBLE // Show the calendar
+        binding.dateTextView.setOnClickListener {
+            binding.calendarView.visibility = View.VISIBLE // Show the calendar
         }
 
         // Handle date selection from the calendar.
-        calendarView.setOnDayClickListener(object : OnDayClickListener {
+        binding.calendarView.setOnDayClickListener(object : OnDayClickListener {
             override fun onDayClick(eventDay: EventDay) {
                 val selectedCal = eventDay.calendar
                 val todayDate = Calendar.getInstance().apply {
@@ -182,19 +191,19 @@ class BookAppointmentActivity : AppCompatActivity() {
                             dateFormat.format(selectedCal.time) // ✅ Fix: update class variable
 
                         Log.d("date", selectedDate)
-                        dateTextView.text = selectedDate
-                        calendarView.visibility = View.GONE
+                        binding.dateTextView.text = selectedDate
+                        binding.calendarView.visibility = View.GONE
                     }
             }
         })
 
         // Load available slots when the load button is clicked.
-        loadButton.setOnClickListener {
+        binding.loadSlotsButton.setOnClickListener {
             loadAvailableSlots(idNum!!)
         }
 
         // Handle item selection from the list of available times.
-        listView.setOnItemClickListener { _, _, position, _ ->
+        binding.slotsListView.setOnItemClickListener { _, _, position, _ ->
             val selectedTime = availableTimes[position]
             bookSlot(selectedTime, idNum!!)
         }
@@ -233,7 +242,7 @@ class BookAppointmentActivity : AppCompatActivity() {
                     lecturerNames
                 )
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                lecturerSpinner.adapter = adapter
+                binding.lecturerSpinner.adapter = adapter
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -255,7 +264,7 @@ class BookAppointmentActivity : AppCompatActivity() {
     private fun loadAvailableSlots(idNum: String) {
         val date = selectedDate
 
-        val selectedLecturerName = lecturerSpinner.selectedItem as String
+        val selectedLecturerName = binding.lecturerSpinner.selectedItem as String
         val lecturerId = lecturerIdMap[selectedLecturerName] ?: return
         Log.d("LecturerID", lecturerId)
         Log.d("date", date)
@@ -266,7 +275,7 @@ class BookAppointmentActivity : AppCompatActivity() {
 
         availableTimes.clear()
         adapter.notifyDataSetChanged()
-        statusText.text = "Loading..."
+        binding.statusText.text = "Loading..."
 
         val today = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -336,7 +345,7 @@ class BookAppointmentActivity : AppCompatActivity() {
 
                 }
 
-                statusText.text = if (availableTimes.isEmpty()) {
+                binding.statusText.text = if (availableTimes.isEmpty()) {
                     "No available timeslots."
                 } else {
                     "Select a timeslot to book."
@@ -346,7 +355,7 @@ class BookAppointmentActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                statusText.text = "Failed to load slots: ${error.message}"
+                binding.statusText.text = "Failed to load slots: ${error.message}"
             }
         })
     }
@@ -380,9 +389,9 @@ class BookAppointmentActivity : AppCompatActivity() {
         // Retrieve the selected date from a presumably defined variable
         val date = selectedDate
         // Get the selected lecturer's name from a spinner component
-        val selectedLecturerName = lecturerSpinner.selectedItem as String
+        val selectedLecturerName = binding.lecturerSpinner.selectedItem as String
         // Get the module name from a text view component and trim any extra spaces
-        val moduleName = moduleNameTv.text.toString().trim()
+        val moduleName = binding.moduleNameTv.text.toString().trim()
         // Retrieve the lecturer's ID from a map using the lecturer's name, or return if not found
         val lecturerId = lecturerIdMap[selectedLecturerName] ?: return
         // Define the reference to the specific slot in the database
@@ -408,13 +417,13 @@ class BookAppointmentActivity : AppCompatActivity() {
             override fun onComplete(error: DatabaseError?, committed: Boolean, snapshot: DataSnapshot?) {
                 // If the transaction was committed successfully
                 if (committed) {
-                    statusText.text = "Appointment booked for $time!"
+                    binding.statusText.text = "Appointment booked for $time!"
                     loadAvailableSlots(idNum)
 
                     // Generate a shared appointment ID
                     val appointmentId = database.child("appointments").child(idNum).push().key
                     if (appointmentId == null) {
-                        statusText.text = "Failed to generate appointment ID."
+                        binding.statusText.text = "Failed to generate appointment ID."
                         return
                     }
 
@@ -456,7 +465,7 @@ class BookAppointmentActivity : AppCompatActivity() {
                             }
                         }
                 } else {
-                    statusText.text = "Timeslot already booked."
+                    binding.statusText.text = "Timeslot already booked."
                 }
             }
         })

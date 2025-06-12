@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.group1.meetme.databinding.ActivityAdminDashboardBinding
 import java.util.Locale
 
 
@@ -17,25 +18,33 @@ import java.util.Locale
 // The activity also handles the back button press to prompt the admin for confirmation before logging out.
 
 class AdminDashboardActivity : AppCompatActivity() {
+
+    // binding for the activity
+    private lateinit var binding : ActivityAdminDashboardBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_admin_dashboard)
+        //setContentView(R.layout.activity_admin_dashboard)
+
+        binding = ActivityAdminDashboardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Find the buttons by their IDs
-        val addNewStudentButton: LinearLayout = findViewById(R.id.addNewStudentButton)
-        val addNewLecturerButton: LinearLayout = findViewById(R.id.addNewLecturerButton)
-        val manageUsersButton: LinearLayout = findViewById(R.id.manageUsersButton)
-        val reportsAnalyticsButton: LinearLayout = findViewById(R.id.reportsAnalyticsButton)
+//        // Find the buttons by their IDs
+//        val addNewStudentButton: LinearLayout = findViewById(R.id.addNewStudentButton)
+//        val addNewLecturerButton: LinearLayout = findViewById(R.id.addNewLecturerButton)
+//        val manageUsersButton: LinearLayout = findViewById(R.id.manageUsersButton)
+//        val reportsAnalyticsButton: LinearLayout = findViewById(R.id.reportsAnalyticsButton)
 
         // Set click listeners for the buttons
         // Set an OnClickListener for the "Add New Student" button
-        addNewStudentButton.setOnClickListener {
+        binding.addNewStudentButton.setOnClickListener {
             val student = "Student"
 
             // Navigate to AddNewStudentActivity
@@ -44,7 +53,7 @@ class AdminDashboardActivity : AppCompatActivity() {
             startActivity(intent)
         }
         // Set an OnClickListener for the "Add New Lecturer" button
-        addNewLecturerButton.setOnClickListener {
+        binding.addNewLecturerButton.setOnClickListener {
             // Navigate to AddNewLecturerActivity
             val lecturer = "Lecturer"
             val intent = Intent(this, AddUserActivity::class.java)
@@ -52,14 +61,14 @@ class AdminDashboardActivity : AppCompatActivity() {
             startActivity(intent)
         }
         // Set an OnClickListener for the "Manage Users" button
-        manageUsersButton.setOnClickListener {
+        binding.manageUsersButton.setOnClickListener {
             // Navigate to ManageUsersActivity
             val intent = Intent(this, ManageUsersActivity::class.java)
             startActivity(intent)
         }
 //
         // Set an OnClickListener for the "Reports and Analytics" button
-        reportsAnalyticsButton.setOnClickListener {
+        binding.reportsAnalyticsButton.setOnClickListener {
             // Navigate to ReportsAnalyticsActivity
             val intent = Intent(this, AdminAnalyticsActivity::class.java)
             startActivity(intent)

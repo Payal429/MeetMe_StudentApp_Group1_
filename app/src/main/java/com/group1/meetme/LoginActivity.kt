@@ -19,6 +19,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.group1.meetme.databinding.ActivityLoginBinding
 import me.pushy.sdk.Pushy
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,21 +29,28 @@ import java.util.Locale
 // Activity for user login.
 class LoginActivity : AppCompatActivity() {
 
+    // binding for the activity
+    private lateinit var binding : ActivityLoginBinding
+
     // Initialize the ApiService using the ApiClient.
     private val apiService: ApiService = ApiClient.create(ApiService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_login)
+//        setContentView(R.layout.activity_login)
+
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Enable offline persistence for Firebase Database.
+        Firebase.database.setPersistenceEnabled(true)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        // Enable offline persistence for Firebase Database.
-        Firebase.database.setPersistenceEnabled(true)
 
         // 1. Request permission (Android 13+)
         requestNotificationPermission()
@@ -52,16 +60,16 @@ class LoginActivity : AppCompatActivity() {
 
 
         // Find the login button by its ID
-        val loginButton: Button = findViewById(R.id.loginButton)
-        val emailEditText: TextInputEditText = findViewById(R.id.email)
-        val passwordEditText: TextInputEditText = findViewById(R.id.password)
-        val forgotPasswordButton = findViewById<TextView>(R.id.forgotPassword)
+//        val loginButton: Button = findViewById(R.id.loginButton)
+//        val emailEditText: TextInputEditText = findViewById(R.id.email)
+//        val passwordEditText: TextInputEditText = findViewById(R.id.password)
+//        val forgotPasswordButton = findViewById<TextView>(R.id.forgotPassword)
 
         // Set an OnClickListener for the login button
-        loginButton.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             // Get the email and password entered by the user
-            val username = emailEditText.text.toString().trim()
-            val password = passwordEditText.text.toString().trim()
+            val username = binding.email.text.toString().trim()
+            val password = binding.password.text.toString().trim()
 
             // Check if the email and password fields are not empty
             if (username.isEmpty() || password.isEmpty()) {
@@ -85,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // Set onclickListener for the forgot password button
-        forgotPasswordButton.setOnClickListener {
+        binding.forgotPassword.setOnClickListener {
             showAdminContactDialog()
         }
         // Load saved language preference

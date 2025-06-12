@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">MeetMe</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="intro_message">Welkom by die ondersteuningsbladsy van die MeetMe‑app! Ons is hier om jou te help om die app te gebruik, jou rekening te bestuur, en \'n gladde ervaring vir beide studente en dosente te verseker. As jy enige probleme ondervind, is ons ondersteuning-span gereed om te help.</string>
-    <string name="overview_message">MeetMe is \'n slim afspraakbeplannings‑app ontwerp om studente en dosente maklik te verbind. Of jy \'n konsultasie wil bespreek, beskikbaarheid wil nagaan, of jou komende byeenkomste wil bestuur – MeetMe bied 'n naatlose en gebruikersvriendelike ervaring.</string>
+    <string name="overview_message">MeetMe is \'n slim afspraakbeplannings‑app ontwerp om studente en dosente maklik te verbind. Of jy \'n konsultasie wil bespreek, beskikbaarheid wil nagaan, of jou komende byeenkomste wil bestuur – MeetMe bied \'n naatlose en gebruikersvriendelike ervaring.</string>
     <string name="user_account_message">Om MeetMe te gebruik, moet jy aanmeld met jou geregistreerde student‑ of dosentbewyse. Elke gebruiker het toegang tot funksies volgens hul rol:\n- Studente kan dosentbeskikbaarheid sien, afsprake bespreek, kanselleer of herskeduleer, en herinneringe ontvang.\n- Dosente kan hul beskikbare tye instel, afsprake bestuur, hulpbronne oplaai en kennisgewings ontvang.</string>
     <string name="app_use_message">Studente: Kies \'n dosent, kies \'n module, selekteer \'n datum en beskikbare tydgleuf, en bevestig jou bespreking.\nDosente: Voeg beskikbaarheid by, ontvang besprekingkennisgewings, en bestuur komende afsprake.\nAlbei gebruikers kan hul profielbladsy besoek, vorige afsprake hersien en rekeninginstellings aanpas.</string>
     <string name="data_collection_message">MeetMe versamel slegs noodsaaklike data soos jou naam, ID‑nommer, kursus en e‑posadres. Hierdie inligting word gebruik om jou ervaring te personaliseer en word nooit met derde partye gedeel nie. Alle data word veilig gestoor via Firebase‑dienste om jou privaatheid te beskerm.</string>
@@ -41,6 +45,7 @@
     <string name="name">Naam</string>
     <string name="add_new_user">Voeg Nuwe Gebruiker</string>
     <string name="id_number">ID‑nommer</string>
+    <string name="surname">Van</string>
     <string name="surname1">Van</string>
     <string name="select_the_course">Kies \'n Kursus ▼</string>
     <string name="email">E‑pos</string>
@@ -127,9 +132,10 @@
     <string name="module">Module: ...</string>
     <string name="dtv">Datum/Tyd: ...</string>
     <string name="lecturer">Dosent: ...</string>
-    <string name="filter_by_date_range">Filter by Date Range</string>
-    <string name="analytics_and_reporting">Analytics and Reporting</string>
-    <string name="filter_by_date_range1">Filter by Date Range</string>
+    <string name="filter_by_date_range">Filtreer volgens Datumreeks</string>
+    <string name="analytics_and_reporting">Analise en Verslagdoening</string>
+    <string name="filter_by_date_range1">Filtreer volgens Datumreeks</string>
+
 
 
 </resources>

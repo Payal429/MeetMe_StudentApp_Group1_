@@ -11,15 +11,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.database.FirebaseDatabase
+import com.group1.meetme.databinding.ActivityAdminAnalyticsBinding
 import java.util.Calendar
 import java.util.Locale
 
 class AdminAnalyticsActivity : AppCompatActivity() {
 
-    private lateinit var startDateBtn: Button
-    private lateinit var endDateBtn: Button
-    private lateinit var applyFilterBtn: Button
-    private lateinit var statsTextView: TextView
+    // binding for the activity
+    private lateinit var binding : ActivityAdminAnalyticsBinding
+
+//    private lateinit var startDateBtn: Button
+//    private lateinit var endDateBtn: Button
+//    private lateinit var applyFilterBtn: Button
+//    private lateinit var statsTextView: TextView
 
     private var startDate: String? = null
     private var endDate: String? = null
@@ -30,17 +34,21 @@ class AdminAnalyticsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_analytics)
+        //setContentView(R.layout.activity_admin_analytics)
 
-        startDateBtn = findViewById(R.id.startDateBtn)
-        endDateBtn = findViewById(R.id.endDateBtn)
-        applyFilterBtn = findViewById(R.id.applyFilterBtn)
-        statsTextView = findViewById(R.id.statsTextView)
+        // Configured the binding
+        binding = ActivityAdminAnalyticsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        startDateBtn.setOnClickListener { pickDate { startDate = it; startDateBtn.text = it } }
-        endDateBtn.setOnClickListener { pickDate { endDate = it; endDateBtn.text = it } }
+//        startDateBtn = findViewById(R.id.startDateBtn)
+//        endDateBtn = findViewById(R.id.endDateBtn)
+//        applyFilterBtn = findViewById(R.id.applyFilterBtn)
+//        statsTextView = findViewById(R.id.statsTextView)
 
-        applyFilterBtn.setOnClickListener { loadStats() }
+        binding.startDateBtn.setOnClickListener { pickDate { startDate = it; binding.startDateBtn.text = it } }
+        binding.endDateBtn.setOnClickListener { pickDate { endDate = it; binding.endDateBtn.text = it } }
+
+        binding.applyFilterBtn.setOnClickListener { loadStats() }
 
         loadStats() // Load unfiltered stats on launch
 
@@ -150,6 +158,6 @@ class AdminAnalyticsActivity : AppCompatActivity() {
         builder.append("\n🏫 Appointments by Faculty:\n")
         for ((faculty, count) in apptFaculty) builder.append("• $faculty: $count\n")
 
-        statsTextView.text = builder.toString()
+        binding.statsTextView.text = builder.toString()
     }
 }

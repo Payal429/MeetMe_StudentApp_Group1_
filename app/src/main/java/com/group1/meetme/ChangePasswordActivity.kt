@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
+import com.group1.meetme.databinding.ActivityChangePasswordBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,6 +20,9 @@ import java.util.Locale
 
 // Activity for changing the user's password.
 class ChangePasswordActivity : AppCompatActivity() {
+
+    // binding for the activity
+    private lateinit var binding : ActivityChangePasswordBinding
 
     // Initialize the ApiService using the ApiClient.
     private val apiService: ApiService = ApiClient.create(ApiService::class.java)
@@ -28,7 +32,11 @@ class ChangePasswordActivity : AppCompatActivity() {
         // Enable edge-to-edge support for better visual experience.
         enableEdgeToEdge()
         // Set the content view to the activity_change_password layout.
-        setContentView(R.layout.activity_change_password)
+//        setContentView(R.layout.activity_change_password)
+
+        binding = ActivityChangePasswordBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -36,13 +44,13 @@ class ChangePasswordActivity : AppCompatActivity() {
         }
 
         // Find the password input field and the change password button.
-        val passwordEditText: TextInputEditText = findViewById(R.id.edtChangePassword)
-        val btnChangePassword: Button = findViewById(R.id.btnChangePassword)
+//        val passwordEditText: TextInputEditText = findViewById(R.id.edtChangePassword)
+//        val btnChangePassword: Button = findViewById(R.id.btnChangePassword)
 
         // Set up the button click listener to handle password change.
-        btnChangePassword.setOnClickListener {
+        binding.btnChangePassword.setOnClickListener {
             //val employeeId = intent.getStringExtra("EMPLOYEE_ID") // Pass from LoginActivity
-            val newPassword = passwordEditText.text.toString()
+            val newPassword = binding.edtChangePassword.text.toString()
 //            val employeeId = intent.getStringExtra("EMPLOYEE_ID")
 
             val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)

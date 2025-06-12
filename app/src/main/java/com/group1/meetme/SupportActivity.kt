@@ -8,22 +8,31 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.group1.meetme.databinding.ActivitySupportBinding
 import java.util.Locale
 
 class SupportActivity : AppCompatActivity() {
+
+    // binding for the activity
+    private lateinit var binding : ActivitySupportBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_support)
+//        setContentView(R.layout.activity_support)
+
+        binding = ActivitySupportBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val backArrow = findViewById<ImageView>(R.id.backArrow)
+//        val backArrow = findViewById<ImageView>(R.id.backArrow)
 
-        backArrow.setOnClickListener {
+        binding.backArrow.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
             finish()

@@ -9,33 +9,40 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
+import com.group1.meetme.databinding.ActivityProfileSettingsBinding
 import java.util.Locale
 
 class ProfileSettingsActivity : AppCompatActivity() {
 
-    private lateinit var idText: TextView
-    private lateinit var fullnameText: TextView
-    private lateinit var emailText: TextView
-    private lateinit var userTypeText: TextView
+    // binding for the activity
+    private lateinit var binding : ActivityProfileSettingsBinding
+
+//    private lateinit var idText: TextView
+//    private lateinit var fullnameText: TextView
+//    private lateinit var emailText: TextView
+//    private lateinit var userTypeText: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile_settings)
+//        setContentView(R.layout.activity_profile_settings)
 
-        val backArrow = findViewById<ImageView>(R.id.backArrow)
+        binding = ActivityProfileSettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        backArrow.setOnClickListener {
+//        val backArrow = findViewById<ImageView>(R.id.backArrow)
+
+        binding.backArrow.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
             finish()
         }
 
         // Bind views
-        idText = findViewById(R.id.IDText)
-        fullnameText = findViewById(R.id.fullnameText)
-        emailText = findViewById(R.id.emailAddressText)
-        userTypeText = findViewById(R.id.userTypeText)
+//        idText = findViewById(R.id.IDText)
+//        fullnameText = findViewById(R.id.fullnameText)
+//        emailText = findViewById(R.id.emailAddressText)
+//        userTypeText = findViewById(R.id.userTypeText)
 
         // Get the user's ID number from SharedPreferences.
         val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
@@ -79,10 +86,10 @@ class ProfileSettingsActivity : AppCompatActivity() {
                 val email = snapshot.child("email").value.toString()
 
                 // Set data to TextViews
-                idText.text = idNum
-                fullnameText.text = "$name $surname"
-                emailText.text = email
-                userTypeText.text = typeOfUser
+                binding.IDText.text = idNum
+                binding.fullnameText.text = "$name $surname"
+                binding.emailAddressText.text = email
+                binding.userTypeText.text = typeOfUser
             } else {
                 Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show()
             }
