@@ -82,7 +82,7 @@
                 android:background="@drawable/edit_text_background"
                 android:padding="16dp"
                 android:textColorHint="@color/black"
-                android:hint="Enter the Module Name" />
+                android:hint="@string/enter_the_module_name" />
 
             <TextView
                 android:id="@+id/dateTextView"
@@ -90,11 +90,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:background="@drawable/edit_text_background"
-                android:drawableEnd="@drawable/calendar_icon"
                 android:padding="16dp"
-                android:text="Select a Date"
+                android:text="@string/select_a_date"
                 android:textColorHint="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:drawableEndCompat="@drawable/calendar_icon" />
 
             <com.applandeo.materialcalendarview.CalendarView
                 android:id="@+id/calendarView"

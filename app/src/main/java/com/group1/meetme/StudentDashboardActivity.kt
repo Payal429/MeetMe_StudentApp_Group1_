@@ -40,7 +40,7 @@ class StudentDashboardActivity : AppCompatActivity() {
             insets
         }
         // Enable offline persistence for Firebase Database.
-        Firebase.database.setPersistenceEnabled(true)
+//        Firebase.database.setPersistenceEnabled(true)
 
         // Find the login button by its ID
         val homebutton: ImageButton = findViewById(R.id.homebutton)
@@ -49,6 +49,8 @@ class StudentDashboardActivity : AppCompatActivity() {
         //  val downloadResource: ImageButton = findViewById(R.id.downloadResources)
         val resourcebutton: ImageButton = findViewById(R.id.resourcesbutton)
         val settingsbutton: ImageButton = findViewById(R.id.settingsbutton)
+
+//        startActivity(getIntent())
 
         // RecyclerView for the upcoming appointments.
         recyclerView = findViewById(R.id.appointmentsRecyclerView)
@@ -122,8 +124,12 @@ class StudentDashboardActivity : AppCompatActivity() {
             editor.putString("ID_NUM", "")
             editor.apply()
 
-            // Call the superclass onBackPressed to finish the activity
+//            // Call the superclass onBackPressed to finish the activity
             super.onBackPressed()
+//            dialog.dismiss()
+//            System.exit(0);
+            // Finish all activities and exit the app gracefully
+            finishAffinity()  // closes all activities
             dialog.dismiss()
         }
 

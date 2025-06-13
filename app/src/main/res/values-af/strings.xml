@@ -136,6 +136,22 @@
     <string name="analytics_and_reporting">Analise en Verslagdoening</string>
     <string name="filter_by_date_range1">Filtreer volgens Datumreeks</string>
 
+    <string name="enter_your_username">Voer jou gebruikersnaam in</string>
+    <string name="enter_your_password">Voer jou wagwoord in</string>
+    <string name="about_1">Oor</string>
+    <string name="app_settings_1">Toepassinginstellings</string>
+    <string name="enter_the_module_name">Voer die module naam in</string>
+    <string name="select_a_date">Kies \'n datum</string>
+    <string name="enter_other_reason">Voer ander rede in</string>
+    <string name="download_resources_1">Laai hulpbronne af</string>
+    <string name="select_module_1">Kies module</string>
+    <string name="search_text">Soek teks</string>
+    <string name="no_upcoming_appointments_currently">Geen komende afsprake tans nie.</string>
+    <string name="enter_your_comment_here">Voer jou kommentaar hier in...</string>
+    <string name="enter_the_user_id_number">Voer die gebruiker se ID-nommer in</string>
+    <string name="select_course_1">Kies kursus</string>
+    <string name="select_module_2">Kies module</string>
+
 
 
 </resources>

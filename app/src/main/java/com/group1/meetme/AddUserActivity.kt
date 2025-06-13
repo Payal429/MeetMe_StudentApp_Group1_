@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -85,24 +86,56 @@ class AddUserActivity : AppCompatActivity() {
         database = Firebase.database.reference
 
         // Get the user details from the input fields.
+//        binding.addStudentButton.setOnClickListener {
+//            val idNum = binding.edtIDNumber.text.toString()
+//            val name = binding.edtName.text.toString()
+//            val surname = binding.edtSurname.text.toString()
+//            val typeOfUser = binding.edtUser.text.toString()
+//            val course = binding.spnCourse.selectedItem.toString()
+//            val email = binding.edtEmail.text.toString()
+//
+//            // Call the onboardUser function to onboard the user via API.
+//            onboardUser(idNum, name, surname, typeOfUser, course, email)
+//
+//            // Check the user type and write the user data to Firebase accordingly.
+//            if (userType =="Student"){
+//                writeNewUserStudent(idNum, name, surname, typeOfUser, course, email)
+//            } else if (userType == "Lecturer"){
+//                writeNewUserLecturer(idNum, name, surname, typeOfUser, course, email)
+//            }
+//        }
+
         binding.addStudentButton.setOnClickListener {
-            val idNum = binding.edtIDNumber.text.toString()
-            val name = binding.edtName.text.toString()
-            val surname = binding.edtSurname.text.toString()
-            val typeOfUser = binding.edtUser.text.toString()
+            val idNum = binding.edtIDNumber.text.toString().trim()
+            val name = binding.edtName.text.toString().trim()
+            val surname = binding.edtSurname.text.toString().trim()
+            val typeOfUser = binding.edtUser.text.toString().trim()
             val course = binding.spnCourse.selectedItem.toString()
-            val email = binding.edtEmail.text.toString()
+            val email = binding.edtEmail.text.toString().trim()
+
+            // Validate all inputs
+            if (idNum.isEmpty() || name.isEmpty() || surname.isEmpty() || email.isEmpty()) {
+                Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Validate email format
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             // Call the onboardUser function to onboard the user via API.
             onboardUser(idNum, name, surname, typeOfUser, course, email)
 
-            // Check the user type and write the user data to Firebase accordingly.
-            if (userType =="Student"){
+            // Write to Firebase
+            if (userType == "Student") {
                 writeNewUserStudent(idNum, name, surname, typeOfUser, course, email)
-            } else if (userType == "Lecturer"){
+            } else if (userType == "Lecturer") {
                 writeNewUserLecturer(idNum, name, surname, typeOfUser, course, email)
             }
         }
+
     }
 
     // Write a new student user to the Firebase database.

@@ -3,6 +3,7 @@ package com.group1.meetme
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -65,6 +66,16 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun navigateToDashboard() {
         finish()
+        val userType = getUserType()
+        Log.d(userType, "userType + $userType")
+        if (userType == "student"){
+            startActivity(Intent(this, StudentDashboardActivity::class.java))
+        } else {
+            startActivity(Intent(this, LecturerDashboardActivity::class.java))
+        }
+//        val intent = Intent(this, DashboardActivity::class.java)
+
+//        startActivity(getIntent())
     }
 
 

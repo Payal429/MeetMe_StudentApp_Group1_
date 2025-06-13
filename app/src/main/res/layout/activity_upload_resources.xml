@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background_color">
+    android:background="@drawable/gradient_background_color"
     tools:context=".UploadResourcesActivity">
 
     <LinearLayout
@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none"
-                        android:text="Select Course"
+                        android:text="@string/select_course_1"
                         android:background="@drawable/edit_text_background"
                         android:textColor="@android:color/black" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -109,7 +109,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none"
-                        android:text="Select Module"
+                        android:text="@string/select_module_2"
                         android:background="@drawable/edit_text_background"
                         android:textColor="@android:color/black" />
                 </com.google.android.material.textfield.TextInputLayout>

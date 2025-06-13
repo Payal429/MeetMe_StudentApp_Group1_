@@ -107,6 +107,8 @@ class AdminDashboardActivity : AppCompatActivity() {
             editor.apply()
 
             super.onBackPressed()
+            // Finish all activities and exit the app gracefully
+            finishAffinity()  // closes all activities
             dialog.dismiss()
         }
 

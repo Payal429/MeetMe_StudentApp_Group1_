@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:text="@string/add_new_student"
             android:textStyle="bold"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="@color/black" />
     </LinearLayout>
 
@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_new_lecturer"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black" />
     </LinearLayout>
@@ -121,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/manage_users"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black" />
     </LinearLayout>
@@ -149,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reports_and_analytics"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black" />
     </LinearLayout>

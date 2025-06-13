@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="18sp"
-                android:hint="Enter your username"
+                android:hint="@string/enter_your_username"
                 android:background="@drawable/edit_text_background"
                 android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -147,7 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="18sp"
-                android:hint="Enter your password"
+                android:hint="@string/enter_your_password"
                 android:background="@drawable/edit_text_background"
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>

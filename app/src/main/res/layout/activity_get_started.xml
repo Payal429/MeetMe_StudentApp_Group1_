@@ -52,7 +52,7 @@
             android:backgroundTint="#CE4993"
             android:fontFamily="sans-serif-black"
             android:text="@string/get_started"
-            android:textSize="18dp"
+            android:textSize="18sp"
             app:cornerRadius="8dp"
             android:textColor="#020202" />
     </RelativeLayout>

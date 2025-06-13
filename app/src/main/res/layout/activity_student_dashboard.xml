@@ -73,6 +73,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/edit_text_background"
                 android:hint="Search text"
+                android:inputType="none"
                 android:padding="12dp" />
 
             <!-- Daily Quotes -->

@@ -61,7 +61,8 @@
                 android:layout_margin="10dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/edit_text_background"
-                android:hint="Search text"
+                android:hint="@string/search_text"
+                android:inputType="none"
                 android:padding="12dp" />
 
             <!-- Appointments -->
@@ -80,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_background"
-                android:text="No upcoming appointments currently."
+                android:text="@string/no_upcoming_appointments_currently"
                 android:gravity="center"
                 android:visibility="gone"
                 android:textSize="18sp"

@@ -128,7 +128,7 @@
                 android:layout_height="150dp"
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/edit_text_background"
-                android:hint="Enter Your Comment Here..."
+                android:hint="@string/enter_your_comment_here"
                 android:textColor="@color/black"
                 android:padding="16dp" />
 

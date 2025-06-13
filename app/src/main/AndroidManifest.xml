@@ -53,9 +53,11 @@
             android:exported="false" />
         <activity
             android:name=".LecturerDashboardActivity"
+            android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".StudentDashboardActivity"
+            android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".ChangePasswordActivity"

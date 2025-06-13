@@ -130,6 +130,21 @@
     <string name="filter_by_date_range">Filter by Date Range</string>
     <string name="analytics_and_reporting">Analytics and Reporting</string>
     <string name="filter_by_date_range1">Filter by Date Range</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="about_1">About</string>
+    <string name="app_settings_1">App Settings</string>
+    <string name="enter_the_module_name">Enter the Module Name</string>
+    <string name="select_a_date">Select a Date</string>
+    <string name="enter_other_reason">Enter other reason</string>
+    <string name="download_resources_1">Download Resources</string>
+    <string name="select_module_1">Select Module</string>
+    <string name="search_text">Search text</string>
+    <string name="no_upcoming_appointments_currently">No upcoming appointments currently.</string>
+    <string name="enter_your_comment_here">Enter Your Comment Here...</string>
+    <string name="enter_the_user_id_number">Enter the User ID Number</string>
+    <string name="select_course_1">Select Course</string>
+    <string name="select_module_2">Select Module</string>
 
 
     <string-array name="reminder_times">

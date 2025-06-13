@@ -135,6 +135,8 @@ class LecturerDashboardActivity : AppCompatActivity() {
 
             // Call the superclass onBackPressed to finish the activity.
             super.onBackPressed()
+            // Finish all activities and exit the app gracefully
+            finishAffinity()  // closes all activities
             dialog.dismiss()
         }
 
