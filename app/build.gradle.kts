@@ -36,7 +36,7 @@ android {
     }
 
     // for view Binding
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
 }
@@ -52,33 +52,38 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    implementation ("com.google.firebase:firebase-database:20.2.0")
-    implementation ("com.google.firebase:firebase-messaging:23.2.0")
-    implementation ("com.google.firebase:firebase-database-ktx:20.3.0")
+    implementation("com.google.firebase:firebase-database:20.2.0")
+    implementation("com.google.firebase:firebase-messaging:23.2.0")
+    implementation("com.google.firebase:firebase-database-ktx:20.3.0")
     //implementation ("com.google.android.material:material:1.9.0")
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
 
-    implementation ("com.cloudinary:cloudinary-android:2.3.1")
+    implementation("com.cloudinary:cloudinary-android:2.3.1")
 
     // Pushy for push notifications
-    implementation ("me.pushy:sdk:1.0.73")
+    implementation("me.pushy:sdk:1.0.73")
 
     // OkHttp for HTTP requests
-    implementation ("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
     // Kotlin JSON handling
-    implementation ("org.json:json:20210307")
+    implementation("org.json:json:20210307")
 
     // Calendar view for scheduling appointments
-    implementation ("com.applandeo:material-calendar-view:1.9.2")
+    implementation("com.applandeo:material-calendar-view:1.9.2")
 
     // Cloudinary
     implementation("com.cloudinary:cloudinary-android:2.0.0")
 
 //    // Graphs
 //    implementation ("com.github.PhilJay:MPAndroidChart:3.1.0")
+    // Navigation components
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
+    // Material design
+    implementation("com.google.android.material:material:1.12.0")
 }

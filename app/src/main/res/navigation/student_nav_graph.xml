@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/student_nav_graph"
+    app:startDestination="@id/studentDashboardFragment">
+
+    <fragment
+        android:id="@+id/studentDashboardFragment"
+        android:name="com.group1.meetme.DashboardFragment"
+        android:label="Student Dashboard"
+        tools:layout="@layout/activity_student_dashboard"/>
+
+    <fragment
+        android:id="@+id/studentBookingFragment"
+        android:name="com.group1.meetme.BookAppointmentFragment"
+        android:label="Schedule Appointment" />
+
+    <fragment
+        android:id="@+id/studentBookingsListFragment"
+        android:name="com.group1.meetme.BookingsFragment"
+        android:label="Bookings" />
+
+    <fragment
+        android:id="@+id/studentDownloadFragment"
+        android:name="com.group1.meetme.DownloadResourcesFragment"
+        android:label="Download Resources" />
+
+    <fragment
+        android:id="@+id/studentSettingsFragment"
+        android:name="com.group1.meetme.SettingsFragment"
+        android:label="Settings" />
+</navigation>
