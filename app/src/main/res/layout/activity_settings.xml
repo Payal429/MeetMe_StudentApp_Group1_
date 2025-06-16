@@ -23,33 +23,33 @@
 <!--        app:layout_constraintEnd_toEndOf="parent" />-->
 
     <!-- Top Bar with Centered Title and Back Arrow -->
-    <!-- Header -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:background="@color/ivory">
+<!--    &lt;!&ndash; Header &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="10dp"-->
+<!--        android:background="@color/ivory">-->
 
-        <ImageButton
-            android:id="@+id/backArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back_arrow"
-            android:contentDescription="Home"
-            android:padding="5dp"
-            android:background="?attr/selectableItemBackgroundBorderless"/>
+<!--        <ImageButton-->
+<!--            android:id="@+id/backArrow"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/back_arrow"-->
+<!--            android:contentDescription="Home"-->
+<!--            android:padding="5dp"-->
+<!--            android:background="?attr/selectableItemBackgroundBorderless"/>-->
 
-        <TextView
-            android:id="@+id/headerTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/settings"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:id="@+id/headerTitle"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/settings"-->
+<!--            android:textSize="24sp"-->
+<!--            android:textStyle="bold" />-->
+<!--    </LinearLayout>-->
 
     <!-- Settings Buttons ScrollView -->
     <ScrollView

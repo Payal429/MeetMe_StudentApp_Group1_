@@ -33,10 +33,13 @@ class AppSettingsActivity : AppCompatActivity() {
 //        val backArrow = binding.backArrow
 
 //        val backArrow = findViewById<ImageView>(R.id.backArrow)
+//        binding.backArrow.setOnClickListener {
+//            val intent = Intent(this, SettingsActivity::class.java)
+//            startActivity(intent)
+//            finish() // Optional: finishes current activity so it's removed from back stack
+//        }
         binding.backArrow.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
-            finish() // Optional: finishes current activity so it's removed from back stack
+            finish() // Go back to SettingsFragment
         }
 
 //        val saveSettingsBtn = findViewById<Button>(R.id.saveSettingsBtn)

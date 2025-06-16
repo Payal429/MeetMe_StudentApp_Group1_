@@ -206,7 +206,7 @@ class LoginActivity : AppCompatActivity() {
                                                         startActivity(
                                                             Intent(
                                                                 this@LoginActivity,
-                                                                StudentDashboardActivity::class.java
+                                                                StudentMainActivity::class.java
                                                             )
                                                         )
                                                     }
@@ -216,7 +216,7 @@ class LoginActivity : AppCompatActivity() {
                                                         startActivity(
                                                             Intent(
                                                                 this@LoginActivity,
-                                                                LecturerDashboardActivity::class.java
+                                                                LecturerMainActivity::class.java
                                                             )
                                                         )
                                                     }

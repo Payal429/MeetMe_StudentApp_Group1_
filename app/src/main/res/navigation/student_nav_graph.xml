@@ -7,27 +7,31 @@
 
     <fragment
         android:id="@+id/studentDashboardFragment"
-        android:name="com.group1.meetme.DashboardFragment"
+        android:name="com.group1.meetme.StudentDashboardFragment"
         android:label="Student Dashboard"
-        tools:layout="@layout/activity_student_dashboard"/>
+        tools:layout="@layout/fragment_student_dashboard"/>
 
     <fragment
         android:id="@+id/studentBookingFragment"
-        android:name="com.group1.meetme.BookAppointmentFragment"
-        android:label="Schedule Appointment" />
+        android:name="com.group1.meetme.bookAppointmentsFragment"
+        android:label="Schedule Appointment"
+        tools:layout="@layout/fragment_book_appointments"/>
 
     <fragment
         android:id="@+id/studentBookingsListFragment"
-        android:name="com.group1.meetme.BookingsFragment"
-        android:label="Bookings" />
+        android:name="com.group1.meetme.studentBookingsFragment"
+        android:label="Bookings"
+        tools:layout="@layout/fragment_student_bookings"/>
 
     <fragment
         android:id="@+id/studentDownloadFragment"
         android:name="com.group1.meetme.DownloadResourcesFragment"
-        android:label="Download Resources" />
+        android:label="Download Resources"
+        tools:layout="@layout/fragment_download_resources"/>
 
     <fragment
-        android:id="@+id/studentSettingsFragment"
+        android:id="@+id/SettingsFragment"
         android:name="com.group1.meetme.SettingsFragment"
-        android:label="Settings" />
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

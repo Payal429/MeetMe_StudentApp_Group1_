@@ -11,5 +11,6 @@
     <color name="tabRippleColor">#33FFFFFF</color>
     <color name="ivory">#F0EDDC</color>
     <color name="pinkdark">#EA4C89</color>
+    <color name="dark_green">#388E3C</color>
     <color name="orangebutton">#FFA07A</color> <!-- Light ripple effect -->
 </resources>

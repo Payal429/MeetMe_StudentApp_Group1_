@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/lecturer_nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lecturer_nav_graph"
+    app:startDestination="@id/LecturerDashboardFragment">
 
+    <fragment
+        android:id="@+id/LecturerDashboardFragment"
+        android:name="com.group1.meetme.LecturerDashboardFragment"
+        android:label="Lecturer Dashboard"
+        tools:layout="@layout/fragment_lecturer_dashboard" />
+
+    <fragment
+        android:id="@+id/ScheduleAvailabilityFragment"
+        android:name="com.group1.meetme.ScheduleAvailabilityFragment"
+        android:label="Schedule Availability"
+        tools:layout="@layout/fragment_schedule_availability" />
+
+    <fragment
+        android:id="@+id/LecturerBookingsListFragment"
+        android:name="com.group1.meetme.LecturerBookingsListFragment"
+        android:label="Bookings"
+        tools:layout="@layout/fragment_lecturer_bookings_list" />
+
+    <fragment
+        android:id="@+id/UploadFragment"
+        android:name="com.group1.meetme.UploadFragment"
+        android:label="Upload Resources"
+        tools:layout="@layout/fragment_upload" />
+
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="com.group1.meetme.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

@@ -32,10 +32,13 @@ class SupportActivity : AppCompatActivity() {
 
 //        val backArrow = findViewById<ImageView>(R.id.backArrow)
 
+//        binding.backArrow.setOnClickListener {
+//            val intent = Intent(this, SettingsActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
         binding.backArrow.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
-            finish()
+            finish() // Go back to SettingsFragment
         }
 
         // Load saved language preference

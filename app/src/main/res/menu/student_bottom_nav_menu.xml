@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/studentDashboardFragment"
+        android:icon="@drawable/home_icon"
+        android:title="" />
+    <item
+        android:id="@+id/studentBookingFragment"
+        android:icon="@drawable/schedule_appointment"
+        android:title="" />
+    <item
+        android:id="@+id/studentBookingsListFragment"
+        android:icon="@drawable/books"
+        android:title="" />
+    <item
+        android:id="@+id/SettingsFragment"
+        android:icon="@drawable/settings_icon"
+        android:title="" />
+</menu>

@@ -5,10 +5,7 @@
     android:padding="12dp"
     android:background="@drawable/rounded_background_ivory"
     android:elevation="2dp"
-    android:layout_marginBottom="8dp"
-    >
-
-
+    android:layout_marginBottom="8dp">
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
