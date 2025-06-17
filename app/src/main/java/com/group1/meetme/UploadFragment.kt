@@ -19,16 +19,21 @@ import com.group1.meetme.databinding.FragmentUploadBinding
 import java.util.Locale
 
 class UploadFragment : Fragment() {
+    // View binding for fragment layout
     private var _binding: FragmentUploadBinding? = null
     private val binding get() = _binding!!
 
+    // Store the selected file URI for upload
     private var selectedFileUri: Uri? = null
 
+    // Constant for identifying file picker result
     companion object {
         private const val FILE_PICKER_REQUEST_CODE = 1001
+        // Factory method for creating a new instance of this fragment
         fun newInstance() = UploadFragment()
     }
 
+    // Inflate the fragment layout and initialize view binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,9 +42,11 @@ class UploadFragment : Fragment() {
         return binding.root
     }
 
+    // Called after the view has been created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Populate course and module dropdowns
         setupDropdowns()
 
         // Open file picker
@@ -53,9 +60,11 @@ class UploadFragment : Fragment() {
             } ?: Toast.makeText(requireContext(), "Please select a file first.", Toast.LENGTH_SHORT).show()
         }
 
+        // Load language preferences for localization
         loadLanguage()
     }
 
+    // Function to initialize dropdown menus for course and module selections
     private fun setupDropdowns() {
         val courses = listOf(
             "IT", "Law", "Education", "Commerce",
@@ -73,12 +82,14 @@ class UploadFragment : Fragment() {
         binding.moduleDropdown.setAdapter(moduleAdapter)
     }
 
+    // Launch the file picker to select a file from device
     private fun openFilePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
         startActivityForResult(Intent.createChooser(intent, "Select a file"), FILE_PICKER_REQUEST_CODE)
     }
 
+    // Handle the result returned from file picker
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == FILE_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             data?.data?.let { uri ->
@@ -89,6 +100,7 @@ class UploadFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    // Upload the selected file to Cloudinary with selected module as a tag
     private fun uploadToCloudinary(fileUri: Uri) {
         val selectedModule = binding.moduleDropdown.text.toString()
 
@@ -97,6 +109,7 @@ class UploadFragment : Fragment() {
             return
         }
 
+        // Use Cloudinary MediaManager to handle the upload
         MediaManager.get().upload(fileUri)
             .option("tags", listOf(selectedModule))
             .callback(object : UploadCallback {
@@ -119,12 +132,14 @@ class UploadFragment : Fragment() {
             .dispatch()
     }
 
+    // Load the user's language preference and apply locale
     private fun loadLanguage() {
         val sharedPref = requireContext().getSharedPreferences("AppSettings", 0)
         val savedLanguage = sharedPref.getString("language", "en")  // Default to English
         setLocale(savedLanguage ?: "en")
     }
 
+    // Set the locale for the fragment
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
@@ -133,6 +148,7 @@ class UploadFragment : Fragment() {
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
+    // Clear the binding when view is destroyed to prevent memory leaks
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

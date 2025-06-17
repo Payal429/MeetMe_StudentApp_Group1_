@@ -15,10 +15,14 @@ import android.content.Context.NOTIFICATION_SERVICE
 class PushReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         // Attempt to extract the "title" property from the data payload, or fallback to app shortcut label
-        val notificationTitle = if (intent.getStringExtra("title") != null) intent.getStringExtra("title") else context.packageManager.getApplicationLabel(context.applicationInfo).toString()
+        val notificationTitle =
+            if (intent.getStringExtra("title") != null) intent.getStringExtra("title") else context.packageManager.getApplicationLabel(
+                context.applicationInfo
+            ).toString()
 
         // Attempt to extract the "message" property from the data payload: {"message":"Hello World!"}
-        var notificationText = if (intent.getStringExtra("message") != null ) intent.getStringExtra("message") else "Test notification"
+        var notificationText =
+            if (intent.getStringExtra("message") != null) intent.getStringExtra("message") else "Test notification"
 
         // Prepare a notification with vibration, sound and lights
         val builder = NotificationCompat.Builder(context)
@@ -30,10 +34,10 @@ class PushReceiver : BroadcastReceiver() {
         Pushy.setNotificationChannel(builder, context)
 
         // Get an instance of the NotificationManager service
-        val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         // Build the notification and display it
-        //
         // Use a random notification ID so multiple
         // notifications don't overwrite each other
         notificationManager.notify((Math.random() * 100000).toInt(), builder.build())

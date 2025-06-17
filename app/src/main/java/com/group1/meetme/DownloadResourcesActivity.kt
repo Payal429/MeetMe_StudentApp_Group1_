@@ -23,6 +23,7 @@ class DownloadResourcesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         // Set the content view to the activity_download_resources layout.
         setContentView(R.layout.activity_download_resources)
 
@@ -39,9 +40,9 @@ class DownloadResourcesActivity : AppCompatActivity() {
 
         // Set up the module dropdown
         setupModuleDropdown()
+
         // Load saved language preference
         loadLanguage()
-
     }
 
     private fun loadLanguage() {

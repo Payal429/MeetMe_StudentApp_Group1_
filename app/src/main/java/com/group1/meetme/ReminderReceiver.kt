@@ -27,7 +27,11 @@ class ReminderReceiver : BroadcastReceiver() {
 
         // Send remote Pushy notification to lecturer
         lecturerToken?.let {
-            sendPushyNotification(it, title ?: "Reminder", message ?: "Upcoming appointment reminder.")
+            sendPushyNotification(
+                it,
+                title ?: "Reminder",
+                message ?: "Upcoming appointment reminder."
+            )
         }
     }
 

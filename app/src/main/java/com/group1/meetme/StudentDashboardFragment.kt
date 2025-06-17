@@ -28,15 +28,21 @@ import com.google.firebase.ktx.Firebase
 import java.util.Locale
 
 class StudentDashboardFragment : Fragment() {
-private lateinit var recyclerView: RecyclerView
+
+    // RecyclerView to display upcoming appointments
+    private lateinit var recyclerView: RecyclerView
+    // Adapter for RecyclerView to bind appointment data
     private lateinit var adapter: UpcomingAppointmentsAdapter
+    // List to hold upcoming appointment data
     private val upcomingAppointments = mutableListOf<Appointment>()
 
+    // Buttons for navigation on the dashboard
     private lateinit var scheduleButton: ImageButton
     private lateinit var bookingsButton: ImageButton
     private lateinit var resourceButton: ImageButton
     private lateinit var settingsButton: ImageButton
 
+    // Inflate the fragment layout
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +51,7 @@ private lateinit var recyclerView: RecyclerView
         return inflater.inflate(R.layout.fragment_student_dashboard, container, false)
     }
 
+    // Called after the fragment's view has been created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -57,27 +64,27 @@ private lateinit var recyclerView: RecyclerView
         recyclerView = view.findViewById(R.id.appointmentsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        // Retrieve user ID and role from SharedPreferences for data filtering
         val userId = getUserIdFromSharedPreferences()
         val userType = getUserTypeFromSharedPreferences()
 
+        // Create adapter passing the appointment list and user role
         adapter = UpcomingAppointmentsAdapter(upcomingAppointments, userType)
         recyclerView.adapter = adapter
 
+        // Load upcoming appointments from Firebase for the current user
         loadUpcomingAppointments(userId, userType)
 
         // Navigation listeners
         scheduleButton.setOnClickListener {
-//            startActivity(Intent(requireContext(), BookAppointmentActivity::class.java))
             findNavController().navigate(R.id.studentBookingFragment)
         }
 
         bookingsButton.setOnClickListener {
-//            startActivity(Intent(requireContext(), AppointmentsActivity::class.java))
             findNavController().navigate(R.id.studentBookingsListFragment)
         }
 
         settingsButton.setOnClickListener {
-            //startActivity(Intent(requireContext(), SettingsActivity::class.java))
             findNavController().navigate(R.id.SettingsFragment)
         }
 
@@ -85,12 +92,14 @@ private lateinit var recyclerView: RecyclerView
         loadLanguage()
     }
 
+    // Load saved language preference from SharedPreferences and set locale
     private fun loadLanguage() {
         val sharedPref = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedLanguage = sharedPref.getString("language", "en")
         setLocale(savedLanguage ?: "en")
     }
 
+    // Apply the specified locale/language for the app resources
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
@@ -99,6 +108,7 @@ private lateinit var recyclerView: RecyclerView
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
+    // Fetch upcoming appointments from Firebase under the current user's node
     private fun loadUpcomingAppointments(userId: String, userType: String) {
         val db = FirebaseDatabase.getInstance().reference
         db.child("appointments").child(userId)
@@ -121,17 +131,19 @@ private lateinit var recyclerView: RecyclerView
             })
     }
 
+    // Helper function to get stored user ID from SharedPreferences
     private fun getUserIdFromSharedPreferences(): String {
         val prefs = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
         return prefs.getString("ID_NUM", "") ?: ""
     }
 
+    // Helper function to get stored user role from SharedPreferences
     private fun getUserTypeFromSharedPreferences(): String {
         val prefs = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
         return prefs.getString("USER_ROLE", "") ?: ""
     }
 
-    // Optional: Add logout confirmation logic if tied to a logout button.
+    // Show confirmation dialog before logging out user
     private fun showLogoutConfirmation() {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
         alertDialog.setTitle("Logout")
@@ -146,6 +158,5 @@ private lateinit var recyclerView: RecyclerView
             dialog.dismiss()
         }
         alertDialog.show()
-
     }
 }

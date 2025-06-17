@@ -20,6 +20,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 
 class LecturerMainActivity : AppCompatActivity() {
+
+    // Declare necessary UI components for layout and navigation
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
     private lateinit var navView: NavigationView
@@ -29,6 +31,7 @@ class LecturerMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Load layout XML for lecturer main screen
         setContentView(R.layout.activity_lecturer_main)
 
         // Initialize views
@@ -60,24 +63,32 @@ class LecturerMainActivity : AppCompatActivity() {
 
         // Setup action bar and nav view with NavController
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // Connect side NavigationView with NavController for handling nav menu clicks
         navView.setupWithNavController(navController)
+
+        // Connect BottomNavigationView with NavController for bottom menu nav
         bottomNav.setupWithNavController(navController)
 
         // Handle Logout menu manually
         navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.logout -> {
+                    // If logout is clicked, show confirmation dialog
                     showLogoutConfirmationDialog()
                     true
                 }
+
                 else -> {
+                    // For other menu items, let NavController handle the navigation
                     val handled = NavigationUI.onNavDestinationSelected(item, navController)
                     if (handled) drawerLayout.closeDrawers()
                     handled
                 }
             }
         }
-        // ✅ Show/hide bottom nav based on current destination
+
+        // Show/hide bottom nav based on current destination
         navController.addOnDestinationChangedListener { _, destination, _ ->
             bottomNav.visibility = if (destination.id == R.id.LecturerDashboardFragment) {
                 View.VISIBLE
@@ -87,15 +98,19 @@ class LecturerMainActivity : AppCompatActivity() {
         }
     }
 
+    // Handle "up" button (back arrow or hamburger) functionality in toolbar
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
+
+    // Displays a confirmation dialog when the user chooses to log out
     private fun showLogoutConfirmationDialog() {
         androidx.appcompat.app.AlertDialog.Builder(this)
             .setTitle("Confirm Logout")
             .setMessage("Are you sure you want to logout?")
             .setPositiveButton("Yes") { _, _ ->
-                // Clear session (optional)
+
+                // Clear stored user session in SharedPreferences
                 val sharedPref = getSharedPreferences("MyPreferences", MODE_PRIVATE)
                 sharedPref.edit().clear().apply()
 
@@ -105,8 +120,10 @@ class LecturerMainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+            // "Cancel" just dismisses the dialog
             .setNegativeButton("Cancel", null)
+
+            // Show the dialog
             .show()
     }
-
 }

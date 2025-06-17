@@ -16,6 +16,7 @@ import java.util.Locale
 // Activity for uploading resources.
 class UploadResourcesActivity : AppCompatActivity() {
 
+    // Declare UI components
     private lateinit var courseDropdown: MaterialAutoCompleteTextView
     private lateinit var moduleDropdown: MaterialAutoCompleteTextView
     private lateinit var btnSelectFile: Button
@@ -24,8 +25,10 @@ class UploadResourcesActivity : AppCompatActivity() {
     private lateinit var paperclipIcon: ImageView
     private lateinit var backButton: ImageView
 
+    // Store the URI of the selected file
     private var selectedFileUri: Uri? = null
 
+    // Request code for file picker intent
     companion object {
         private const val FILE_PICKER_REQUEST_CODE = 1001
     }
@@ -34,7 +37,7 @@ class UploadResourcesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_resources)
 
-        // Initialize UI components.
+        // Initialize UI components using findViewById
         courseDropdown = findViewById(R.id.courseDropdown)
         moduleDropdown = findViewById(R.id.moduleDropdown)
         btnSelectFile = findViewById(R.id.btnSelectFile)
@@ -68,12 +71,14 @@ class UploadResourcesActivity : AppCompatActivity() {
 
     }
 
+    // Load the preferred language from SharedPreferences
     private fun loadLanguage() {
         val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedLanguage = sharedPref.getString("language", "en")  // Default to English
         setLocale(savedLanguage ?: "en")
     }
 
+    // Change the locale of the app
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
@@ -121,6 +126,7 @@ class UploadResourcesActivity : AppCompatActivity() {
             return
         }
 
+        // Begin upload using Cloudinary MediaManager
         MediaManager.get().upload(fileUri)
             .option("tags", listOf(selectedModule))
             .callback(object : UploadCallback {

@@ -22,7 +22,7 @@ import java.util.Locale
 class ChangePasswordActivity : AppCompatActivity() {
 
     // binding for the activity
-    private lateinit var binding : ActivityChangePasswordBinding
+    private lateinit var binding: ActivityChangePasswordBinding
 
     // Initialize the ApiService using the ApiClient.
     private val apiService: ApiService = ApiClient.create(ApiService::class.java)
@@ -31,8 +31,6 @@ class ChangePasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Enable edge-to-edge support for better visual experience.
         enableEdgeToEdge()
-        // Set the content view to the activity_change_password layout.
-//        setContentView(R.layout.activity_change_password)
 
         binding = ActivityChangePasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -43,15 +41,10 @@ class ChangePasswordActivity : AppCompatActivity() {
             insets
         }
 
-        // Find the password input field and the change password button.
-//        val passwordEditText: TextInputEditText = findViewById(R.id.edtChangePassword)
-//        val btnChangePassword: Button = findViewById(R.id.btnChangePassword)
-
         // Set up the button click listener to handle password change.
         binding.btnChangePassword.setOnClickListener {
             //val employeeId = intent.getStringExtra("EMPLOYEE_ID") // Pass from LoginActivity
             val newPassword = binding.edtChangePassword.text.toString()
-//            val employeeId = intent.getStringExtra("EMPLOYEE_ID")
 
             val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
             val idNum = sharedPreferences.getString("ID_NUM", null)
@@ -64,11 +57,8 @@ class ChangePasswordActivity : AppCompatActivity() {
                 Log.d("ID Num", "ID Num is null")
             }
         }
-
-
         // Load saved language preference
         loadLanguage()
-
     }
 
     private fun loadLanguage() {

@@ -23,17 +23,26 @@ import java.util.Locale
 // Activity for the lecturer's dashboard.
 class LecturerDashboardActivity : AppCompatActivity() {
 
+    // RecyclerViews for displaying upcoming and previous appointments
     private lateinit var recyclerViewUpcoming: RecyclerView
     private lateinit var recyclerViewPrevious: RecyclerView
+
+    // Adapters for the RecyclerViews
     private lateinit var adapter: UpcomingAppointmentsAdapter
     private lateinit var adapterPrevious: UpcomingAppointmentsAdapter
+
+    // Lists to hold the appointments
     private val upcomingAppointments = mutableListOf<Appointment>()
     private val previousAppointments = mutableListOf<Appointment>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Makes the app full screen edge-to-edge
         enableEdgeToEdge()
+
         setContentView(R.layout.activity_lecturer_dashboard)
+
+        // Adjust padding to avoid UI overlap with system bars
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -58,24 +67,19 @@ class LecturerDashboardActivity : AppCompatActivity() {
         recyclerViewPrevious = findViewById(R.id.appointmentsRecyclerViewPrevious)
         recyclerViewPrevious.layoutManager = LinearLayoutManager(this)
 
-
-//        // Get the user's ID number from SharedPreferences.
-//        val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-//        val userId = sharedPreferences.getString("ID_NUM", null)
-////        val userId = getUserIdFromSharedPreferences()
-//        val userType = sharedPreferences.getString("USER_ROLE", null)
-
+        // Get logged-in user's ID and type from shared preferences
         val userId = getUserIdFromSharedPreferences()
         val userType = getUserTypeFromSharedPreferences()
 
+        // Set up adapters and attach them to the RecyclerViews
         adapter = UpcomingAppointmentsAdapter(upcomingAppointments, userType)
         adapterPrevious = UpcomingAppointmentsAdapter(previousAppointments, userType)
         recyclerViewUpcoming.adapter = adapter
         recyclerViewPrevious.adapter = adapterPrevious
 
+        // Load appointments from Firebase
         loadUpcomingAppointments(userId, userType)
         loadPreviousAppointments(userId, userType)
-
 
         // Set up the schedule button click listener.
         schedulebutton.setOnClickListener() {
@@ -101,15 +105,16 @@ class LecturerDashboardActivity : AppCompatActivity() {
         }
         // Load saved language preference
         loadLanguage()
-
     }
 
+    // Loads saved language preference and applies it
     private fun loadLanguage() {
         val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedLanguage = sharedPref.getString("language", "en")  // Default to English
         setLocale(savedLanguage ?: "en")
     }
 
+    // Changes the app's locale based on the selected language
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
@@ -147,6 +152,7 @@ class LecturerDashboardActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
+    // Loads upcoming appointments from Firebase
     private fun loadUpcomingAppointments(userId: String, userType: String) {
         val db = FirebaseDatabase.getInstance().reference
         db.child("appointmentsLecturer").child(userId)
@@ -164,11 +170,16 @@ class LecturerDashboardActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@LecturerDashboardActivity, "Failed to load appointments", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@LecturerDashboardActivity,
+                        "Failed to load appointments",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
     }
 
+    // Loads completed (previous) appointments from Firebase
     private fun loadPreviousAppointments(userId: String, userType: String) {
         val db = FirebaseDatabase.getInstance().reference
         db.child("appointmentsLecturer").child(userId)
@@ -186,16 +197,22 @@ class LecturerDashboardActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@LecturerDashboardActivity, "Failed to load appointments", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@LecturerDashboardActivity,
+                        "Failed to load appointments",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
     }
 
+    // Fetches the user ID from shared preferences
     private fun getUserIdFromSharedPreferences(): String {
         val prefs = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
         return prefs.getString("ID_NUM", "") ?: ""
     }
 
+    // Fetches the user type (role) from shared preferences
     private fun getUserTypeFromSharedPreferences(): String {
         val prefs = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
         return prefs.getString("USER_ROLE", "") ?: ""

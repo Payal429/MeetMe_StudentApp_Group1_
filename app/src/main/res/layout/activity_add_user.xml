@@ -117,16 +117,6 @@
                 android:textSize="18sp"
                 android:visibility="gone"/>
 
-            <!--        <Spinner-->
-            <!--            android:id="@+id/spnUser"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="50dp"-->
-            <!--            android:text="Student"-->
-            <!--            android:spinnerMode="dropdown"-->
-            <!--            android:autofillHints="kkf"-->
-            <!--            android:entries="@array/user_type"-->
-            <!--            android:background="@drawable/edit_text_background" />-->
-
             <EditText
                 android:id="@+id/edtUser"
                 android:layout_width="match_parent"
@@ -147,7 +137,6 @@
                 android:text="@string/select_the_course"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
-
             <Spinner
                 android:id="@+id/spnCourse"
                 android:layout_width="match_parent"

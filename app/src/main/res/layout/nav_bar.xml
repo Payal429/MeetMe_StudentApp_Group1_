@@ -19,16 +19,6 @@
     android:padding="16dp"
     android:background="?attr/selectableItemBackgroundBorderless" />
 
-<!--<ImageButton-->
-<!--    android:id="@+id/peoplebutton"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:src="@drawable/people_icon"-->
-<!--    android:contentDescription="Groups"-->
-<!--    android:layout_weight="1"-->
-<!--    android:padding="16dp"-->
-<!--    android:background="?attr/selectableItemBackgroundBorderless" />-->
-
 <ImageButton
     android:id="@+id/schedulebutton"
     android:layout_width="wrap_content"

@@ -9,48 +9,6 @@
     android:background="@drawable/leaves"
     tools:context=".SettingsActivity">
 
-<!--    &lt;!&ndash; Background Image &ndash;&gt;-->
-<!--    <ImageView-->
-<!--        android:id="@+id/backgroundImage"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:scaleType="centerCrop"-->
-<!--        android:src="@drawable/settings"-->
-<!--        android:alpha="0.85"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
-
-    <!-- Top Bar with Centered Title and Back Arrow -->
-<!--    &lt;!&ndash; Header &ndash;&gt;-->
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:padding="10dp"-->
-<!--        android:background="@color/ivory">-->
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/backArrow"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/back_arrow"-->
-<!--            android:contentDescription="Home"-->
-<!--            android:padding="5dp"-->
-<!--            android:background="?attr/selectableItemBackgroundBorderless"/>-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/headerTitle"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:gravity="center"-->
-<!--            android:text="@string/settings"-->
-<!--            android:textSize="24sp"-->
-<!--            android:textStyle="bold" />-->
-<!--    </LinearLayout>-->
-
     <!-- Settings Buttons ScrollView -->
     <ScrollView
         android:layout_width="match_parent"
@@ -110,52 +68,6 @@
                         android:src="@drawable/arrow_forward"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
-            <!-- REUSABLE TEMPLATE -->
-            <!-- Replace values for each section -->
-
-            <!-- PROFILE -->
-<!--            <com.google.android.material.card.MaterialCardView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                app:cardCornerRadius="8dp"-->
-<!--                android:background="@drawable/button_shape"-->
-<!--                app:cardElevation="6dp"-->
-<!--                android:backgroundTint="#FCA85B">-->
-
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/profileLayout"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:background="@drawable/button_shape"-->
-<!--                    android:padding="16dp"-->
-<!--                    android:gravity="center_vertical">-->
-
-<!--                    <ImageView-->
-<!--                        android:layout_width="24dp"-->
-<!--                        android:layout_height="24dp"-->
-<!--                        android:src="@drawable/ic_profile_settings"-->
-<!--                        />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="12dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="Profile"-->
-<!--                        android:textColor="#000000"-->
-<!--                        android:textSize="18sp"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                    <ImageView-->
-<!--                        android:layout_width="24dp"-->
-<!--                        android:layout_height="24dp"-->
-<!--                        android:src="@drawable/ic_right_arrow"-->
-<!--                        />-->
-<!--                </LinearLayout>-->
-<!--            </com.google.android.material.card.MaterialCardView>-->
 
             <!-- SUPPORT -->
             <com.google.android.material.card.MaterialCardView

@@ -52,13 +52,6 @@ class UpcomingAppointmentsFragment : Fragment() {
         listView = view.findViewById(R.id.appointmentsListView)
         database = FirebaseDatabase.getInstance().reference
 
-//        // Get user ID and type from SharedPreferences
-//        val sharedPreferences = context?.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-//        userId = sharedPreferences?.getString("ID_NUM", null)
-//        userType = sharedPreferences?.getString("USER_TYPE", null)
-//        Log.d("userId------", userId!!)
-//        Log.d("userType------", userType!!)
-
         super.onCreate(savedInstanceState)
 
         // Get user ID and type from the arguments passed to the fragment.
@@ -87,133 +80,17 @@ class UpcomingAppointmentsFragment : Fragment() {
         return view
     }
 
-//    private fun loadAppointments() {
-//        val currentDateTime = Calendar.getInstance()
-//
-//        val rolePath = if (userType == "Lecturer") "lecturerId" else "studentId"
-//
-//        database.child("appointments").child(userId!!)
-//            .addListenerForSingleValueEvent(object : ValueEventListener {
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    appointments.clear()
-//
-//                    for (snap in snapshot.children) {
-//                        val appointment = snap.getValue(Appointment::class.java)
-//                        val key = snap.key ?: continue
-//                        appointment?.id = key
-//
-//                        if (appointment != null) {
-//                            val appointmentDateTime = getAppointmentDateTime(appointment.date, appointment.time)
-//                            Log.d("appDate", appointment.date)
-//                            Log.d("appTime", appointment.time)
-//                            Log.d("appStatus", appointment.status)
-//                            Log.d("appid", appointment.id)
-//
-//                            if (appointmentDateTime.before(currentDateTime.time)) {
-//                                if (appointment.status == "upcoming") {
-//                                    // Mark past "upcoming" appointments as "completed"
-//                                    database.child("appointments")
-//                                        .child(userId!!)
-//                                        .child(key)
-//                                        .child("status")
-//                                        .setValue("completed")
-//                                }
-//                            } else if (appointment.status == "upcoming") {
-//                                appointments.add(appointment)
-//                            }
-//                        }
-//                    }
-//
-//                    adapter.notifyDataSetChanged()
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    Log.e("Appointments", "Failed to load appointments: ${error.message}")
-//                }
-//            })
-//    }
-
-    // Function to load upcoming appointments based on user type.
-//    private fun loadAppointments() {
-//        val currentDateTime = Calendar.getInstance()
-//
-//        // Clear the list of appointments.
-//        appointments.clear()
-//
-//        if (userType == "Student") {
-//            // Load from appointments/{studentId}
-//            database.child("appointments").child(userId!!)
-//                .addListenerForSingleValueEvent(object : ValueEventListener {
-//                    override fun onDataChange(snapshot: DataSnapshot) {
-//                        for (snap in snapshot.children) {
-//                            val appointment = snap.getValue(Appointment::class.java)
-//                            val key = snap.key ?: continue
-//                            appointment?.id = key
-//
-//                            if (appointment != null) {
-//                                val appointmentDateTime =
-//                                    getAppointmentDateTime(appointment.date, appointment.time)
-//
-//                                if (appointmentDateTime!!.before(currentDateTime.time)) {
-//                                    if (appointment.status == "upcoming") {
-//                                        // Auto-mark as completed
-//                                        database.child("appointments").child(userId!!).child(key)
-//                                            .child("status")
-//                                            .setValue("completed")
-//                                    }
-//                                } else if (appointment.status == "upcoming") {
-//                                    appointments.add(appointment)
-//                                }
-//                            }
-//                        }
-//                        adapter.notifyDataSetChanged()
-//                    }
-//
-//                    override fun onCancelled(error: DatabaseError) {
-//                        Log.e("Appointments", "Student load failed: ${error.message}")
-//                    }
-//                })
-//        } else if (userType == "Lecturer") {
-//            // Load from appointmentsLecturer/{lecturerId}
-//            database.child("appointmentsLecturer").child(userId!!)
-//                .addListenerForSingleValueEvent(object : ValueEventListener {
-//                    override fun onDataChange(snapshot: DataSnapshot) {
-//                        for (snap in snapshot.children) {
-//                            val appointment = snap.getValue(Appointment::class.java)
-//                            val key = snap.key ?: continue
-//                            appointment?.id = key
-//                            appointment?.lecturerId = userId!! // Manually set lecturerId
-//
-//                            if (appointment != null) {
-//                                val appointmentDateTime =
-//                                    getAppointmentDateTime(appointment.date, appointment.time)
-//
-//                                if (appointmentDateTime!!.before(currentDateTime.time)) {
-//                                    if (appointment.status == "upcoming") {
-//                                        // Auto-mark as completed
-//                                        database.child("appointmentsLecturer").child(userId!!)
-//                                            .child(key).child("status")
-//                                            .setValue("completed")
-//                                    }
-//                                } else if (appointment.status == "upcoming") {
-//                                    appointments.add(appointment)
-//                                }
-//                            }
-//                        }
-//                        adapter.notifyDataSetChanged()
-//                    }
-//
-//                    override fun onCancelled(error: DatabaseError) {
-//                        Log.e("Appointments", "Lecturer load failed: ${error.message}")
-//                    }
-//                })
-//        }
-//    }
+    // Function to load upcoming appointments from Firebase
     private fun loadAppointments() {
+        // Get current date and time
         val currentDateTime = Calendar.getInstance()
+        // Clear existing appointments list before loading fresh data
         appointments.clear()
 
+        // Determine the Firebase path based on user type
         val path = if (userType == "Lecturer") "appointmentsLecturer" else "appointments"
+
+        // Access appointments for the current user
         database.child(path).child(userId!!)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -227,54 +104,55 @@ class UpcomingAppointmentsFragment : Fragment() {
                             appointment.lecturerId = userId!!
                         }
 
-                        // Get safe datetime
+                        // Convert date and time strings into a valid Date object
                         val appointmentDateTime = getAppointmentDateTime(appointment.date, appointment.time)
                         if (appointmentDateTime == null) {
                             Log.e("Appointments", "Invalid date/time: '${appointment.date}', '${appointment.time}'")
                             continue
                         }
 
-                        // Mark as completed if in past
+                        // Check if appointment is in the past
                         if (appointmentDateTime.before(currentDateTime.time)) {
                             if (appointment.status == "upcoming") {
                                 database.child(path).child(userId!!).child(key).child("status")
                                     .setValue("completed")
                             }
                         } else if (appointment.status == "upcoming") {
+                            // Only add to list if appointment is upcoming and in the future
                             appointments.add(appointment)
                         }
                     }
+                    // Notify adapter that data has changed so UI can update
                     adapter.notifyDataSetChanged()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
+                    // Log error if data retrieval fails
                     Log.e("Appointments", "Failed to load appointments: ${error.message}")
                 }
             })
     }
+    // Helper function to convert appointment date and time into a Date object
+    private fun getAppointmentDateTime(dateStr: String?, timeStr: String?): Date? {
+        if (dateStr.isNullOrBlank() || timeStr.isNullOrBlank()) {
+            // Log error if either date or time is missing
+            Log.e(
+                "AppointmentParser",
+                "Missing or blank date/time: date='$dateStr', time='$timeStr'"
+            )
+            return null
+        }
 
-
-
-
-//    // Function to get the appointment date and time as a Date object.
-//    private fun getAppointmentDateTime(dateStr: String, timeStr: String): Date {
-//        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-//        return sdf.parse("$dateStr $timeStr") ?: Date(0)
-//    }
-private fun getAppointmentDateTime(dateStr: String?, timeStr: String?): Date? {
-    if (dateStr.isNullOrBlank() || timeStr.isNullOrBlank()) {
-        Log.e("AppointmentParser", "Missing or blank date/time: date='$dateStr', time='$timeStr'")
-        return null
+        // Combine date and time into one string and parse using standard format
+        return try {
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+            sdf.parse("$dateStr $timeStr")
+        } catch (e: ParseException) {
+            // Log parsing errors
+            Log.e("AppointmentParser", "Failed to parse: '$dateStr $timeStr'", e)
+            null
+        }
     }
-
-    return try {
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-        sdf.parse("$dateStr $timeStr")
-    } catch (e: ParseException) {
-        Log.e("AppointmentParser", "Failed to parse: '$dateStr $timeStr'", e)
-        null
-    }
-}
 
     // Function to handle canceling an appointment.
     private fun cancelAppointment(appointment: Appointment) {

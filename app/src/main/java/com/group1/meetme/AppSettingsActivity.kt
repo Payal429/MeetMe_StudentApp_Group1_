@@ -16,36 +16,25 @@ import com.group1.meetme.databinding.ActivityAppSettingsBinding
 import java.util.Locale
 
 class AppSettingsActivity : AppCompatActivity() {
+
+    // Declare a reference to SharedPreferences
     private lateinit var sharedPreferences: SharedPreferences
-//    private lateinit var radioEnglish: RadioButton
-//    private lateinit var radioAfrikaans: RadioButton
 
     // binding for the activity
-    private lateinit var binding : ActivityAppSettingsBinding
+    private lateinit var binding: ActivityAppSettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_app_settings) // Change to your layout's name if different
 
+        // Inflate the layout using view binding
         binding = ActivityAppSettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val backArrow = binding.backArrow
-
-//        val backArrow = findViewById<ImageView>(R.id.backArrow)
-//        binding.backArrow.setOnClickListener {
-//            val intent = Intent(this, SettingsActivity::class.java)
-//            startActivity(intent)
-//            finish() // Optional: finishes current activity so it's removed from back stack
-//        }
+        // Handle back arrow click to return to previous screen (likely SettingsFragment)
         binding.backArrow.setOnClickListener {
-            finish() // Go back to SettingsFragment
+            // Go back to SettingsFragment
+            finish()
         }
-
-//        val saveSettingsBtn = findViewById<Button>(R.id.saveSettingsBtn)
-//        binding.radioEnglish = findViewById<RadioButton>(R.id.radioEnglish)
-//        binding.radioAfrikaans = findViewById<RadioButton>(R.id.radioAfrikaans)
-
 
         binding.saveSettingsBtn.setOnClickListener {
             // Handle save button click
@@ -59,17 +48,18 @@ class AppSettingsActivity : AppCompatActivity() {
             // Apply the language change and restart the app to reflect changes
             setLocale(selectedLanguage)
 
-//            saveSettings()
-//            Toast.makeText(this, getString(R.string.settings_saved), Toast.LENGTH_SHORT).show()
-
+            // Inform the user
             Toast.makeText(this, "Settings Saved Successfully", Toast.LENGTH_SHORT).show()
         }
 
+        // Spinner to set reminder notification time
         val reminderSpinner = findViewById<Spinner>(R.id.reminderSpinner)
         val sharedPrefs = getSharedPreferences("UserPrefs", MODE_PRIVATE)
 
-        // Load saved preference
+        // Load previously saved reminder hour (default to 24)
         val savedReminderTime = sharedPrefs.getInt("reminderHours", 24)
+
+        // Set spinner selection based on saved value
         val spinnerIndex = when (savedReminderTime) {
             24 -> 0
             12 -> 1
@@ -79,6 +69,7 @@ class AppSettingsActivity : AppCompatActivity() {
         }
         reminderSpinner.setSelection(spinnerIndex)
 
+        // Save new selection when user chooses a different reminder time
         reminderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -93,23 +84,19 @@ class AppSettingsActivity : AppCompatActivity() {
                     3 -> 1
                     else -> 24
                 }
+                // Save selected reminder time to SharedPreferences
                 sharedPrefs.edit().putInt("reminderHours", hours).apply()
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-
-
-
         // Load saved language preference
         loadSavedLanguage()
 
+        // Initialize another SharedPreferences instance (not used further here)
         sharedPreferences = getSharedPreferences("AppSettingsPrefs", Context.MODE_PRIVATE)
-
-
-
     }
 
+    //  Save the selected language to SharedPreferences
     private fun saveLanguagePreference(language: String) {
         val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
@@ -117,9 +104,11 @@ class AppSettingsActivity : AppCompatActivity() {
         editor.apply()
     }
 
+    // Load the saved language preference from SharedPreferences and apply it
     private fun loadSavedLanguage() {
         val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
-        val savedLanguage = sharedPref.getString("language", "en")  // Default to English
+        // Default to English
+        val savedLanguage = sharedPref.getString("language", "en")
 
         // Set the appropriate radio button based on the saved preference
         if (savedLanguage == "af") {
@@ -129,6 +118,7 @@ class AppSettingsActivity : AppCompatActivity() {
         }
     }
 
+    // Change the app's locale to the selected language code
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
@@ -137,7 +127,11 @@ class AppSettingsActivity : AppCompatActivity() {
         resources.updateConfiguration(config, resources.displayMetrics)
 
         // Restart the activity to apply the language change across the app
-        val intent = Intent(this, SettingsActivity::class.java)  // You may change this to your launch activity
+        val intent = Intent(
+            this,
+            SettingsActivity::class.java
+        )
+        // You may change this to your launch activity
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()

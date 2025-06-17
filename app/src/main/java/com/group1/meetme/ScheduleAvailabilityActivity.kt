@@ -32,6 +32,7 @@ import java.util.Locale
 // Activity for scheduling availability.
 class ScheduleAvailabilityActivity : AppCompatActivity() {
 
+    // Define view-related variables and data fields
     private lateinit var holidayDates: List<Calendar>
     private lateinit var calendarView: CalendarView
     private lateinit var dateTextView: TextView
@@ -102,10 +103,6 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
         }
         calendarView.setEvents(events)
 
-        // Set the calendar to show holidays and disable them
-        //        for (holiday in holidayDates) {
-        //     calendarView.setDisabledDays(holidayDates)
-
         // Generate list of past days from today back to a specific limit (e.g., 2 years)
         val today = Calendar.getInstance()
         val pastDates = mutableListOf<Calendar>()
@@ -164,13 +161,6 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
                 .child(idNum!!)
                 .child(date)
                 .child(selectedTimeSlot)
-            //                .child(selectedVenue)
-
-            //            val slotRef = FirebaseDatabase.getInstance().reference
-            //                .child("availability")
-            //                .child(lecturerId)
-            //                .child(date)
-            //                .child(selectedTime)
 
             // Optional: prevent duplicates
             slotRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -179,7 +169,7 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
                         statusText.text = "Slot already exists"
                         statusText.setTextColor(Color.RED)
                     } else {
-//                        val slotData = mapOf("booked" to false)
+
                         val slotData = mapOf(
                             "booked" to false,
                             "student" to "",
@@ -208,12 +198,14 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
 
     }
 
+    // Load the saved language from SharedPreferences and apply it
     private fun loadLanguage() {
         val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedLanguage = sharedPref.getString("language", "en")  // Default to English
         setLocale(savedLanguage ?: "en")
     }
 
+    // Apply the specified locale to the app
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
@@ -221,6 +213,7 @@ class ScheduleAvailabilityActivity : AppCompatActivity() {
         config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
     }
+
     // Check if selected date matches a holiday
     private fun isHoliday(date: Calendar): Boolean {
         return holidayDates.any {

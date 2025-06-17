@@ -20,7 +20,6 @@ class SettingsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_settings, container, false)
-        // Note: You can rename the layout file to fragment_settings.xml if you want.
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,12 +49,14 @@ class SettingsFragment : Fragment() {
         loadLanguage()
     }
 
+    // Load the saved language from SharedPreferences and apply locale
     private fun loadLanguage() {
         val sharedPref = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedLanguage = sharedPref.getString("language", "en")  // Default English
         setLocale(savedLanguage ?: "en")
     }
 
+    // Set and apply the selected locale to the app
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
@@ -64,11 +65,13 @@ class SettingsFragment : Fragment() {
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
+    // Retrieves the stored user type (either "student" or "lecturer") from shared preferences
     private fun getUserType(): String {
         val prefs = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         return prefs.getString("userType", "student") ?: "student"
     }
 
+    // Navigates back to the appropriate dashboard based on user type
     private fun navigateToDashboard() {
         val userType = getUserType()
         Log.d("SettingsFragment", "userType = $userType")
@@ -78,7 +81,6 @@ class SettingsFragment : Fragment() {
             startActivity(Intent(requireContext(), LecturerMainActivity::class.java))
         }
         // If you want to remove this fragment after navigating:
-        requireActivity().finish() // closes the host activity if this fragment is the only content
-        // or if inside a fragment stack use parentFragmentManager.popBackStack()
+        requireActivity().finish()
     }
 }

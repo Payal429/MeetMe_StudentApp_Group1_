@@ -54,24 +54,15 @@ class AppointmentAdapter(
         val btn1 = view.findViewById<Button>(R.id.btnAction1)
         val btn2 = view.findViewById<Button>(R.id.btnAction2)
 
-        // Set info text based on user type
-//        infoText.text =
-//            if (userRole == "Student") {
-//            "Lecturer: ${appointment.lecturerId}\n" +
-//                    "Date: ${appointment.date} ${appointment.time}\n" +
-//                    "Module: ${appointment.module}"
-//        } else {
-//            "Student: ${appointment.studentID}\n" +
-//                    "Date: ${appointment.date} ${appointment.time}\n" +
-//                    "Module: ${appointment.module}"
-//        }
         if (userRole == "Student") {
             fetchFullNameById(appointment.lecturerId ?: "", "Lecturer") { fullName ->
-                infoText.text = "Lecturer: $fullName\nDate: ${appointment.date} ${appointment.time}\nModule: ${appointment.module}"
+                infoText.text =
+                    "Lecturer: $fullName\nDate: ${appointment.date} ${appointment.time}\nModule: ${appointment.module}"
             }
         } else {
             fetchFullNameById(appointment.studentID ?: "", "Student") { fullName ->
-                infoText.text = "Student: $fullName\nDate: ${appointment.date} ${appointment.time}\nModule: ${appointment.module}"
+                infoText.text =
+                    "Student: $fullName\nDate: ${appointment.date} ${appointment.time}\nModule: ${appointment.module}"
             }
         }
 
@@ -88,7 +79,6 @@ class AppointmentAdapter(
 
                 "completed" -> {
                     actionLayout.visibility = View.VISIBLE
-//                    btn1.text = "Rebook"
                     btn1.visibility = View.GONE
                     btn2.text = "Add Review"
                     btn1.setOnClickListener { onAction1?.invoke(appointment) }
@@ -141,6 +131,7 @@ class AppointmentAdapter(
                         }
                     }
                 }
+
                 // Handle errors.
                 override fun onCancelled(error: DatabaseError) {
                     reviewBlock.visibility = View.GONE
@@ -148,34 +139,37 @@ class AppointmentAdapter(
                 }
             })
         }
-
-
-
         // Return the view for the current item.
         return view
     }
 
     private fun fetchFullNameById(id: String, role: String, callback: (String) -> Unit) {
+        // Get a reference to the specific user's data in the database
         val ref = FirebaseDatabase.getInstance().reference
             .child("users")
             .child(role)
             .child(id)
 
+        // Fetch the data only once
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            // Check if the snapshot contains data
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
+                    // Extract the name and surname from the snapshot
                     val name = snapshot.child("name").getValue(String::class.java) ?: ""
                     val surname = snapshot.child("surname").getValue(String::class.java) ?: ""
+                    // Return the full name via the callback
                     callback("$name $surname")
                 } else {
+                    // If the user was not found, return a placeholder
                     callback("Unknown $role")
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
+                // Handle database errors by returning an error message via the callback
                 callback("Error loading name")
             }
         })
     }
-
 }

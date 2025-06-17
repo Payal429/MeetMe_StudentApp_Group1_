@@ -25,12 +25,7 @@ import java.util.Locale
 class CancelAppointmentActivity : AppCompatActivity() {
 
     // binding for the activity
-    private lateinit var binding : ActivityCancelAppointmentBinding
-
-    // UI components.
-//    private lateinit var reasonGroup: RadioGroup
-//    private lateinit var otherReasonInput: EditText
-//    private lateinit var confirmButton: Button
+    private lateinit var binding: ActivityCancelAppointmentBinding
 
     // Data passed from the previous activity.
     private lateinit var appointmentId: String
@@ -38,15 +33,9 @@ class CancelAppointmentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_cancel_appointment)
 
         binding = ActivityCancelAppointmentBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // Initialize UI components.
-//        reasonGroup = findViewById(R.id.reasonGroup)
-//        otherReasonInput = findViewById(R.id.otherReasonInput)
-//        confirmButton = findViewById(R.id.confirmCancelButton)
 
         // Retrieve the appointment ID and student ID from the intent.
         appointmentId = intent.getStringExtra("appointmentId")!!
@@ -70,8 +59,6 @@ class CancelAppointmentActivity : AppCompatActivity() {
         val backArrow: ImageButton = findViewById(R.id.backArrow)
 
         backArrow.setOnClickListener() {
-//            val intent = Intent(this, StudentDashboardActivity::class.java)
-//            startActivity(intent)
             finish()
         }
         // Load saved language preference
@@ -92,104 +79,6 @@ class CancelAppointmentActivity : AppCompatActivity() {
         config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
     }
-
-//    private fun cancelAppointment(reason: String) {
-//        val db = FirebaseDatabase.getInstance().reference
-//        db.child("appointments").child(studentId).child(appointmentId)
-//            .updateChildren(mapOf(
-//                "status" to "cancelled",
-//                "cancellationReason" to reason
-//            ))
-//            .addOnSuccessListener {
-//                Toast.makeText(this, "Appointment cancelled", Toast.LENGTH_SHORT).show()
-//                finish()
-//            }
-//            .addOnFailureListener {
-//                Toast.makeText(this, "Failed to cancel", Toast.LENGTH_SHORT).show()
-//            }
-//    }
-
-//    // Function to cancel an appointment.
-//    private fun cancelAppointment(reason: String) {
-//        val db = FirebaseDatabase.getInstance().reference
-//
-//        // Step 1: Get the full appointment data for the student
-//        db.child("appointments").child(studentId).child(appointmentId)
-//            .addListenerForSingleValueEvent(object : ValueEventListener {
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    val appointment = snapshot.getValue(Appointment::class.java)
-//                    if (appointment != null) {
-//                        val lecturerId = appointment.lecturerId ?: return
-//                        val date = appointment.date
-//                        val time = appointment.time
-//
-//                        // Step 2: Update the student's appointment
-//                        val updates = mapOf(
-//                            "status" to "cancelled",
-//                            "cancellationReason" to reason
-//                        )
-//                        db.child("appointments").child(studentId).child(appointmentId)
-//                            .updateChildren(updates)
-//
-//                        // Step 3: Find the matching appointment under appointmentsLecturer
-//                        db.child("appointmentsLecturer").child(lecturerId)
-//                            .addListenerForSingleValueEvent(object : ValueEventListener {
-//                                override fun onDataChange(lecturerSnapshot: DataSnapshot) {
-//                                    for (lecturerAppSnap in lecturerSnapshot.children) {
-//                                        val lecApp =
-//                                            lecturerAppSnap.getValue(AppointmentLecturer::class.java)
-//                                        val lecKey = lecturerAppSnap.key ?: continue
-//
-//                                        // Match by date, time, and studentID
-//                                        if (lecApp?.date == date &&
-//                                            lecApp.time == time &&
-//                                            lecApp.studentId == studentId
-//                                        ) {
-//                                            db.child("appointmentsLecturer")
-//                                                .child(lecturerId)
-//                                                .child(lecKey)
-//                                                .updateChildren(updates)
-//                                            break
-//                                        }
-//                                    }
-//
-//                                    // Show a success message and finish the activity.
-//                                    Toast.makeText(
-//                                        this@CancelAppointmentActivity,
-//                                        "Appointment cancelled",
-//                                        Toast.LENGTH_SHORT
-//                                    ).show()
-//                                    finish()
-//                                }
-//
-//                                override fun onCancelled(error: DatabaseError) {
-//                                    Toast.makeText(
-//                                        // Show an error message if the operation is cancelled.
-//                                        this@CancelAppointmentActivity,
-//                                        "Error updating lecturer view",
-//                                        Toast.LENGTH_SHORT
-//                                    ).show()
-//                                }
-//                            })
-//                    } else {
-//                        // Show an error message if the appointment is not found.
-//                        Toast.makeText(
-//                            this@CancelAppointmentActivity,
-//                            "Appointment not found",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                }
-//                // Show an error message if the operation is cancelled.
-//                override fun onCancelled(error: DatabaseError) {
-//                    Toast.makeText(
-//                        this@CancelAppointmentActivity,
-//                        "Error accessing appointment",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            })
-//    }
 
     private fun cancelAppointment(reason: String) {
         val db = FirebaseDatabase.getInstance().reference
@@ -246,5 +135,4 @@ class CancelAppointmentActivity : AppCompatActivity() {
                 }
             })
     }
-
 }

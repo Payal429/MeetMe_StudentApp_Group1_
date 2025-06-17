@@ -45,12 +45,6 @@ class CompletedAppointmentsFragment : Fragment() {
         listView = view.findViewById(R.id.appointmentsListView)
         database = FirebaseDatabase.getInstance().reference
 
-//        // Get user ID and type from SharedPreferences
-//        val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-//        userId = sharedPreferences.getString("ID_NUM", null)
-//        userType = sharedPreferences.getString("USER_TYPE", null)
-
-
         super.onCreate(savedInstanceState)
         // Get user ID and role from the arguments passed to the fragment.
         userId = arguments?.getString("USER_ID")
@@ -79,31 +73,6 @@ class CompletedAppointmentsFragment : Fragment() {
         loadCompletedAppointments()
         return view
     }
-
-//    private fun loadCompletedAppointments() {
-//        database.child("appointments").child(userId!!)
-//            .addListenerForSingleValueEvent(object : ValueEventListener {
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    appointments.clear()
-//
-//                    for (snap in snapshot.children) {
-//                        val appointment = snap.getValue(Appointment::class.java)
-//                        val key = snap.key ?: continue
-//                        appointment?.id = key
-//
-//                        if (appointment != null && appointment.status == "completed") {
-//                            appointments.add(appointment)
-//                        }
-//                    }
-//
-//                    adapter.notifyDataSetChanged()
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    Log.e("CompletedAppointments", "Error: ${error.message}")
-//                }
-//            })
-//    }
 
     // Function to load completed appointments based on user type.
     private fun loadCompletedAppointments() {
@@ -163,7 +132,8 @@ class CompletedAppointmentsFragment : Fragment() {
         val intent = Intent(requireContext(), RescheduleActivity::class.java).apply {
             putExtra("lecturerId", appointment.lecturerId)
             putExtra("module", appointment.module)
-            putExtra("isRebooking", true)  // Used to indicate rebooking
+            // Used to indicate rebooking
+            putExtra("isRebooking", true)
         }
         startActivity(intent)
     }
@@ -172,24 +142,11 @@ class CompletedAppointmentsFragment : Fragment() {
     private fun reviewAppointment(appointment: Appointment) {
         if (userType != "Student") return
 
-//         val intent = Intent(requireContext(), RescheduleActivity::class.java).apply {
-//            putExtra("appointmentId", appointment.id)
-//            putExtra("studentId", userId)
-//            putExtra("lecturerId", appointment.lecturerId)
-//            putExtra("oldDate", appointment.date)
-//            putExtra("oldTime", appointment.time)
-//        }
-//        startActivity(intent)
-//        Toast.makeText(requireContext(), "Review ${appointment.module}", Toast.LENGTH_SHORT).show()
-//        reviewButton.setOnClickListener {
         val intent = Intent(context, lecturer_review::class.java).apply {
             putExtra("appointmentId", appointment.id)
             putExtra("studentId", userId)
             putExtra("lecturerId", appointment.lecturerId)
-//
         }
         startActivity(intent)
-        //   context.startActivity(intent)
-//        }
     }
 }

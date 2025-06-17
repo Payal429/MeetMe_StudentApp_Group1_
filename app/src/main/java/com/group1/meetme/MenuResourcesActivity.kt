@@ -11,6 +11,7 @@ import java.util.Locale
 class MenuResourcesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Set the layout for this activity (activity_menu_resources.xml)
         setContentView(R.layout.activity_menu_resources)
 
         // Reference to the Upload Resources card
@@ -30,63 +31,36 @@ class MenuResourcesActivity : AppCompatActivity() {
             val intent = Intent(this, DownloadResourcesActivity::class.java)
             startActivity(intent)
         }
-//        val homebutton: ImageButton = findViewById(R.id.homebutton)
-//        val schedulebutton: ImageButton = findViewById(R.id.schedulebutton)
-//        val bookingsbutton: ImageButton = findViewById(R.id.bookingsbutton)
-//        val settingsbutton: ImageButton = findViewById(R.id.settingsbutton)
-//        val resourcebutton: ImageButton = findViewById(R.id.resourcesbutton)
-
         // Return back to the dashboard
         val backArrow: ImageButton = findViewById(R.id.backArrow)
 
-        backArrow.setOnClickListener(){
+        backArrow.setOnClickListener() {
             val intent = Intent(this, StudentDashboardActivity::class.java)
             startActivity(intent)
         }
-
-//        homebutton.setOnClickListener {
-//            val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
-//            val role = sharedPref.getString("role", "student") // default to student
-//
-//            val intent = if (role == "lecturer") {
-//                Intent(this, LecturerDashboardActivity::class.java)
-//            } else {
-//                Intent(this, StudentDashboardActivity::class.java)
-//            }
-//
-//            startActivity(intent)
-//        }
-//        schedulebutton.setOnClickListener(){
-//            val intent = Intent(this, BookAppointmentActivity::class.java)
-//            startActivity(intent)
-//        }
-//        bookingsbutton.setOnClickListener(){
-//            val intent = Intent(this, AppointmentsActivity::class.java)
-//            startActivity(intent)
-//        }
-//        resourcebutton.setOnClickListener(){
-//            val intent = Intent(this, MenuResourcesActivity::class.java)
-//            startActivity(intent)
-//        }
-//        settingsbutton.setOnClickListener(){
-//
-//        }
         // Load saved language preference
         loadLanguage()
-
     }
 
+    // Loads the language setting saved in SharedPreferences
     private fun loadLanguage() {
         val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedLanguage = sharedPref.getString("language", "en")  // Default to English
         setLocale(savedLanguage ?: "en")
     }
 
+    // Applies the selected locale (language) to the app
     private fun setLocale(languageCode: String) {
+        // Create Locale object from language code
         val locale = Locale(languageCode)
+        // Set as the app’s default locale
         Locale.setDefault(locale)
+
+        // Get current configuration and update its locale
         val config = resources.configuration
         config.setLocale(locale)
+
+        // Update app's resources with the new configuration
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 }

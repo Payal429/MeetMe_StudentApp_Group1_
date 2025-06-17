@@ -26,11 +26,6 @@ import java.util.Locale
 // Activity for submitting a review for a lecturer.
 class lecturer_review : AppCompatActivity() {
 
-    //Lecturer
-    //    private lateinit var lecturerSpinner: Spinner
-    //    private val lecturerNames = mutableListOf<String>()
-    //    private val lecturerIdMap = mutableMapOf<String, String>() // name -> id
-
     // UI components.
     private lateinit var ratingBar: RatingBar
     private lateinit var commentEditText: EditText
@@ -135,7 +130,6 @@ class lecturer_review : AppCompatActivity() {
         }
         // Load saved language preference
         loadLanguage()
-
     }
 
     private fun loadLanguage() {
@@ -152,46 +146,3 @@ class lecturer_review : AppCompatActivity() {
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 }
-
-//        // Return back to the dashboard
-//        val backArrow: ImageButton = findViewById(R.id.backArrow)
-//
-//        // Return back to the dashboard when button is clicked
-//        backArrow.setOnClickListener(){
-//            val intent = Intent(this, StudentDashboardActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        lecturerSpinner = findViewById(R.id.lecturerSpinner)
-//        loadLecturers()
-//    }
-//
-//    private fun loadLecturers() {
-//        val lecturersRef = FirebaseDatabase.getInstance().reference.child("users").child("Lecturer")
-//
-//        lecturersRef.addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                lecturerNames.clear()
-//                lecturerIdMap.clear()
-//
-//                for (lecturerSnap in snapshot.children) {
-//                    val lecturer = lecturerSnap.getValue(User::class.java)
-//                    lecturer?.let {
-//                        val fullName = "${it.name} ${it.surname}"
-//                        lecturerNames.add(fullName)
-//                        lecturerIdMap[fullName] = it.idNum
-//                    }
-//                }
-//
-//                val adapter = ArrayAdapter(this@lecturer_review, android.R.layout.simple_spinner_item, lecturerNames)
-//                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//                lecturerSpinner.adapter = adapter
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Toast.makeText(this@lecturer_review, "Failed to load lecturers", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
-//
-//}

@@ -30,7 +30,7 @@ import java.util.Locale
 class LoginActivity : AppCompatActivity() {
 
     // binding for the activity
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
 
     // Initialize the ApiService using the ApiClient.
     private val apiService: ApiService = ApiClient.create(ApiService::class.java)
@@ -38,7 +38,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-//        setContentView(R.layout.activity_login)
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -57,13 +56,6 @@ class LoginActivity : AppCompatActivity() {
 
         // 2. Create notification channel (Android 8+)
         createNotificationChannel()
-
-
-        // Find the login button by its ID
-//        val loginButton: Button = findViewById(R.id.loginButton)
-//        val emailEditText: TextInputEditText = findViewById(R.id.email)
-//        val passwordEditText: TextInputEditText = findViewById(R.id.password)
-//        val forgotPasswordButton = findViewById<TextView>(R.id.forgotPassword)
 
         // Set an OnClickListener for the login button
         binding.loginButton.setOnClickListener {

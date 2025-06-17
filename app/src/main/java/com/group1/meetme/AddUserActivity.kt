@@ -25,24 +25,27 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.Locale
 
-//  This activity is responsible for adding a new user to the system.
+// This activity is responsible for adding a new user to the system.
 // It provides a form for inputting user details and handles the logic for
 // writing the user data to Firebase and making an API call to onboard the user.
 
 class AddUserActivity : AppCompatActivity() {
 
     // binding for the activity
-    private lateinit var binding : ActivityAddUserBinding
+    private lateinit var binding: ActivityAddUserBinding
 
     // Retrofit API service instance for making network requests.
     private val apiService: ApiService = ApiClient.create(ApiService::class.java)
+
     // Firebase database reference for storing user data.
     private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Enables the app to draw behind the system bars (status bar and navigation bar)
         enableEdgeToEdge()
-//        setContentView(R.layout.activity_add_user)
+
         binding = ActivityAddUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -52,27 +55,10 @@ class AddUserActivity : AppCompatActivity() {
             insets
         }
 
-        // Find the back arrow button by its ID.
-//        val backArrow: ImageButton = findViewById(R.id.backArrow)
         // Set a click listener for the back arrow button to navigate back to the dashboard.
-        binding.backArrow.setOnClickListener(){
-//            val intent = Intent(this, StudentDashboardActivity::class.java)
-//            startActivity(intent)
+        binding.backArrow.setOnClickListener() {
             finish()
         }
-//        val employeeId = binding.loginScreenEditEmpNumPlainText.text.toString()
-//        val password = binding.loginScreenEditPasswordPlainText.text.toString()
-//        login(employeeId, password)
-
-        // Find the UI elements buttons by their IDs
-//        val edtIDNumber: EditText = findViewById(R.id.edtIDNumber)
-//        val edtName: EditText = findViewById(R.id.edtName)
-//        val edtSurname: EditText = findViewById(R.id.edtSurname)
-//        val edtUser: EditText = findViewById(R.id.edtUser)
-//        val spnCourse: Spinner = findViewById(R.id.spnCourse)
-//        val edtEmail: EditText = findViewById(R.id.edtEmail)
-//        val addStudentButton: Button = findViewById(R.id.addStudentButton)
-//        val headerTitle: TextView = findViewById(R.id.headerTitle)
 
         // Get the user type passed from the previous activity.
         val userType = getIntent().getStringExtra("userType")
@@ -84,26 +70,6 @@ class AddUserActivity : AppCompatActivity() {
         binding.edtUser.setText(userType)
         // Initialize the Firebase database reference
         database = Firebase.database.reference
-
-        // Get the user details from the input fields.
-//        binding.addStudentButton.setOnClickListener {
-//            val idNum = binding.edtIDNumber.text.toString()
-//            val name = binding.edtName.text.toString()
-//            val surname = binding.edtSurname.text.toString()
-//            val typeOfUser = binding.edtUser.text.toString()
-//            val course = binding.spnCourse.selectedItem.toString()
-//            val email = binding.edtEmail.text.toString()
-//
-//            // Call the onboardUser function to onboard the user via API.
-//            onboardUser(idNum, name, surname, typeOfUser, course, email)
-//
-//            // Check the user type and write the user data to Firebase accordingly.
-//            if (userType =="Student"){
-//                writeNewUserStudent(idNum, name, surname, typeOfUser, course, email)
-//            } else if (userType == "Lecturer"){
-//                writeNewUserLecturer(idNum, name, surname, typeOfUser, course, email)
-//            }
-//        }
 
         binding.addStudentButton.setOnClickListener {
             val idNum = binding.edtIDNumber.text.toString().trim()
@@ -121,7 +87,8 @@ class AddUserActivity : AppCompatActivity() {
 
             // Validate email format
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
 
@@ -135,23 +102,43 @@ class AddUserActivity : AppCompatActivity() {
                 writeNewUserLecturer(idNum, name, surname, typeOfUser, course, email)
             }
         }
-
     }
 
     // Write a new student user to the Firebase database.
-    fun writeNewUserStudent(idNum: String, name: String, surname: String, typeOfUser: String, course: String, email: String) {
+    fun writeNewUserStudent(
+        idNum: String,
+        name: String,
+        surname: String,
+        typeOfUser: String,
+        course: String,
+        email: String
+    ) {
         val user = User(idNum, name, surname, typeOfUser, course, email)
         database.child("users").child("Student").child(idNum).setValue(user)
     }
 
     // Write a new lecturer user to the Firebase database.
-    fun writeNewUserLecturer(idNum: String, name: String, surname: String, typeOfUser: String, course: String, email: String) {
+    fun writeNewUserLecturer(
+        idNum: String,
+        name: String,
+        surname: String,
+        typeOfUser: String,
+        course: String,
+        email: String
+    ) {
         val user = User(idNum, name, surname, typeOfUser, course, email)
         database.child("users").child("Lecturer").child(idNum).setValue(user)
     }
 
     // This method will access the login api, and will check to see if the entered details are correct, and will log the user in to the app
-    private fun onboardUser(idNum: String, name: String, surname: String, typeOfUser: String, course: String, email: String) {
+    private fun onboardUser(
+        idNum: String,
+        name: String,
+        surname: String,
+        typeOfUser: String,
+        course: String,
+        email: String
+    ) {
         // Create an OnboardRequest object with the user details.
         val onboardRequest = OnboardRequest(idNum, name, surname, typeOfUser, course, email)
 
@@ -160,13 +147,17 @@ class AddUserActivity : AppCompatActivity() {
 
             // Handle the API response.
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-//                if (response.isSuccessful && response.body()?.message == "User Successfully onboarded") {
-                    Toast.makeText(this@AddUserActivity, "User Successfully onboarded!!", Toast.LENGTH_SHORT).show()
-//                }
+                Toast.makeText(
+                    this@AddUserActivity,
+                    "User Successfully onboarded!!",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
+
             // Handle API request failure.
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                Toast.makeText(this@AddUserActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AddUserActivity, "Error: ${t.message}", Toast.LENGTH_SHORT)
+                    .show()
                 Log.e("API_FAILURE", "Failed to make request: ${t.message}")
             }
         })
@@ -175,12 +166,14 @@ class AddUserActivity : AppCompatActivity() {
 
     }
 
+    // Load saved language from SharedPreferences and apply it
     private fun loadLanguage() {
         val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedLanguage = sharedPref.getString("language", "en")  // Default to English
         setLocale(savedLanguage ?: "en")
     }
 
+    // Change the locale of the app to the selected language
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)

@@ -54,35 +54,6 @@
             android:text="@string/hi_welcome"
             android:textSize="28sp" />
 
-        <!-- Email Label -->
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:text="Email Address"-->
-<!--            android:padding="10dp"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:textSize="16sp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:textColor="#814700" />-->
-
-        <!-- Email Input -->
-        <!--        <EditText-->
-        <!--            android:id="@+id/email"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="50dp"-->
-        <!--            android:layout_gravity="center"-->
-        <!--            android:layout_marginTop="8dp"-->
-        <!--            android:layout_marginStart="20dp"-->
-        <!--            android:layout_marginEnd="20dp"-->
-        <!--            android:background="@drawable/edit_text_background"-->
-        <!--            android:hint="Enter your email address"-->
-        <!--            android:inputType="textEmailAddress"-->
-        <!--            android:padding="10dp"-->
-        <!--            android:textSize="16sp"-->
-        <!--            android:textAlignment="textStart"-->
-        <!--            tools:ignore="RtlCompat" />-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email1"
@@ -102,35 +73,6 @@
                 android:background="@drawable/edit_text_background"
                 android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Password Label -->
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:text="Password"-->
-<!--            android:padding="10dp"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:textSize="16sp"-->
-<!--            android:textColor="#814700" />-->
-
-        <!-- Password Input -->
-        <!--        <EditText-->
-        <!--            android:id="@+id/password"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="50dp"-->
-        <!--            android:layout_gravity="center"-->
-        <!--            android:layout_marginTop="8dp"-->
-        <!--            android:layout_marginStart="20dp"-->
-        <!--            android:layout_marginEnd="20dp"-->
-        <!--            android:background="@drawable/edit_text_background"-->
-        <!--            android:hint="Enter Your Password"-->
-        <!--            android:inputType="textPassword"-->
-        <!--            android:padding="10dp"-->
-        <!--            android:textAlignment="viewStart"-->
-        <!--            android:textSize="16sp"-->
-        <!--            tools:ignore="RtlCompat" />-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password1"

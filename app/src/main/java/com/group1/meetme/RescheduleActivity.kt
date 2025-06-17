@@ -33,6 +33,7 @@ import java.util.*
 // Activity for rescheduling appointments.
 class RescheduleActivity : AppCompatActivity() {
 
+    // Define view-related variables and data fields
     private lateinit var calendarView: CalendarView
     private lateinit var timeSlotSpinner: Spinner
     private lateinit var rescheduleButton: Button
@@ -88,8 +89,6 @@ class RescheduleActivity : AppCompatActivity() {
         val today = Calendar.getInstance()
         val pastDates = mutableListOf<Calendar>()
 
-        //val moduleName = moduleNameTv.getText().toString();
-
         val pastLimit = Calendar.getInstance().apply { add(Calendar.YEAR, -2) }
 
         val dateIterator = pastLimit.clone() as Calendar
@@ -109,15 +108,6 @@ class RescheduleActivity : AppCompatActivity() {
         } else {
             title = "Reschedule Appointment"
         }
-
-//        // Set up the calendar view to handle day clicks.
-//        calendarView.setOnDayClickListener(object : OnDayClickListener {
-//            override fun onDayClick(eventDay: EventDay) {
-//                val cal = eventDay.calendar
-//                selectedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.time)
-//                loadAvailableTimesForDate(selectedDate)
-//            }
-//        })
 
         // Handle date selection from the calendar.
         calendarView.setOnDayClickListener(object : OnDayClickListener {
@@ -147,12 +137,10 @@ class RescheduleActivity : AppCompatActivity() {
                     } else {
                         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                         selectedDate =
-                            dateFormat.format(selectedCal.time) // ✅ Fix: update class variable
+                            dateFormat.format(selectedCal.time)
 
                         Log.d("date", selectedDate)
                         loadAvailableTimesForDate(selectedDate)
-//                        dateTextView.text = selectedDate
-//                        calendarView.visibility = View.GONE
                     }
             }
         })
@@ -178,12 +166,14 @@ class RescheduleActivity : AppCompatActivity() {
 
     }
 
+    // Load the saved language from SharedPreferences and apply it
     private fun loadLanguage() {
         val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedLanguage = sharedPref.getString("language", "en")  // Default to English
         setLocale(savedLanguage ?: "en")
     }
 
+    // Apply the specified locale to the app
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)

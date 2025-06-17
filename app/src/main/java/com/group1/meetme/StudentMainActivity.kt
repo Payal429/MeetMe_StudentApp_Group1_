@@ -20,6 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 
 class StudentMainActivity : AppCompatActivity() {
+    // Declare view and navigation variables
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
     private lateinit var navView: NavigationView
@@ -31,7 +32,7 @@ class StudentMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_main)
 
-        // Initialize views
+        // Initialize views by finding them from the layout
         drawerLayout = findViewById(R.id.student_drawer_layout)
         navView = findViewById(R.id.student_nav_view)
         bottomNav = findViewById(R.id.student_bottom_nav)
@@ -62,15 +63,16 @@ class StudentMainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         bottomNav.setupWithNavController(navController)
 
-        // Handle Logout menu manually
+        // Handle the Logout menu item manually because it needs a confirmation dialog
         navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.logout -> {
+                    // Show confirmation dialog on logout
                     showLogoutConfirmationDialog()
                     true
                 }
-
                 else -> {
+                    // For other items, navigate to the selected destination
                     val handled = NavigationUI.onNavDestinationSelected(item, navController)
                     if (handled) drawerLayout.closeDrawers()
                     handled
@@ -81,27 +83,32 @@ class StudentMainActivity : AppCompatActivity() {
         //  Show/hide bottom nav depending on fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
             bottomNav.visibility = if (destination.id == R.id.studentDashboardFragment) {
+                // Show bottom nav only on dashboard fragment
                 View.VISIBLE
             } else {
+                // Hide bottom nav on all other fragments
                 View.GONE
             }
         }
     }
 
+    // Handle Up button behavior with NavController and DrawerLayout integration
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 
+    // Show a confirmation dialog before logging out the user
     private fun showLogoutConfirmationDialog() {
         androidx.appcompat.app.AlertDialog.Builder(this)
             .setTitle("Confirm Logout")
             .setMessage("Are you sure you want to logout?")
             .setPositiveButton("Yes") { _, _ ->
-                // Clear session (optional)
+
+                // Clear any saved session data/preferences
                 val sharedPref = getSharedPreferences("MyPreferences", MODE_PRIVATE)
                 sharedPref.edit().clear().apply()
 
-                // Navigate to Login
+                // Redirect to LoginActivity and clear back stack
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)

@@ -47,7 +47,6 @@ class GetStartedActivity : AppCompatActivity() {
 
         // Load saved language preference
         loadLanguage()
-
     }
 
     private fun loadLanguage() {

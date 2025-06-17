@@ -18,19 +18,15 @@ import java.util.Locale
 // Activity for displaying appointments.
 class AppointmentsActivity : AppCompatActivity() {
 
-    // binding for the activity
-    private lateinit var binding : ActivityAppointmentsBinding
+    // Binding for the activity
+    private lateinit var binding: ActivityAppointmentsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Set the content view to the appointments activity layout.
-//        setContentView(R.layout.activity_appointments)
 
+        // Inflate the layout using view binding
         binding = ActivityAppointmentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // Find the back arrow ImageButton and set an OnClickListener to navigate back to the dashboard.
-//        val backArrow: ImageButton = findViewById(R.id.backArrow)
 
         // Create an Intent to navigate back to the StudentDashboardActivity.
         binding.backArrow.setOnClickListener() {
@@ -74,15 +70,16 @@ class AppointmentsActivity : AppCompatActivity() {
 
         // Load saved language preference
         loadLanguage()
-
     }
 
+    // Load the saved language preference from SharedPreferences and apply it
     private fun loadLanguage() {
         val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedLanguage = sharedPref.getString("language", "en")  // Default to English
         setLocale(savedLanguage ?: "en")
     }
 
+    // Change the app's locale to the selected language code
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)

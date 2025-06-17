@@ -33,7 +33,8 @@ import java.util.Date
 import java.util.Locale
 
 class ScheduleAvailabilityFragment : Fragment() {
-private lateinit var holidayDates: List<Calendar>
+    // Define view-related variables and data fields
+    private lateinit var holidayDates: List<Calendar>
     private lateinit var calendarView: CalendarView
     private lateinit var dateTextView: TextView
     private lateinit var btnAddAvailability: Button
@@ -42,6 +43,7 @@ private lateinit var holidayDates: List<Calendar>
     private lateinit var timeSlotSpinner: Spinner
     private lateinit var venueSpinner: Spinner
 
+    // Predefined list of available time slots
     private val timeSlots = listOf(
         "07:10 - 07:50",
         "08:00 - 08:40",
@@ -61,15 +63,18 @@ private lateinit var holidayDates: List<Calendar>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        // Inflate the fragment layout
         return inflater.inflate(R.layout.fragment_schedule_availability, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Get stored lecturer ID number from SharedPreferences
         val sharedPreferences = requireActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
         val idNum = sharedPreferences.getString("ID_NUM", null) ?: return
 
+        // Initialize UI elements
         dateTextView = view.findViewById(R.id.dateTextView)
         calendarView = view.findViewById(R.id.calendarView)
         btnAddAvailability = view.findViewById(R.id.btnAddAvailability)
@@ -77,11 +82,15 @@ private lateinit var holidayDates: List<Calendar>
         venueSpinner = view.findViewById(R.id.venueSpinner)
         val statusText = view.findViewById<TextView>(R.id.statusText)
 
+        // Set up the time slot spinner with predefined values
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, timeSlots)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         timeSlotSpinner.adapter = adapter
 
+        // Get reference to Firebase Realtime Database
         database = FirebaseDatabase.getInstance().reference
+
+        // Get holiday dates from HolidayUtils
         holidayDates = HolidayUtils.holidayDates
 
         val events = holidayDates.map {
@@ -89,27 +98,36 @@ private lateinit var holidayDates: List<Calendar>
         }
         calendarView.setEvents(events)
 
+        // Disable all past dates from 2 years ago to today
         val today = Calendar.getInstance()
         val pastDates = mutableListOf<Calendar>()
         val pastLimit = Calendar.getInstance().apply { add(Calendar.YEAR, -2) }
-
         val dateIterator = pastLimit.clone() as Calendar
         while (dateIterator.before(today)) {
             pastDates.add(dateIterator.clone() as Calendar)
             dateIterator.add(Calendar.DAY_OF_MONTH, 1)
         }
 
+        // Disable both past dates and holiday dates
         val disabledDays = pastDates + holidayDates
         calendarView.setDisabledDays(disabledDays)
 
+        // Show calendar view when the date TextView is clicked
         dateTextView.setOnClickListener { calendarView.visibility = View.VISIBLE }
 
+        // Handle calendar day selection
         calendarView.setOnDayClickListener(object : OnDayClickListener {
             override fun onDayClick(eventDay: EventDay) {
                 val selectedCal = eventDay.calendar
+                // Prevent booking on holidays
                 if (isHoliday(selectedCal)) {
-                    Toast.makeText(requireContext(), "This day is a holiday and cannot be booked!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "This day is a holiday and cannot be booked!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
+                    // Format and display the selected date
                     selectedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedCal.time)
                     dateTextView.text = selectedDate
                     calendarView.visibility = View.GONE
@@ -117,46 +135,13 @@ private lateinit var holidayDates: List<Calendar>
             }
         })
 
-//        btnAddAvailability.setOnClickListener {
-//            val selectedTimeSlot = timeSlotSpinner.selectedItem.toString()
-//            val selectedVenue = venueSpinner.selectedItem.toString()
-//            val date = selectedDate
-//
-//            val slotRef = database.child("availability").child(idNum).child(date).child(selectedTimeSlot)
-//
-//            slotRef.addListenerForSingleValueEvent(object : ValueEventListener {
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    if (snapshot.exists()) {
-//                        statusText.text = "Slot already exists"
-//                        statusText.setTextColor(Color.RED)
-//                    } else {
-//                        val slotData = mapOf(
-//                            "booked" to false,
-//                            "student" to "",
-//                            "module" to "",
-//                            "venue" to selectedVenue
-//                        )
-//                        slotRef.setValue(slotData).addOnSuccessListener {
-//                            statusText.text = "Slot added: $selectedTimeSlot on $date"
-//                            statusText.setTextColor(Color.GREEN)
-//                        }.addOnFailureListener {
-//                            statusText.text = "Failed to add slot"
-//                            statusText.setTextColor(Color.RED)
-//                        }
-//                    }
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    statusText.text = "Database error: ${error.message}"
-//                    statusText.setTextColor(Color.RED)
-//                }
-//            })
-//        }
+        // Handle Add Availability button click
         btnAddAvailability.setOnClickListener {
             val selectedTimeSlot = timeSlotSpinner.selectedItem.toString()
             val selectedVenue = venueSpinner.selectedItem.toString()
             val date = selectedDate
 
+            // Show a confirmation dialog before saving
             val confirmationMessage = "Confirm adding slot:\n\nDate: $date\nTime: $selectedTimeSlot\nVenue: $selectedVenue"
 
             androidx.appcompat.app.AlertDialog.Builder(requireContext())
@@ -169,6 +154,7 @@ private lateinit var holidayDates: List<Calendar>
                         .child(date)
                         .child(selectedTimeSlot)
 
+                    // Check if the selected slot already exists
                     slotRef.addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if (snapshot.exists()) {
@@ -200,17 +186,18 @@ private lateinit var holidayDates: List<Calendar>
                 .setNegativeButton("Cancel", null)
                 .show()
         }
-
-
+        // Load previously selected language preference
         loadLanguage()
     }
 
+    // Load the saved language from SharedPreferences and apply it
     private fun loadLanguage() {
         val sharedPref = requireActivity().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedLanguage = sharedPref.getString("language", "en")
         setLocale(savedLanguage ?: "en")
     }
 
+    // Apply the specified locale to the app
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
@@ -219,6 +206,7 @@ private lateinit var holidayDates: List<Calendar>
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
+    // Check if the selected date is a holiday
     private fun isHoliday(date: Calendar): Boolean {
         return holidayDates.any {
             it.get(Calendar.YEAR) == date.get(Calendar.YEAR) &&
@@ -227,6 +215,7 @@ private lateinit var holidayDates: List<Calendar>
         }
     }
 
+    // Get today's date in yyyy-MM-dd format
     private fun getTodayDate(): String {
         return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
     }

@@ -42,27 +42,9 @@ interface ApiService {
     @POST("login")
     fun login(@Body request: ChangePassword): Call<ApiResponse>
 
-    // Endpoint for getting the user type
-//    @POST("get-usertype")
-//    fun getUserType(@Body request: GetUser): Call<ApiResponse>
-
     @POST("get-usertype")
     fun getUserType(@Body request: GetUser): Call<UserTypeResponse>
 
     @POST("resend-otp")
     fun resendOtp(@Body body: Map<String, String>): Call<Map<String, String>>
-
-
-
-//    // Endpoint for OTP login (first-time login with OTP)
-//    @POST("loginotp")
-//    fun loginWithOtp(@Body request: LoginRequest): Call<ApiResponse>
-//
-//    // Endpoint for subsequent login with new password
-//    @POST("login")
-//    fun loginWithPassword(@Body request: LoginRequest): Call<ApiResponse>
-//
-//    // Endpoint for changing password after OTP login
-//    @POST("change-password")
-//    fun changePassword(@Body request: PasswordChangeRequest): Call<ApiResponse>
 }
