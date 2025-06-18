@@ -37,8 +37,6 @@ class AppSettingsActivity : AppCompatActivity() {
         }
 
         binding.saveSettingsBtn.setOnClickListener {
-            // Handle save button click
-            finish()
             // Get selected language
             val selectedLanguage = if (binding.radioEnglish.isChecked) "en" else "af"
 
@@ -50,6 +48,9 @@ class AppSettingsActivity : AppCompatActivity() {
 
             // Inform the user
             Toast.makeText(this, "Settings Saved Successfully", Toast.LENGTH_SHORT).show()
+
+            // Handle save button click
+            finish()
         }
 
         // Spinner to set reminder notification time
@@ -126,14 +127,5 @@ class AppSettingsActivity : AppCompatActivity() {
         config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
 
-        // Restart the activity to apply the language change across the app
-        val intent = Intent(
-            this,
-            SettingsActivity::class.java
-        )
-        // You may change this to your launch activity
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-        finish()
     }
 }
