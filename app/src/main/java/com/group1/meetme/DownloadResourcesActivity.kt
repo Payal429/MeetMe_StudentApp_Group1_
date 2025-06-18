@@ -13,10 +13,10 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import org.json.JSONObject
 import java.util.Locale
 
-// Activity for downloading resources.
+// Activity that handles downloading resources uploaded to Cloudinary
 class DownloadResourcesActivity : AppCompatActivity() {
 
-    // UI components.
+    // UI components
     private lateinit var moduleDropdown: MaterialAutoCompleteTextView
     private lateinit var resourcesContainer: LinearLayout
     private lateinit var backButton: ImageView
@@ -24,95 +24,101 @@ class DownloadResourcesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Set the content view to the activity_download_resources layout.
+        // Set the layout for this activity
         setContentView(R.layout.activity_download_resources)
 
-        // Initialize UI components.
+        // Initialize UI elements
         moduleDropdown = findViewById(R.id.moduleDropdown)
         resourcesContainer = findViewById(R.id.resourcesContainer)
-        backButton = findViewById(R.id.backArrow) //
+        backButton = findViewById(R.id.backArrow)
 
-        // Set up the back button to navigate back to the StudentDashboardActivity.
+        // Navigate back to the StudentDashboardActivity when the back arrow is clicked
         backButton.setOnClickListener {
             val intent = Intent(this, StudentDashboardActivity::class.java)
             startActivity(intent)
         }
 
-        // Set up the module dropdown
+        // Set up dropdown menu with module names
         setupModuleDropdown()
 
-        // Load saved language preference
+        // Apply user's saved language preference
         loadLanguage()
     }
 
+    // Loads and applies the saved language from SharedPreferences
     private fun loadLanguage() {
         val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedLanguage = sharedPref.getString("language", "en")  // Default to English
         setLocale(savedLanguage ?: "en")
     }
 
+    // Updates the app locale (language)
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
+
         val config = resources.configuration
         config.setLocale(locale)
+
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
-    // Function to set up the module dropdown.
+    // Initializes the module dropdown with predefined module names and handles selection
     private fun setupModuleDropdown() {
-        // List of available modules.
+        // List of modules (can be expanded as needed)
         val modules = listOf("Module A", "Module B", "Module C")
-        // Create an adapter for the dropdown.
+
+        // Adapter to bind module list to dropdown
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, modules)
         moduleDropdown.setAdapter(adapter)
 
-        // Set up the item click listener for the dropdown.
+        // When user selects a module, fetch associated resources
         moduleDropdown.setOnItemClickListener { _, _, position, _ ->
-            // Get the selected module.
             val selectedModule = modules[position]
-            // Fetch resources for the selected module.
             fetchResourcesForModule(selectedModule)
         }
     }
 
-    // Function to fetch resources for the selected module.
+    // Fetches files uploaded to Cloudinary with a specific tag (module name)
     private fun fetchResourcesForModule(module: String) {
-        // Clear any existing resources from the container.
+        // Clear the list of any previously displayed resources
         resourcesContainer.removeAllViews()
 
-        // Start a new thread to fetch resources from Cloudinary.
+        // Use a background thread for network operation
         Thread {
-            // Perform a search query on Cloudinary to find resources tagged with the module name.
             try {
+                // Cloudinary search using the tag = module name
                 val result = MediaManager.get().cloudinary.search()
                     .expression("tags=$module")
                     .maxResults(100)
                     .execute()
 
-                // Parse the JSON response.
+                // Parse result into JSON
                 val json = JSONObject(result.toString())
                 val resources = json.getJSONArray("resources")
 
-                // Update the UI on the main thread
+                // Run UI changes on main thread
                 runOnUiThread {
                     if (resources.length() == 0) {
-                        // Show a toast if no files are found.
+                        // Inform user if no files were found
                         Toast.makeText(this, "No files found.", Toast.LENGTH_SHORT).show()
                         return@runOnUiThread
                     }
 
-                    // Iterate through the resources and add them to the UI.
+                    // Loop through each resource and create a UI card for it
                     for (i in 0 until resources.length()) {
                         val resource = resources.getJSONObject(i)
                         val secureUrl = resource.getString("secure_url")
                         val publicId = resource.getString("public_id")
+
+                        // Extract the filename from the public_id
                         val filename = publicId.substringAfterLast("/")
                         addResourceCard(filename, secureUrl)
                     }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+                // Show error toast if something goes wrong
                 runOnUiThread {
                     Toast.makeText(this, "Error fetching files: ${e.message}", Toast.LENGTH_LONG).show()
                 }
@@ -120,9 +126,9 @@ class DownloadResourcesActivity : AppCompatActivity() {
         }.start()
     }
 
-    // Function to add a resource card to the resources container.
+    // Dynamically creates a card view to represent a downloadable file
     private fun addResourceCard(fileName: String, fileUrl: String) {
-        // Create a MaterialCardView to hold the resource information.
+        // Create card view container
         val cardView = MaterialCardView(this).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -134,7 +140,7 @@ class DownloadResourcesActivity : AppCompatActivity() {
             cardElevation = 2f
         }
 
-        // Create a LinearLayout to hold the card content.
+        // Create a horizontal layout inside the card
         val cardLayout = LinearLayout(this).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -144,7 +150,7 @@ class DownloadResourcesActivity : AppCompatActivity() {
             setPadding(16, 16, 16, 16)
         }
 
-        // Create an icon view for the resource.
+        // Icon representing a document
         val iconView = ImageView(this).apply {
             setImageResource(R.drawable.ic_document)
             layoutParams = LinearLayout.LayoutParams(24.dp, 24.dp).apply {
@@ -152,7 +158,7 @@ class DownloadResourcesActivity : AppCompatActivity() {
             }
         }
 
-        // Create a text view for the file name
+        // Text showing the name of the file
         val textView = TextView(this).apply {
             text = fileName
             textSize = 16f
@@ -162,34 +168,37 @@ class DownloadResourcesActivity : AppCompatActivity() {
             )
         }
 
-        // Create a spacer view.
+        // Spacer to push the download icon to the end of the row
         val spacer = View(this).apply {
             layoutParams = LinearLayout.LayoutParams(0, 1).apply {
                 weight = 1f
             }
         }
 
-        // Create a download icon.
+        // Download icon that opens the file link
         val downloadIcon = ImageView(this).apply {
             setImageResource(R.drawable.ic_download)
             layoutParams = LinearLayout.LayoutParams(24.dp, 24.dp)
+
+            // When clicked, open the file URL in the browser or relevant app
             setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(fileUrl))
                 startActivity(intent)
             }
         }
 
-        // Add views to the card layout.
+        // Add views to the horizontal layout
         cardLayout.addView(iconView)
         cardLayout.addView(textView)
         cardLayout.addView(spacer)
         cardLayout.addView(downloadIcon)
-        // Add the card layout to the card view.
+
+        // Add layout to card, and card to the container
         cardView.addView(cardLayout)
-        // Add the card view to the resources container.
         resourcesContainer.addView(cardView)
     }
 
-    // Extension to convert dp to px
-    private val Int.dp: Int get() = (this * resources.displayMetrics.density).toInt()
+    // Extension function to convert dp to pixels (for consistent UI scaling)
+    private val Int.dp: Int
+        get() = (this * resources.displayMetrics.density).toInt()
 }

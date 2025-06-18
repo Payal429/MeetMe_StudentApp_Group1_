@@ -13,7 +13,7 @@ import com.cloudinary.android.callback.UploadCallback
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import java.util.Locale
 
-// Activity for uploading resources.
+// Activity that allows users to upload resources (like files) associated with modules
 class UploadResourcesActivity : AppCompatActivity() {
 
     // Declare UI components
@@ -25,19 +25,21 @@ class UploadResourcesActivity : AppCompatActivity() {
     private lateinit var paperclipIcon: ImageView
     private lateinit var backButton: ImageView
 
-    // Store the URI of the selected file
+    // Store the selected file's URI
     private var selectedFileUri: Uri? = null
 
-    // Request code for file picker intent
+    // Constant request code for the file picker intent
     companion object {
         private const val FILE_PICKER_REQUEST_CODE = 1001
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Set the layout for this activity
         setContentView(R.layout.activity_upload_resources)
 
-        // Initialize UI components using findViewById
+        // Initialize UI components by their IDs
         courseDropdown = findViewById(R.id.courseDropdown)
         moduleDropdown = findViewById(R.id.moduleDropdown)
         btnSelectFile = findViewById(R.id.btnSelectFile)
@@ -46,51 +48,60 @@ class UploadResourcesActivity : AppCompatActivity() {
         paperclipIcon = findViewById(R.id.paperclipIcon)
         backButton = findViewById(R.id.backArrow)
 
-        // Set up dropdowns for courses and modules.
+        // Populate the dropdowns with course and module options
         setupDropdowns()
 
-        // Go back to menu when back button is clicked
+        // Set up navigation back to the main menu
         backButton.setOnClickListener {
             val intent = Intent(this, MenuResourcesActivity::class.java)
             startActivity(intent)
         }
 
-        // Open file picker when the paperclip icon or select file button is clicked.
+        // Launch the file picker when either the icon or button is clicked
         paperclipIcon.setOnClickListener { openFilePicker() }
         btnSelectFile.setOnClickListener { openFilePicker() }
 
-        // Upload the selected file to Cloudinary when the upload button is clicked.
+        // Upload file to Cloudinary when upload button is clicked
         btnUpload.setOnClickListener {
             selectedFileUri?.let { uri ->
                 uploadToCloudinary(uri)
             } ?: Toast.makeText(this, "Please select a file first.", Toast.LENGTH_SHORT).show()
         }
 
-        // Load saved language preference
+        // Load and apply the user's language preference
         loadLanguage()
-
     }
 
-    // Load the preferred language from SharedPreferences
+    // Load the preferred language from SharedPreferences and apply it
     private fun loadLanguage() {
         val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedLanguage = sharedPref.getString("language", "en")  // Default to English
         setLocale(savedLanguage ?: "en")
     }
 
-    // Change the locale of the app
+    // Update the app's locale (language) based on the given language code
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
+
         val config = resources.configuration
         config.setLocale(locale)
+
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
-    // Function to set up the dropdowns for courses and modules.
+    // Initialize the course and module dropdown menus
     private fun setupDropdowns() {
-        val courses = listOf("IT", "Law", "Education", "Commerce", "Policing and Law Enforcement", "Administration and Management", "Fashion")
-        val modules = listOf("Information Systems", "Web Development Project", "Mobile Application Development A", "Commercial Law", "Project Management", "Introduction to Research")
+        val courses = listOf(
+            "IT", "Law", "Education", "Commerce",
+            "Policing and Law Enforcement", "Administration and Management", "Fashion"
+        )
+
+        val modules = listOf(
+            "Information Systems", "Web Development Project",
+            "Mobile Application Development A", "Commercial Law",
+            "Project Management", "Introduction to Research"
+        )
 
         val courseAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, courses)
         val moduleAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, modules)
@@ -99,42 +110,47 @@ class UploadResourcesActivity : AppCompatActivity() {
         moduleDropdown.setAdapter(moduleAdapter)
     }
 
-    // Function to open the file picker
+    // Launch the system file picker to select a file
     private fun openFilePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "*/*"
+        intent.type = "*/*"  // Accept any file type
         startActivityForResult(Intent.createChooser(intent, "Select a file"), FILE_PICKER_REQUEST_CODE)
     }
 
-    // Handle the result of the file picker.
+    // Handle the result from the file picker
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (requestCode == FILE_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             data?.data?.let { uri ->
                 selectedFileUri = uri
+                // Display the selected file's name
                 uploadFileText.text = "Selected File: ${uri.lastPathSegment}"
             }
         }
     }
 
-    // Function to upload the selected file to Cloudinary.
+    // Upload the selected file to Cloudinary with the selected module as a tag
     private fun uploadToCloudinary(fileUri: Uri) {
         val selectedModule = moduleDropdown.text.toString()
 
+        // Ensure that a module has been selected
         if (selectedModule.isBlank()) {
             Toast.makeText(this, "Please select a module.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Begin upload using Cloudinary MediaManager
+        // Begin the upload using Cloudinary's MediaManager
         MediaManager.get().upload(fileUri)
-            .option("tags", listOf(selectedModule))
+            .option("tags", listOf(selectedModule)) // Tag the upload with module name
             .callback(object : UploadCallback {
                 override fun onStart(requestId: String?) {
                     Toast.makeText(applicationContext, "Uploading...", Toast.LENGTH_SHORT).show()
                 }
 
-                override fun onProgress(requestId: String?, bytes: Long, totalBytes: Long) {}
+                override fun onProgress(requestId: String?, bytes: Long, totalBytes: Long) {
+                    // Optional: Update progress UI here
+                }
 
                 override fun onSuccess(requestId: String?, resultData: MutableMap<Any?, Any?>?) {
                     Toast.makeText(applicationContext, "Upload Successful!", Toast.LENGTH_LONG).show()
@@ -144,7 +160,9 @@ class UploadResourcesActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Upload Failed: ${error?.description}", Toast.LENGTH_LONG).show()
                 }
 
-                override fun onReschedule(requestId: String?, error: ErrorInfo?) {}
+                override fun onReschedule(requestId: String?, error: ErrorInfo?) {
+                    // Optional: Handle retry logic here
+                }
             })
             .dispatch()
     }
