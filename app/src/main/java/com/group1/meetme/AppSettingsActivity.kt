@@ -49,9 +49,14 @@ class AppSettingsActivity : AppCompatActivity() {
             // Inform the user
             Toast.makeText(this, "Settings Saved Successfully", Toast.LENGTH_SHORT).show()
 
-            // Handle save button click
+            // Tell the previous activity to restart itself
+            val intent = Intent()
+            intent.putExtra("LANGUAGE_CHANGED", true)
+            setResult(RESULT_OK, intent)
+
             finish()
         }
+
 
         // Spinner to set reminder notification time
         val reminderSpinner = findViewById<Spinner>(R.id.reminderSpinner)
@@ -88,6 +93,7 @@ class AppSettingsActivity : AppCompatActivity() {
                 // Save selected reminder time to SharedPreferences
                 sharedPrefs.edit().putInt("reminderHours", hours).apply()
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
         // Load saved language preference

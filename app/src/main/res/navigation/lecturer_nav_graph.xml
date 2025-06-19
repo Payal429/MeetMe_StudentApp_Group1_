@@ -8,30 +8,30 @@
     <fragment
         android:id="@+id/LecturerDashboardFragment"
         android:name="com.group1.meetme.LecturerDashboardFragment"
-        android:label="Lecturer Dashboard"
+        android:label="@string/lecturer_dashboard"
         tools:layout="@layout/fragment_lecturer_dashboard" />
 
     <fragment
         android:id="@+id/ScheduleAvailabilityFragment"
         android:name="com.group1.meetme.ScheduleAvailabilityFragment"
-        android:label="Schedule Availability"
+        android:label="@string/schedule_availability"
         tools:layout="@layout/fragment_schedule_availability" />
 
     <fragment
         android:id="@+id/LecturerBookingsListFragment"
         android:name="com.group1.meetme.LecturerBookingsListFragment"
-        android:label="Bookings"
+        android:label="@string/bookings_1"
         tools:layout="@layout/fragment_lecturer_bookings_list" />
 
     <fragment
         android:id="@+id/UploadFragment"
         android:name="com.group1.meetme.UploadFragment"
-        android:label="Upload Resources"
+        android:label="@string/upload_resources"
         tools:layout="@layout/fragment_upload" />
 
     <fragment
         android:id="@+id/SettingsFragment"
         android:name="com.group1.meetme.SettingsFragment"
-        android:label="Settings"
+        android:label="@string/settings_1"
         tools:layout="@layout/fragment_settings" />
 </navigation>

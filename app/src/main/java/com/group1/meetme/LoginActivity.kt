@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Enable offline persistence for Firebase Database.
-        Firebase.database.setPersistenceEnabled(true)
+        // Firebase.database.setPersistenceEnabled(true)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -65,9 +65,14 @@ class LoginActivity : AppCompatActivity() {
 
             // Check if the email and password fields are not empty
             if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please enter both email and password.", Toast.LENGTH_SHORT)
+                binding.email.setBackgroundResource(R.drawable.border_red)
+                binding.password.setBackgroundResource(R.drawable.border_red)
+                Toast.makeText(this, "Please enter both username and password.", Toast.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener
+            } else {
+                binding.email.setBackgroundResource(R.drawable.edit_text_background)
+                binding.password.setBackgroundResource(R.drawable.edit_text_background)
             }
 
             // Define the default admin credentials
@@ -201,6 +206,11 @@ class LoginActivity : AppCompatActivity() {
                                                                 StudentMainActivity::class.java
                                                             )
                                                         )
+                                                        Toast.makeText(
+                                                            this@LoginActivity,
+                                                            "Login Successful",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
                                                     }
 
                                                     "Lecturer" -> {
@@ -211,6 +221,11 @@ class LoginActivity : AppCompatActivity() {
                                                                 LecturerMainActivity::class.java
                                                             )
                                                         )
+                                                        Toast.makeText(
+                                                            this@LoginActivity,
+                                                            "Login Successful",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
                                                     }
 
                                                     else -> Toast.makeText(
@@ -218,6 +233,7 @@ class LoginActivity : AppCompatActivity() {
                                                         "Unknown user type.",
                                                         Toast.LENGTH_SHORT
                                                     ).show()
+
                                                 }
                                             } else {
                                                 Toast.makeText(
@@ -259,6 +275,9 @@ class LoginActivity : AppCompatActivity() {
                                     "API_ERROR",
                                     "Error: ${response.code()}, ${response.errorBody()?.string()}"
                                 )
+                                binding.email.setBackgroundResource(R.drawable.border_red)
+                                binding.password.setBackgroundResource(R.drawable.border_red)
+
                             }
                         }
 

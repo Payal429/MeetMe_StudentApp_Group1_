@@ -9,19 +9,6 @@ data class Appointment(
     var studentID: String = "",
     var module: String = "",
     var status: String = "",
-    var cancellationReason: String = ""
+    var cancellationReason: String = "",
+    var venue: String = ""
 )
-
-// Data class representing an appointment from the lecturer's perspective.
-data class AppointmentLecturer(
-    var id: String = "",
-    var date: String = "",
-    var time: String = "",
-    var lecturerId: String = "",
-    var studentId: String = "",
-    var module: String = "",
-    var status: String = "",
-    var cancellationReason: String = ""
-)
-
-

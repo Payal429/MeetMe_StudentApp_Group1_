@@ -23,6 +23,8 @@ class UpcomingAppointmentsAdapter(
         val LecturerTV: TextView = view.findViewById(R.id.LecturerTV)
         // TextView to show date and time
         val DateTimeVenueTV: TextView = view.findViewById(R.id.DateTimeVenueTV)
+        // TextView to show Venue
+        val VenueTV: TextView = view.findViewById(R.id.VenueName)
         // TextView to show module name
         val ModuleName: TextView = view.findViewById(R.id.ModuleName)
     }
@@ -53,6 +55,10 @@ class UpcomingAppointmentsAdapter(
 
         // Set the date and time text (e.g., "2024-06-01 at 15:00")
         holder.DateTimeVenueTV.text = "${appointment.date} at ${appointment.time}"
+
+        // Set the venue text (e.g., "Online")
+        holder.VenueTV.text = "${appointment.venue} "
+
         // Display the module name for the appointment
         holder.ModuleName.text = "${appointment.module}"
     }

@@ -25,7 +25,6 @@ tools:context=".bookAppointmentsFragment">
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:text="@string/select_the_lecturer"
-            android:textColor="@color/black"
             android:textSize="18sp" />
 
         <Spinner
@@ -40,6 +39,15 @@ tools:context=".bookAppointmentsFragment">
             android:padding="16dp"
             android:textColorHint="@color/black"
             android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/module_name"
+            android:textSize="18sp" />
+
 
         <EditText
             android:id="@+id/moduleNameTv"
@@ -57,10 +65,22 @@ tools:context=".bookAppointmentsFragment">
             android:textSize="18sp" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/select_a_date_1"
+            android:textSize="18dp" />
+
+
+        <TextView
             android:id="@+id/dateTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/edit_text_background"
             android:padding="16dp"
             android:text="@string/select_a_date"
@@ -100,6 +120,17 @@ tools:context=".bookAppointmentsFragment">
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_marginBottom="30dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="#008000"
+                android:textSize="18sp" />
+
             <ListView
                 android:id="@+id/slotsListView"
                 android:layout_width="match_parent"
@@ -107,17 +138,6 @@ tools:context=".bookAppointmentsFragment">
                 android:layout_marginTop="10dp"
                 android:textSize="18sp" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/statusText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="30dp"
-            android:text=""
-            android:textAlignment="center"
-            android:textColor="#008000"
-            android:textSize="18sp" />
     </LinearLayout>
 </ScrollView>
 </LinearLayout>

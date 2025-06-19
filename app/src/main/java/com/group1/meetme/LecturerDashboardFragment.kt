@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -94,6 +95,37 @@ class LecturerDashboardFragment : Fragment() {
 
         // Load the saved language preference and apply it to the app locale
         loadLanguage()
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val alertDialog = AlertDialog.Builder(requireContext()).create()
+                    alertDialog.setTitle("Logout")
+                    alertDialog.setMessage("Are you sure you want to Logout?")
+
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes") { dialog, _ ->
+                        val sharedPreferences = requireContext().getSharedPreferences(
+                            "MyPreferences",
+                            Context.MODE_PRIVATE
+                        )
+                        val editor = sharedPreferences.edit()
+                        editor.putString("ID_NUM", "")
+                        editor.apply()
+
+                        // Finish the activity (log out and close app)
+                        requireActivity().finishAffinity()
+                        dialog.dismiss()
+                    }
+
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+
+                    alertDialog.show()
+                }
+            })
+
         // Return the root view of the fragment
         return view
     }

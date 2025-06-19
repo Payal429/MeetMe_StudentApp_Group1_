@@ -51,7 +51,8 @@ class studentBookingsFragment : Fragment() {
         )
 
         // Titles for the TabLayout tabs
-        val titles = listOf("Upcoming", "Completed", "Cancelled")
+        val titles = listOf(getString(R.string.upcoming), getString(R.string.completed),
+            getString(R.string.cancelled))
 
         // Get references to ViewPager2 and TabLayout from the binding
         val viewPager = binding.viewPager

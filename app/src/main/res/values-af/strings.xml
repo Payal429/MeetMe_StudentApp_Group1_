@@ -153,5 +153,27 @@
     <string name="select_module_2">Kies module</string>
 
 
+    <string name="venue">Lokaal:</string>
+    <string name="enter_other_venue">Voer ander lokaal in</string>
+    <string name="select_a_date_1">Kies ’n datum:</string>
+    <string name="bookings_1">Besprekings</string>
+    <string name="schedule_availability_1">Skeduleer Beskikbaarheid</string>
+    <string name="lecturer_dashboard">Dosentpaneel</string>
+    <string name="upload_resources_1">Laai Hulpbronne Op</string>
+    <string name="settings_1">Instellings</string>
+    <string name="logout">Teken uit</string>
+    <string name="student_dashboard">Studentepaneel</string>
+    <string name="book_appointment">Maak ’n afspraak</string>
+    <string name="download_resources_2">Laai Hulpbronne Af</string>
 
+    <string name="lecturer_date_module_venue">Dosent: %1$s\ \nDatum: %2$s %3$s\nModule: %4$s\ \nLokaal: %5$s</string>
+    <string name="student_date_module_venue">Student: %1$s\ \nDatum: %2$s %3$s\nModule: %4$s\ \nLokaal: %5$s</string>
+
+    <string name="cancel">Kanselleer</string>
+    <string name="reschedule">Herskeduleer</string>
+    <string name="add_review_1">Voeg Resensie By</string>
+    <string name="upcoming">Opkomend</string>
+    <string name="completed">Voltooi</string>
+    <string name="cancelled">Gekanselleer</string>
+    <string name="module_name">Modulenaam:</string>
 </resources>

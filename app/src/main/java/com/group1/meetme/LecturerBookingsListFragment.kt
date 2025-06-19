@@ -37,7 +37,8 @@ class LecturerBookingsListFragment : Fragment() {
         loadLanguage()
 
         // Retrieve user ID and role from shared preferences
-        val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getString("ID_NUM", "") ?: ""
         val userType = sharedPreferences.getString("USER_ROLE", "") ?: ""
 
@@ -48,8 +49,11 @@ class LecturerBookingsListFragment : Fragment() {
             CancelledAppointmentsFragment.newInstance(userId, userType)
         )
 
-        // Titles for each tab
-        val titles = listOf("Upcoming", "Completed", "Cancelled")
+        // Titles for the TabLayout tabs
+        val titles = listOf(
+            getString(R.string.upcoming), getString(R.string.completed),
+            getString(R.string.cancelled)
+        )
 
         // Set up the ViewPager with a FragmentStateAdapter
         val viewPager = binding.viewPager

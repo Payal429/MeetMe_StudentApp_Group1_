@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
@@ -104,11 +105,14 @@ class bookAppointmentsFragment : Fragment() {
             insets
         }
 
+        binding.dateTextView.text = getTodayDate()
+
         // Initialize reference to Firebase Realtime Database
         database = FirebaseDatabase.getInstance().reference
 
         // Set up adapter to display available time slots in a ListView
-        adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, availableTimes)
+        adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, availableTimes)
         binding.slotsListView.adapter = adapter
 
         // Load lecturers into spinner
@@ -158,9 +162,17 @@ class bookAppointmentsFragment : Fragment() {
 
                 // Check if selected date is a holiday or in the past
                 if (isHoliday(selectedCal)) {
-                    Toast.makeText(requireContext(), "This day is a holiday and cannot be booked!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "This day is a holiday and cannot be booked!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else if (selectedCal.before(todayDate)) {
-                    Toast.makeText(requireContext(), "You cannot select a past date.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "You cannot select a past date.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     // Update selected date and hide calendar
                     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -173,11 +185,25 @@ class bookAppointmentsFragment : Fragment() {
         })
 
         // Get user's ID number from SharedPreferences
-        val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
         val idNum = sharedPreferences.getString("ID_NUM", null) ?: ""
 
         // Load slots on button click
         binding.loadSlotsButton.setOnClickListener {
+            // Validate date
+            if (binding.moduleNameTv.text.isEmpty()) {
+                binding.moduleNameTv.setBackgroundResource(R.drawable.border_red)
+                Toast.makeText(
+                    requireContext(),
+                    "Please enter the module name.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            } else {
+                binding.moduleNameTv.setBackgroundResource(R.drawable.edit_text_background)
+            }
+
             loadAvailableSlots(idNum)
         }
 
@@ -186,16 +212,32 @@ class bookAppointmentsFragment : Fragment() {
             val selectedTime = availableTimes[position]
             val selectedLecturerName = binding.lecturerSpinner.selectedItem as String
             val moduleName = binding.moduleNameTv.text.toString().trim()
+            val lecturerId = lecturerIdMap[selectedLecturerName] ?: return@setOnItemClickListener
+            val slotRef = database.child("availability").child(lecturerId).child(selectedDate)
+                .child(selectedTime)
 
-            AlertDialog.Builder(requireContext())
-                .setTitle("Confirm Appointment")
-                .setMessage("Do you want to book the slot at $selectedTime on $selectedDate with $selectedLecturerName for $moduleName?")
-                .setPositiveButton("Yes") { _, _ ->
-                    bookSlot(selectedTime, idNum)
-                }
-                .setNegativeButton("No", null)
-                .show()
+            // Get venue from database before showing confirmation
+            slotRef.child("venue").get().addOnSuccessListener { venueSnapshot ->
+                val venue = venueSnapshot.getValue(String::class.java) ?: "Unknown Venue"
+
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Confirm Appointment")
+                    .setMessage(
+                        "Do you want to book the slot at $selectedTime on $selectedDate " +
+                                "with $selectedLecturerName for $moduleName?\n\n📍Venue: $venue"
+                    )
+                    .setPositiveButton("Yes") { _, _ ->
+                        bookSlot(selectedTime, idNum, venue)
+                    }
+                    .setNegativeButton("No", null)
+                    .show()
+
+            }.addOnFailureListener {
+                Toast.makeText(requireContext(), "Failed to load venue info", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
+
     }
 
     // Clean up binding to avoid memory leaks
@@ -242,7 +284,8 @@ class bookAppointmentsFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(requireContext(), "Failed to load lecturers", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Failed to load lecturers", Toast.LENGTH_SHORT)
+                    .show()
             }
         })
     }
@@ -320,7 +363,7 @@ class bookAppointmentsFragment : Fragment() {
     }
 
     // Books a slot if it's still available (not already booked)
-    private fun bookSlot(time: String, idNum: String) {
+    private fun bookSlot(time: String, idNum: String, venue: String) {
         val date = selectedDate
         val selectedLecturerName = binding.lecturerSpinner.selectedItem as String
         val moduleName = binding.moduleNameTv.text.toString().trim()
@@ -343,7 +386,11 @@ class bookAppointmentsFragment : Fragment() {
                 }
             }
 
-            override fun onComplete(error: DatabaseError?, committed: Boolean, snapshot: DataSnapshot?) {
+            override fun onComplete(
+                error: DatabaseError?,
+                committed: Boolean,
+                snapshot: DataSnapshot?
+            ) {
                 if (committed) {
                     binding.statusText.text = "Appointment booked for $time!"
                     loadAvailableSlots(idNum)
@@ -362,7 +409,8 @@ class bookAppointmentsFragment : Fragment() {
                         "date" to date,
                         "time" to time,
                         "module" to moduleName,
-                        "status" to "upcoming"
+                        "status" to "upcoming",
+                        "venue" to venue
                     )
 
                     // Create appointment entry for lecturer
@@ -372,12 +420,15 @@ class bookAppointmentsFragment : Fragment() {
                         "date" to date,
                         "time" to time,
                         "module" to moduleName,
-                        "status" to "upcoming"
+                        "status" to "upcoming",
+                        "venue" to venue
                     )
 
                     // Save to both student and lecturer paths in Firebase
-                    database.child("appointments").child(idNum).child(appointmentId).setValue(appointment)
-                    database.child("appointmentsLecturer").child(lecturerId).child(appointmentId).setValue(appointmentLecturer)
+                    database.child("appointments").child(idNum).child(appointmentId)
+                        .setValue(appointment)
+                    database.child("appointmentsLecturer").child(lecturerId).child(appointmentId)
+                        .setValue(appointmentLecturer)
 
                     // Send notification to lecturer
                     database.child("tokens").child(lecturerId).get()
@@ -392,6 +443,20 @@ class bookAppointmentsFragment : Fragment() {
                                 scheduleReminder(date, time, token)
                             }
                         }
+
+                    // Clear fields and ask user
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Success")
+                        .setMessage("Appointment booked successfully!\nDo you want to book another slot?")
+                        .setPositiveButton("Yes") { _, _ ->
+                            resetBookingPage()
+                        }
+                        .setNegativeButton("No") { _, _ ->
+                            // Navigate to home
+                            findNavController().navigate(R.id.studentDashboardFragment)
+                        }
+                        .setCancelable(false)
+                        .show()
                 } else {
                     binding.statusText.text = "Timeslot already booked."
                     Log.e("Pushy", "No token found for lecturerId: $lecturerId")
@@ -399,6 +464,26 @@ class bookAppointmentsFragment : Fragment() {
             }
         })
     }
+
+    private fun resetBookingPage() {
+        // Clear module text field
+        binding.moduleNameTv.setText("")
+
+        // Reset date to today
+        selectedDate = getTodayDate()
+        binding.dateTextView.text = selectedDate
+
+        // Clear available times
+        availableTimes.clear()
+        adapter.notifyDataSetChanged()
+
+        // Optionally collapse calendar
+        binding.calendarView.visibility = View.GONE
+
+        // Reset status message
+        binding.statusText.text = ""
+    }
+
 
     // Schedules a local reminder notification X hours before the appointment
     private fun scheduleReminder(date: String, time: String, lecturerToken: String) {

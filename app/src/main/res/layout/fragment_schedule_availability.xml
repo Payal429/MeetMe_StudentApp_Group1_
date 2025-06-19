@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ScheduleAvailabilityFragment">
 
     <LinearLayout
@@ -30,6 +30,16 @@
                     android:src="@drawable/african" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/select_a_date_1"
+                    android:textSize="18dp" />
+
+
+                <TextView
                     android:id="@+id/dateTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -42,13 +52,13 @@
 
                 <com.applandeo.materialcalendarview.CalendarView
                     android:id="@+id/calendarView"
-                    app:headerColor="@color/orange"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="10dp"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    app:headerColor="@color/orange" />
 
 
                 <TextView
@@ -90,14 +100,27 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/edit_text_background"
-                    android:entries="@array/venues"
                     android:padding="16dp"
                     android:textSize="18sp" />
 
 
+                <EditText
+                    android:id="@+id/customVenueEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="@string/enter_other_venue"
+                    android:padding="16dp"
+                    android:textSize="18sp"
+                    android:visibility="gone" /> <!-- hidden by default -->
+
+
                 <Button
                     android:id="@+id/btnAddAvailability"
-                    app:cornerRadius="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -105,7 +128,8 @@
                     android:backgroundTint="#EA4C89"
                     android:text="@string/add_availability"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    app:cornerRadius="8dp" />
 
                 <TextView
                     android:id="@+id/statusText"
@@ -113,12 +137,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
-                    android:text="No Availability Chosen"
+                    android:text=""
                     android:textAlignment="center"
                     android:textColor="#008000"
                     android:textSize="18sp" />
-
-
             </LinearLayout>
 
         </ScrollView>

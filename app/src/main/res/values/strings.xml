@@ -145,6 +145,27 @@
     <string name="enter_the_user_id_number">Enter the User ID Number</string>
     <string name="select_course_1">Select Course</string>
     <string name="select_module_2">Select Module</string>
+    <string name="venue">Venue:</string>
+    <string name="enter_other_venue">Enter other venue</string>
+    <string name="select_a_date_1">Select a date:</string>
+    <string name="bookings_1">Bookings</string>
+    <string name="schedule_availability_1">Schedule Availability</string>
+    <string name="lecturer_dashboard">Lecturer Dashboard</string>
+    <string name="upload_resources_1">Upload Resources</string>
+    <string name="settings_1">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="student_dashboard">Student Dashboard</string>
+    <string name="book_appointment">Book Appointment</string>
+    <string name="download_resources_2">Download Resources</string>
+    <string name="lecturer_date_module_venue">Lecturer: %1$s\nDate: %2$s %3$s\nModule: %4$s\nVenue: %5$s</string>
+    <string name="student_date_module_venue">Student: %1$s\nDate: %2$s %3$s\nModule: %4$s\nVenue: %5$s</string>
+    <string name="cancel">Cancel</string>
+    <string name="reschedule">Reschedule</string>
+    <string name="add_review_1">Add Review</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="completed">Completed</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="module_name">Module Name:</string>
 
 
     <string-array name="reminder_times">

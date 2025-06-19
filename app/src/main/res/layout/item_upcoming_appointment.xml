@@ -1,23 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="12dp"
+    android:layout_marginBottom="8dp"
     android:background="@drawable/rounded_background_ivory"
     android:elevation="2dp"
-    android:layout_marginBottom="8dp">
+    android:orientation="horizontal"
+    android:padding="12dp">
+
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/calendar_icon"
         android:layout_margin="10dp"
-        />
+        android:src="@drawable/calendar_icon" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/LecturerTV"
@@ -38,7 +37,10 @@
             android:layout_height="wrap_content"
             android:text="@string/module" />
 
+        <TextView
+            android:id="@+id/VenueName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/venue" />
     </LinearLayout>
-
-
 </LinearLayout>

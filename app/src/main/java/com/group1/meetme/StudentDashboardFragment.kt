@@ -10,6 +10,7 @@ import android.content.Intent
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -90,6 +91,33 @@ class StudentDashboardFragment : Fragment() {
 
         // Language support
         loadLanguage()
+
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val alertDialog = AlertDialog.Builder(requireContext()).create()
+                alertDialog.setTitle("Logout")
+                alertDialog.setMessage("Are you sure you want to Logout?")
+
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes") { dialog, _ ->
+                    val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("ID_NUM", "")
+                    editor.apply()
+
+                    // Finish the activity (log out and close app)
+                    requireActivity().finishAffinity()
+                    dialog.dismiss()
+                }
+
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+
+                alertDialog.show()
+            }
+        })
+
     }
 
     // Load saved language preference from SharedPreferences and set locale
@@ -143,20 +171,4 @@ class StudentDashboardFragment : Fragment() {
         return prefs.getString("USER_ROLE", "") ?: ""
     }
 
-    // Show confirmation dialog before logging out user
-    private fun showLogoutConfirmation() {
-        val alertDialog = AlertDialog.Builder(requireContext()).create()
-        alertDialog.setTitle("Logout")
-        alertDialog.setMessage("Are you sure you want to Logout?")
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes") { dialog, _ ->
-            val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-            sharedPreferences.edit().putString("ID_NUM", "").apply()
-            requireActivity().finishAffinity()
-            dialog.dismiss()
-        }
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No") { dialog, _ ->
-            dialog.dismiss()
-        }
-        alertDialog.show()
-    }
 }

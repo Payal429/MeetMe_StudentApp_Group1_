@@ -57,12 +57,26 @@ class AppointmentAdapter(
         if (userRole == "Student") {
             fetchFullNameById(appointment.lecturerId ?: "", "Lecturer") { fullName ->
                 infoText.text =
-                    "Lecturer: $fullName\nDate: ${appointment.date} ${appointment.time}\nModule: ${appointment.module}"
+                    context.getString(
+                        R.string.lecturer_date_module_venue,
+                        fullName,
+                        appointment.date,
+                        appointment.time,
+                        appointment.module,
+                        appointment.venue
+                    )
             }
         } else {
             fetchFullNameById(appointment.studentID ?: "", "Student") { fullName ->
                 infoText.text =
-                    "Student: $fullName\nDate: ${appointment.date} ${appointment.time}\nModule: ${appointment.module}"
+                    context.getString(
+                        R.string.student_date_module_venue,
+                        fullName,
+                        appointment.date,
+                        appointment.time,
+                        appointment.module,
+                        appointment.venue
+                    )
             }
         }
 
@@ -71,8 +85,8 @@ class AppointmentAdapter(
             when (appointment.status) {
                 "upcoming" -> {
                     actionLayout.visibility = View.VISIBLE
-                    btn1.text = "Cancel"
-                    btn2.text = "Reschedule"
+                    btn1.text = context.getString(R.string.cancel)
+                    btn2.text = context.getString(R.string.reschedule)
                     btn1.setOnClickListener { onAction1?.invoke(appointment) }
                     btn2.setOnClickListener { onAction2?.invoke(appointment) }
                 }
@@ -80,7 +94,7 @@ class AppointmentAdapter(
                 "completed" -> {
                     actionLayout.visibility = View.VISIBLE
                     btn1.visibility = View.GONE
-                    btn2.text = "Add Review"
+                    btn2.text = context.getString(R.string.add_review_1)
                     btn1.setOnClickListener { onAction1?.invoke(appointment) }
                     btn2.setOnClickListener { onAction2?.invoke(appointment) }
                 }

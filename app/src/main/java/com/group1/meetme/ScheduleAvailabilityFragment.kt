@@ -8,10 +8,14 @@ import android.view.ViewGroup
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -42,6 +46,8 @@ class ScheduleAvailabilityFragment : Fragment() {
     private var selectedDate: String = getTodayDate()
     private lateinit var timeSlotSpinner: Spinner
     private lateinit var venueSpinner: Spinner
+    private lateinit var customVenueEditText: EditText
+    private lateinit var statusText: TextView
 
     // Predefined list of available time slots
     private val timeSlots = listOf(
@@ -80,7 +86,10 @@ class ScheduleAvailabilityFragment : Fragment() {
         btnAddAvailability = view.findViewById(R.id.btnAddAvailability)
         timeSlotSpinner = view.findViewById(R.id.timeSpinner)
         venueSpinner = view.findViewById(R.id.venueSpinner)
-        val statusText = view.findViewById<TextView>(R.id.statusText)
+        customVenueEditText = view.findViewById(R.id.customVenueEditText)
+        statusText = view.findViewById(R.id.statusText)
+
+        dateTextView.text = getTodayDate()
 
         // Set up the time slot spinner with predefined values
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, timeSlots)
@@ -115,6 +124,46 @@ class ScheduleAvailabilityFragment : Fragment() {
         // Show calendar view when the date TextView is clicked
         dateTextView.setOnClickListener { calendarView.visibility = View.VISIBLE }
 
+
+        // Set up venue spinner from resources
+        val venueAdapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.venues,
+            android.R.layout.simple_spinner_item
+        )
+        venueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        venueSpinner.adapter = venueAdapter
+
+        // Handle venue selection
+        venueSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedVenue = parent.getItemAtPosition(position).toString()
+
+                when (selectedVenue) {
+                    "Select Venue" -> {
+                        // Optional: clear input or display error when trying to submit
+                        customVenueEditText.visibility = View.GONE
+                    }
+
+                    "Other" -> {
+                        // Enable custom venue input
+                        customVenueEditText.visibility = View.VISIBLE
+                    }
+
+                    else -> {
+                        // Hide custom input if not "Other"
+                        customVenueEditText.visibility = View.GONE
+                    }
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
         // Handle calendar day selection
         calendarView.setOnDayClickListener(object : OnDayClickListener {
             override fun onDayClick(eventDay: EventDay) {
@@ -138,11 +187,85 @@ class ScheduleAvailabilityFragment : Fragment() {
         // Handle Add Availability button click
         btnAddAvailability.setOnClickListener {
             val selectedTimeSlot = timeSlotSpinner.selectedItem.toString()
-            val selectedVenue = venueSpinner.selectedItem.toString()
-            val date = selectedDate
+            val spinnerVenue = venueSpinner.selectedItem.toString()
+            val date = selectedDate.trim()
+
+            // Validate date
+            if (date.isEmpty()) {
+                dateTextView.setBackgroundResource(R.drawable.border_red)
+                Toast.makeText(requireContext(), "Please select a date.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            } else {
+                dateTextView.setBackgroundResource(R.drawable.edit_text_background)
+            }
+
+            // Validate time slot selection
+            if (selectedTimeSlot == "Select Time" || selectedTimeSlot.isEmpty()) {
+                timeSlotSpinner.setBackgroundResource(R.drawable.border_red)
+                Toast.makeText(requireContext(), "Please select a valid time slot.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            } else {
+                timeSlotSpinner.setBackgroundResource(R.drawable.edit_text_background)
+            }
+
+            val selectedVenue = when {
+                spinnerVenue == "Select Venue" -> {
+                    venueSpinner.setBackgroundResource(R.drawable.border_red)
+                    Toast.makeText(requireContext(), "Please select a venue.", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                spinnerVenue == "Other" -> {
+                    // Custom venue validation
+                    val input = customVenueEditText.text.toString().trim()
+                    if (input.isEmpty()) {
+                        customVenueEditText.setBackgroundResource(R.drawable.border_red)
+                        customVenueEditText.requestFocus()
+                        customVenueEditText.error = "This field is required"
+                        return@setOnClickListener
+                    } else {
+                        customVenueEditText.setBackgroundResource(R.drawable.edit_text_background)
+                    }
+
+                    input
+                }
+                else -> {
+                    spinnerVenue
+                    venueSpinner.setBackgroundResource(R.drawable.edit_text_background)
+                }
+
+
+            }
+
+            // Check if selected time is in the past (only if the date is today)
+            val today = Calendar.getInstance()
+            val selectedDateCal = Calendar.getInstance()
+            val sdfDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val sdfTime = SimpleDateFormat("HH:mm", Locale.getDefault())
+
+            try {
+                val parsedDate = sdfDate.parse(date)
+                selectedDateCal.time = parsedDate
+
+                val selectedTimeOnly = selectedTimeSlot.split("-")[0].trim()
+                val selectedTime = sdfTime.parse(selectedTimeOnly)
+
+                if (sdfDate.format(today.time) == date) {
+                    val currentTime = sdfTime.parse(sdfTime.format(today.time))
+                    if (selectedTime.before(currentTime)) {
+                        timeSlotSpinner.setBackgroundResource(R.drawable.border_red)
+                        Toast.makeText(requireContext(), "You cannot select a time in the past.", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+                }
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Error parsing time or date.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+
 
             // Show a confirmation dialog before saving
-            val confirmationMessage = "Confirm adding slot:\n\nDate: $date\nTime: $selectedTimeSlot\nVenue: $selectedVenue"
+            val confirmationMessage = "Confirm adding slot:\n\nDate: $date\nTime: $selectedTimeSlot\nVenue: $spinnerVenue"
 
             androidx.appcompat.app.AlertDialog.Builder(requireContext())
                 .setTitle("Confirm Availability")
@@ -165,7 +288,7 @@ class ScheduleAvailabilityFragment : Fragment() {
                                     "booked" to false,
                                     "student" to "",
                                     "module" to "",
-                                    "venue" to selectedVenue
+                                    "venue" to spinnerVenue
                                 )
                                 slotRef.setValue(slotData).addOnSuccessListener {
                                     statusText.text = "Slot added: $selectedTimeSlot on $date"
@@ -185,9 +308,33 @@ class ScheduleAvailabilityFragment : Fragment() {
                 }
                 .setNegativeButton("Cancel", null)
                 .show()
+
+            resetAvailabilityPage()
         }
         // Load previously selected language preference
         loadLanguage()
+    }
+
+    private fun resetAvailabilityPage() {
+
+        // Reset date to today
+        selectedDate = ""
+        dateTextView.text = "Select Date"
+
+       // Optionally collapse calendar
+        calendarView.visibility = View.GONE
+
+        // Reset status message
+        // Hide custom venue field if shown
+        customVenueEditText.setText("")
+        customVenueEditText.visibility = View.GONE
+        venueSpinner.setSelection(0)
+        timeSlotSpinner.setSelection(0)
+
+        // Clear status text after a delay
+        Handler(Looper.getMainLooper()).postDelayed({
+            statusText.text = ""
+        }, 3000)
     }
 
     // Load the saved language from SharedPreferences and apply it

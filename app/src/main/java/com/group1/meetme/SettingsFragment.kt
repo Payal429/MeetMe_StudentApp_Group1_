@@ -1,5 +1,6 @@
 package com.group1.meetme
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,44 +11,67 @@ import android.content.Intent
 import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import java.util.Locale
 
 class SettingsFragment : Fragment() {
+
+    private lateinit var appSettingsLauncher: ActivityResultLauncher<Intent>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        appSettingsLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val changed = result.data?.getBooleanExtra("LANGUAGE_CHANGED", false) == true
+                if (changed) {
+                    // Restart the entire activity to apply locale changes
+                    requireActivity().recreate()
+                }
+            }
+        }
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_settings, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Navigate to About Activity
+        // About
         view.findViewById<LinearLayout>(R.id.aboutLayout).setOnClickListener {
             startActivity(Intent(requireContext(), AboutActivity::class.java))
         }
 
-        // Navigate to Profile Settings Activity
+        // Profile Settings
         view.findViewById<LinearLayout>(R.id.profileLayout).setOnClickListener {
             startActivity(Intent(requireContext(), ProfileSettingsActivity::class.java))
         }
 
-        // Navigate to Support Activity
+        // Support
         view.findViewById<LinearLayout>(R.id.supportLayout).setOnClickListener {
             startActivity(Intent(requireContext(), SupportActivity::class.java))
         }
 
-        // Navigate to App Settings Activity
+        // App Settings - launch for result
         view.findViewById<LinearLayout>(R.id.appSettingsLayout).setOnClickListener {
-            startActivity(Intent(requireContext(), AppSettingsActivity::class.java))
+            val intent = Intent(requireContext(), AppSettingsActivity::class.java)
+            appSettingsLauncher.launch(Intent(requireContext(), AppSettingsActivity::class.java))
+
         }
 
-        // Load saved language preference
+        // Load language
         loadLanguage()
     }
+
+
 
     // Load the saved language from SharedPreferences and apply locale
     private fun loadLanguage() {
