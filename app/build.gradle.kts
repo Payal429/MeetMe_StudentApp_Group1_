@@ -39,6 +39,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -78,12 +81,16 @@ dependencies {
     // Cloudinary
     implementation("com.cloudinary:cloudinary-android:2.0.0")
 
-//    // Graphs
-//    implementation ("com.github.PhilJay:MPAndroidChart:3.1.0")
+    // Graphs
+    //implementation ("com.github.PhilJay:MPAndroidChart:3.1.0")
     // Navigation components
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     // Material design
     implementation("com.google.android.material:material:1.12.0")
+
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 }

@@ -1,171 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LecturerDashboardFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/main"
+    <data>
+        <!-- Import your ViewModel -->
+        <import type="com.group1.meetme.LecturerDashboardViewModel" />
+
+        <!-- Declare a ViewModel variable -->
+        <variable
+            name="viewModel"
+            type="LecturerDashboardViewModel" />
+
+        <!-- For click handlers -->
+        <variable
+            name="fragment"
+            type="com.group1.meetme.LecturerDashboardFragment" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_background_color"
-        android:orientation="vertical"
-        tools:context=".LecturerDashboardActivity">
+        tools:context=".LecturerDashboardFragment">
 
-        <ScrollView
+        <LinearLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="1dp">
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_background_color"
+            android:orientation="vertical"
+            tools:context=".LecturerDashboardActivity">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Search Bar -->
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/edit_text_background"
+                        android:hint="@{viewModel.welcomeText}"
+                        android:inputType="none"
+                        android:padding="12dp" />
+
+                    <!-- Appointments -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text='@{"Appointments: " + viewModel.upcomingAppointmentsCount}'
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/noAppointmentsText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/rounded_background"
+                        android:gravity="center"
+                        android:padding="16dp"
+                        android:text="@string/no_upcoming_appointments_currently"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+
+                    <!-- Appointments -->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/appointmentsRecyclerViewUpcoming"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/rounded_background"
+                        android:padding="16dp"
+                        tools:listitem="@layout/item_upcoming_appointment" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="@string/previous_appointments"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/noAppointmentsTextPrevious"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/rounded_background"
+                        android:gravity="center"
+                        android:padding="16dp"
+                        android:text="@string/no_previous_appointments_currently"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/appointmentsRecyclerViewPrevious"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/rounded_background"
+                        android:padding="16dp"
+                        tools:listitem="@layout/item_upcoming_appointment" />
+
+                </LinearLayout>
+            </ScrollView>
+
+
+            <!-- Bottom Navigation -->
+            <!--    <include layout="@layout/nav_bar" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <!-- Search Bar -->
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/edit_text_background"
-                    android:hint="@string/search_text"
-                    android:inputType="none"
-                    android:padding="12dp" />
+                android:layout_gravity="bottom"
+                android:background="#FFE0B2"
+                android:orientation="horizontal"
+                android:weightSum="4">
 
-                <!-- Appointments -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="@string/upcoming_appointments"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/noAppointmentsText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/rounded_background"
-                    android:gravity="center"
+                <ImageButton
+                    android:id="@+id/homebutton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Home"
                     android:padding="16dp"
-                    android:text="@string/no_upcoming_appointments_currently"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
+                    android:scaleType="centerInside"
+                    android:src="@drawable/home_icon" />
 
-
-                <!-- Appointments -->
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/appointmentsRecyclerViewUpcoming"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/rounded_background"
+                <ImageButton
+                    android:id="@+id/schedulebutton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Messaging"
                     android:padding="16dp"
-                    tools:listitem="@layout/item_upcoming_appointment" />
+                    android:scaleType="centerInside"
+                    android:src="@drawable/schedule_appointment" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="@string/previous_appointments"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/noAppointmentsTextPrevious"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/rounded_background"
-                    android:gravity="center"
+                <ImageButton
+                    android:id="@+id/bookingsbutton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="More"
                     android:padding="16dp"
-                    android:text="@string/no_previous_appointments_currently"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
+                    android:scaleType="centerInside"
+                    android:src="@drawable/books" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/appointmentsRecyclerViewPrevious"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/rounded_background"
+                <ImageButton
+                    android:id="@+id/settingsbutton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="More"
                     android:padding="16dp"
-                    tools:listitem="@layout/item_upcoming_appointment" />
-
+                    android:scaleType="centerInside"
+                    android:src="@drawable/settings_icon" />
             </LinearLayout>
-        </ScrollView>
 
-
-        <!-- Bottom Navigation -->
-        <!--    <include layout="@layout/nav_bar" />-->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="#FFE0B2"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <ImageButton
-                android:id="@+id/homebutton"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Home"
-                android:padding="16dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/home_icon" />
-
-            <ImageButton
-                android:id="@+id/schedulebutton"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Messaging"
-                android:padding="16dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/schedule_appointment" />
-
-            <ImageButton
-                android:id="@+id/bookingsbutton"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="More"
-                android:padding="16dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/books" />
-
-            <ImageButton
-                android:id="@+id/settingsbutton"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="More"
-                android:padding="16dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/settings_icon" />
         </LinearLayout>
 
-    </LinearLayout>
-
-</FrameLayout>
+    </FrameLayout>
+</layout>

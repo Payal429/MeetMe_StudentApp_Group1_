@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,9 +27,20 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.group1.meetme.databinding.FragmentStudentDashboardBinding
+import androidx.fragment.app.viewModels
+import com.group1.meetme.StudentDashboardViewModel
+import androidx.fragment.app.viewModels
 import java.util.Locale
+import kotlin.getValue
 
 class StudentDashboardFragment : Fragment() {
+    // View binding for accessing XML views
+    private var _binding: FragmentStudentDashboardBinding? = null
+    private val binding get() = _binding!!
+
+    // ViewModel in a Fragment
+    private val viewModel: StudentDashboardViewModel by viewModels()
 
     // RecyclerView to display upcoming appointments
     private lateinit var recyclerView: RecyclerView
@@ -49,7 +61,20 @@ class StudentDashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout
-        return inflater.inflate(R.layout.fragment_student_dashboard, container, false)
+        _binding = FragmentStudentDashboardBinding.inflate(inflater, container, false)
+
+        // Get user ID from SharedPreferences
+        val sharedPrefs = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        val userId = sharedPrefs.getString("ID_NUM", "") ?: ""
+
+        // Create ViewModel with factory
+        val factory = StudentDashboardViewModelFactory(userId)
+        binding.viewModel = ViewModelProvider(this, factory).get(StudentDashboardViewModel::class.java)
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        return binding.root
     }
 
     // Called after the fragment's view has been created
@@ -186,4 +211,8 @@ class StudentDashboardFragment : Fragment() {
         return prefs.getString("USER_ROLE", "") ?: ""
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
