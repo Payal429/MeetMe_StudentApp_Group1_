@@ -174,6 +174,7 @@ class UpcomingAppointmentsFragment : Fragment() {
             putExtra("lecturerId", appointment.lecturerId)
             putExtra("oldDate", appointment.date)
             putExtra("oldTime", appointment.time)
+            putExtra("venue", appointment.venue)
         }
         startActivity(intent)
     }

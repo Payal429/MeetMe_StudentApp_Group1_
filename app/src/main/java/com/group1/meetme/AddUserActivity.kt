@@ -82,14 +82,29 @@ class AddUserActivity : AppCompatActivity() {
             // Validate all inputs
             if (idNum.isEmpty() || name.isEmpty() || surname.isEmpty() || email.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show()
+                binding.edtIDNumber.setBackgroundResource(R.drawable.border_red)
+                binding.edtName.setBackgroundResource(R.drawable.border_red)
+                binding.edtUser.setBackgroundResource(R.drawable.border_red)
+                binding.spnCourse.setBackgroundResource(R.drawable.border_red)
+                binding.edtEmail.setBackgroundResource(R.drawable.border_red)
                 return@setOnClickListener
+            } else {
+                binding.edtIDNumber.setBackgroundResource(R.drawable.edit_text_background)
+                binding.edtName.setBackgroundResource(R.drawable.edit_text_background)
+                binding.edtUser.setBackgroundResource(R.drawable.edit_text_background)
+                binding.spnCourse.setBackgroundResource(R.drawable.edit_text_background)
+                binding.edtEmail.setBackgroundResource(R.drawable.edit_text_background)
             }
+
 
             // Validate email format
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_SHORT)
                     .show()
+                binding.edtEmail.setBackgroundResource(R.drawable.border_red)
                 return@setOnClickListener
+            } else {
+                binding.edtEmail.setBackgroundResource(R.drawable.edit_text_background)
             }
 
             // Call the onboardUser function to onboard the user via API.
