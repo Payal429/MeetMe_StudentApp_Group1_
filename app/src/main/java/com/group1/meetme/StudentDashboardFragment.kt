@@ -138,21 +138,36 @@ class StudentDashboardFragment : Fragment() {
 
     // Fetch upcoming appointments from Firebase under the current user's node
     private fun loadUpcomingAppointments(userId: String, userType: String) {
+        // Get a reference to the Firebase Realtime Database
         val db = FirebaseDatabase.getInstance().reference
+
+        // Navigate to the appointments node under the user ID
         db.child("appointments").child(userId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
+
+                // This callback is triggered once with the data from the database
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    // Clear the current list to avoid duplicates
                     upcomingAppointments.clear()
+
+                    // Loop through each child (individual appointment)
                     for (snap in snapshot.children) {
+                        // Convert snapshot to an Appointment object
                         val appointment = snap.getValue(Appointment::class.java)
+
+                        // Only include appointments with status = "upcoming"
                         if (appointment?.status == "upcoming") {
+                            // Assign the Firebase key as the ID of the appointment
                             appointment.id = snap.key!!
+                            // Add to the upcomingAppointments list
                             upcomingAppointments.add(appointment)
                         }
                     }
+                    // Notify the adapter to refresh the UI (RecyclerView/ListView)
                     adapter.notifyDataSetChanged()
                 }
 
+                // Handle error case when Firebase read is cancelled or fails
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(requireContext(), "Failed to load appointments", Toast.LENGTH_SHORT).show()
                 }

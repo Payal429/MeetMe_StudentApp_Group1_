@@ -96,7 +96,6 @@ class AddUserActivity : AppCompatActivity() {
                 binding.edtEmail.setBackgroundResource(R.drawable.edit_text_background)
             }
 
-
             // Validate email format
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_SHORT)
