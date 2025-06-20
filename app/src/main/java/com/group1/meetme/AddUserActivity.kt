@@ -84,16 +84,26 @@ class AddUserActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show()
                 binding.edtIDNumber.setBackgroundResource(R.drawable.border_red)
                 binding.edtName.setBackgroundResource(R.drawable.border_red)
+                binding.edtSurname.setBackgroundResource(R.drawable.border_red)
                 binding.edtUser.setBackgroundResource(R.drawable.border_red)
-                binding.spnCourse.setBackgroundResource(R.drawable.border_red)
                 binding.edtEmail.setBackgroundResource(R.drawable.border_red)
                 return@setOnClickListener
             } else {
                 binding.edtIDNumber.setBackgroundResource(R.drawable.edit_text_background)
                 binding.edtName.setBackgroundResource(R.drawable.edit_text_background)
+                binding.edtSurname.setBackgroundResource(R.drawable.edit_text_background)
                 binding.edtUser.setBackgroundResource(R.drawable.edit_text_background)
-                binding.spnCourse.setBackgroundResource(R.drawable.edit_text_background)
                 binding.edtEmail.setBackgroundResource(R.drawable.edit_text_background)
+            }
+
+            // Validate spinner
+            if (course == "Select Course") {
+                binding.spnCourse.setBackgroundResource(R.drawable.border_red)
+                Toast.makeText(this, "Please select a course.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            } else {
+                course
+                binding.spnCourse.setBackgroundResource(R.drawable.edit_text_background)
             }
 
             // Validate email format
